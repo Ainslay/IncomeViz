@@ -1,0 +1,23 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:53651",
+      "sslPort": 44394
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/healthcheck",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIROMENT": "Development"
+      },
+      "publishAllPorts": true,
+      "useSSL": false
+    }
+  }
+}
