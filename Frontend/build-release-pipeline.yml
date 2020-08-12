@@ -10,10 +10,12 @@ steps:
   inputs:
     versionSpec: '10.x'
 
-- script: npm install
+- script: |
+    npm install -g @angular/cli
+    npm install
   displayName: 'Install Dependencies'
   
-- script: npx ng build --prod
+- script: ng build --prod
   displayName: 'Build'
   workingDirectory: 'Frontend/income-viz-web/'
 
