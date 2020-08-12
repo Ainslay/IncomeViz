@@ -15,15 +15,15 @@ steps:
     npm install -g @angular/cli
     npm install
   displayName: 'Install Dependencies'
-  workingDirectory: 'Frontend/income-viz-web/'
+  workingDirectory: 'Frontend/income-viz-web'
   
 - script: ng build --prod
   displayName: 'Build'
-  workingDirectory: 'Frontend/income-viz-web/'
+  workingDirectory: 'Frontend/income-viz-web'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifacts'
   inputs:
-    PathtoPublish: 'dist/ng-azure-devops'
+    PathtoPublish: 'Frontend/income-viz-web/dist/'
     ArtifactName: 'web-app'
     publishLocation: 'Container'
