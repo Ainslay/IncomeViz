@@ -1,0 +1,35 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet build Backend/IncomeViz.API/IncomeViz.API.csproj --configuration $(buildConfiguration)
+  displayName: 'Build $(buildConfiguration)'
+  
+- task: efcore-migration-script-generator-task@0
+  displayName: 'Generate Migration Script'
+  inputs:
+    projectpath: 'Backend/Module/ProfitCalculation/IncomeViz.ProfitCalculation/IncomeViz.ProfitCalculation.csproj'
+    databasecontexts: 'ProfitCalculationDbContext'
+    startupprojectpath: 'Backend/IncomeViz.API/IncomeViz.API.csproj'
+    targetfolder: '$(build.artifactstagingdirectory)/migrations'
+    installdependencies: true
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+    
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
