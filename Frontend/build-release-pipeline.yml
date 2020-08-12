@@ -2,7 +2,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: NodeTool@0
@@ -10,13 +10,14 @@ steps:
   inputs:
     versionSpec: '10.x'
     
-
-- script: |
-    npm install -g @angular/cli
-    npm install
-  displayName: 'Install Dependencies'
+- script: npm install -g @angular/cli
+  displayName: 'Install Dependencies 1'
   workingDirectory: 'Frontend/income-viz-web'
-  
+
+- script: npm install
+  displayName: 'Install Dependencies 2'
+  workingDirectory: 'Frontend/income-viz-web'
+
 - script: ng build --prod
   displayName: 'Build'
   workingDirectory: 'Frontend/income-viz-web'
