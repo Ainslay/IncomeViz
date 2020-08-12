@@ -1,0 +1,25 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: NodeTool@0
+  displayName: 'Setup Enviroment'
+  inputs:
+    versionSpec: '10.x'
+
+- script: npm install
+  displayName: 'Install Dependencies'
+  
+- script: npx ng build --prod
+  displayName: 'Build'
+  workingDirectory: 'Frontend/income-viz-web/'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts'
+  inputs:
+    PathtoPublish: 'dist/ng-azure-devops'
+    ArtifactName: 'web-app'
+    publishLocation: 'Container'
