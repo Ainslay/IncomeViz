@@ -1,0 +1,14 @@
+@import '../../../utilities/variables.scss';
+
+.prediction-list-item {
+    width: 100%;
+    height: 65px;
+    margin-top: 15px;
+    display: flex;
+}
+
+.add-prediction-button {
+    display: flex; 
+    justify-content: flex-end;
+    margin: 10px;
+}

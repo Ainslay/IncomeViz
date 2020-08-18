@@ -11,7 +11,16 @@
 .predictions-container {
     width: 80%;
     height: 80%;
-    border: solid $secondary-color 5px;
-    border-radius: 50px;
+    border: solid #333131 2px;
+    border-radius: $border-radius;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
 }
  
+.predictions-list {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
