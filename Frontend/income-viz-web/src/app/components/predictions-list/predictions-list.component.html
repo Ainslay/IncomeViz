@@ -1,8 +1,8 @@
 <app-prediction-list-item 
     class="prediction-list-item"
     *ngFor="let prediction of predictions"
+    (deleteRequest)="deletePrediction($event)"
     [prediction]="prediction">
-
 </app-prediction-list-item>
 
 <div class="add-prediction-button">

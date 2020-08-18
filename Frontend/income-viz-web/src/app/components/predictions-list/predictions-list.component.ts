@@ -15,7 +15,15 @@ export class PredictionsListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.predictions = this.predictionService.getPredictions();
+    this.getPredictions();
   }
 
+  deletePrediction(id: number): void {
+    this.predictionService.deletePrediction(id);
+    this.getPredictions();
+  }
+
+  getPredictions(): void {
+    this.predictions = this.predictionService.getPredictions();
+  }
 }

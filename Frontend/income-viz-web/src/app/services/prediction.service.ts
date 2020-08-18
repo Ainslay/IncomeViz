@@ -15,6 +15,11 @@ export class PredictionService {
   getPredictions(): Prediction[] {
     return this.predictions;
   }
+
+  deletePrediction(predictionId: number): void {
+    const predictionToDelete = this.predictions.findIndex((p) => p.id === predictionId);
+    this.predictions.splice(predictionToDelete, 1);
+  }
 }
 
 
