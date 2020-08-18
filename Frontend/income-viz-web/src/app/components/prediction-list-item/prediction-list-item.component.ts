@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Prediction } from './../../interfaces/prediction.interface';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-prediction-list-item',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prediction-list-item.component.scss']
 })
 export class PredictionListItemComponent implements OnInit {
-
+  @Input() prediction: Prediction;
   constructor() { }
 
   ngOnInit(): void {
