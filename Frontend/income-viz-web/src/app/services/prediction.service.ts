@@ -6,14 +6,18 @@ import { Prediction } from '../interfaces/prediction.interface';
 })
 export class PredictionService {
   predictions: Prediction[] = [
-    { id: 1, name: 'prediction1', startingDate: new Date(), amount: 20000, currency: 'PLN' },
-    { id: 2, name: 'prediction2', startingDate: new Date(), amount: 10000, currency: 'EUR' }
+    { id: 1, name: 'Test', startingDate: new Date(), amount: 1000, currency: 'PLN' }
   ];
 
   constructor() { }
 
   getPredictions(): Prediction[] {
     return this.predictions;
+  }
+
+  addPrediction(prediction: Prediction): void {
+    prediction.id = Math.floor(Math.random() * (1000000 - 3 + 1) + 3);
+    this.predictions.push(prediction);
   }
 
   deletePrediction(predictionId: number): void {
