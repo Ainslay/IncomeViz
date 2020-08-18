@@ -1,0 +1,12 @@
+<app-prediction-list-item 
+    class="prediction-list-item"
+    *ngFor="let prediction of predictions"
+    (deleteRequest)="deletePrediction($event)"
+    [prediction]="prediction">
+</app-prediction-list-item>
+
+<div class="add-prediction-button">
+    <button mat-fab color="basic" (click)="openAddPredictionDialog()">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>   
