@@ -43,6 +43,10 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
             _startingMoney = startingMoney;
             _startingDate = startingDate;
         }
+        
+        public string GetName() => _name;
+        public Money GetStartingMoney() => _startingMoney;
+        public DateTime GetStartingDate() => _startingDate;
 
         public void AddLongTermExpense(string name, DateTime expenseStartingDate, DateTime? effectiveDate, int executionDay, Money money)
         {
@@ -91,16 +95,6 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
             return predictionByDate
                 .Where(prediction => prediction.Date >= minDate && prediction.Date <= maxDate)
                 .ToList();
-        }
-
-        private DateTime GetStartingDate()
-        {
-            return _startingDate.Date;
-        }
-
-        private Money GetStartingMoney()
-        {
-            return _startingMoney;
         }
 
         private DateMoneyDto GeneratePredictionByDate(DateTime date, Money currentAmount)

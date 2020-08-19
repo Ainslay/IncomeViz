@@ -19,7 +19,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.GeneratePredictionByD
 
         public async Task<List<DateMoneyDto>> Handle(GeneratePredictionByDateRangeQuery request, CancellationToken cancellationToken)
         {
-            var prediction = await _readPredictionRepository.GetPredictionByPredictionId(request.PredictionId);
+            var prediction = await _readPredictionRepository.GetFullPredictionById(request.PredictionId);
             (var minDate, var maxDate) = GetDateRange(request.PredictionType);
 
             var result = prediction.GeneratePrediction(minDate, maxDate);
