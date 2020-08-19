@@ -1,6 +1,7 @@
 ﻿using IncomeViz.ProfitCalculation.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
@@ -32,5 +33,9 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
                    throw new NullReferenceException(nameof(predictionId));
         }
 
+        public async Task<ICollection<ProfitCalculation.Domain.Prediction.Prediction>> GetShortPredictions()
+        {
+            return await _db.Predictions.ToListAsync();
+        }
     }
 }

@@ -5,6 +5,7 @@ using IncomeViz.ProfitCalculation.Application.UseCases.GetPrediction;
 using IncomeViz.ProfitCalculation.Application.UseCases.GeneratePredictionByDateRange;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using IncomeViz.ProfitCalculation.Application.UseCases.GetShortPredictions;
 
 namespace IncomeViz.API.Controllers
 {
@@ -32,6 +33,14 @@ namespace IncomeViz.API.Controllers
         {
             var prediction = await _mediator.Send(query);
             return Ok(prediction);
+        }
+
+        [HttpGet]
+        [Route("short-prediction/all")]
+        public async Task<IActionResult> Get([FromQuery]GetShortPredictionsQuery query)
+        {
+            var predictions = await _mediator.Send(query);
+            return Ok(predictions);
         }
 
         [HttpPost("generate")]

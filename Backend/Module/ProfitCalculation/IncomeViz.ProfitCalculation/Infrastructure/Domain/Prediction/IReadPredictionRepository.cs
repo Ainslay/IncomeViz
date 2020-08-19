@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
@@ -7,5 +8,6 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
     {
         Task<ProfitCalculation.Domain.Prediction.Prediction> GetShortPredictionById(Guid predictionId);
         Task<ProfitCalculation.Domain.Prediction.Prediction> GetFullPredictionById(Guid predictionId);
+        Task<ICollection<ProfitCalculation.Domain.Prediction.Prediction>> GetShortPredictions();
     }
 }
