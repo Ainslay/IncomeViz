@@ -21,7 +21,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.GetShortPrediction
             var prediction = await _repository.GetShortPredictionById(query.Id);
 
             return new PredictionDto(prediction.EntityId, prediction.GetName(), prediction.GetStartingMoney().GetAmount(),
-                prediction.GetStartingMoney().GetCurrency(), prediction.GetStartingDate());
+                prediction.GetStartingMoney().GetCurrency().ToString(), prediction.GetStartingDate());
         }
     }
 }

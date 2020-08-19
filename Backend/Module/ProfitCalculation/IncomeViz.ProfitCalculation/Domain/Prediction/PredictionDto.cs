@@ -8,10 +8,10 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
         public Guid Id { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set; }
-        public Currency Currency { get; set; }
+        public string Currency { get; set; }
         public DateTime StartingDate { get; set; }
 
-        public PredictionDto(Guid id, string name, decimal amount, Currency currency, DateTime startingDate)
+        public PredictionDto(Guid id, string name, decimal amount, string currency, DateTime startingDate)
         {
             Id = id;
             Name = name;

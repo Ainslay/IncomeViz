@@ -25,7 +25,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.GetShortPredictions
             foreach (var prediction in predictions)
             {
                 predictionsDto.Add(new PredictionDto(prediction.EntityId, prediction.GetName(), prediction.GetStartingMoney().GetAmount(),
-                    prediction.GetStartingMoney().GetCurrency(), prediction.GetStartingDate()));
+                    prediction.GetStartingMoney().GetCurrency().ToString(), prediction.GetStartingDate()));
             }
 
             return predictionsDto;
