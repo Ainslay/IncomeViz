@@ -1,6 +1,6 @@
 <app-prediction-list-item 
     class="prediction-list-item"
-    *ngFor="let prediction of predictions$ | async"
+    *ngFor="let prediction of predictionService.predictions$ | async"
     (deleteRequest)="deletePrediction($event)"
     [prediction]="prediction">
 </app-prediction-list-item>

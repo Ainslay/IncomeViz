@@ -11,10 +11,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./predictions-list.component.scss']
 })
 export class PredictionsListComponent {
-  predictions$: Observable<Prediction[]> = this.predictionService.getPredictions();
-
   constructor(
-    private predictionService: PredictionService,
+    public predictionService: PredictionService,
     public dialog: MatDialog
   ) { }
 

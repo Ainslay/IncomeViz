@@ -1,8 +1,10 @@
+import { Prediction } from './../interfaces/prediction.interface';
 import { Injectable } from '@angular/core';
-import { Prediction } from '../interfaces/prediction.interface';
-import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { HttpClient, HttpResponse, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { catchError, retry, switchMap } from 'rxjs/operators';
+import { environment } from './../../environments/environment';
+import { Currencies } from './../../utilities/currencies';
 
 @Injectable({
   providedIn: 'root'
@@ -11,27 +13,59 @@ export class PredictionService {
   predictions: Prediction[] = [
     { id: 1, name: 'Test', startingDate: new Date(), amount: 1000, currency: 'PLN' }
   ];
+  refreshToken$ = new BehaviorSubject(undefined);
+  predictions$: Observable<Prediction[]> = this.refreshToken$.pipe(
+    switchMap(() => this.getPredictions())
+  );
 
   constructor(
     private http: HttpClient
   ) { }
 
   getPredictions(): Observable<Prediction[]> {
-    return this.http.get<Prediction[]>('https://localhost:44394/api/prediction/short-prediction/all', {
+    return this.http.get<Prediction[]>(`${environment.apiUrl}/prediction/short-prediction/all`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    });
+    }).pipe(
+      retry(3),
+      catchError(this.handleError)
+    );
   }
 
   addPrediction(prediction: Prediction): void {
-    prediction.id = Math.floor(Math.random() * (1000000 - 3 + 1) + 3);
-    this.predictions.push(prediction);
+    const predictionDto = { name: prediction.name, amount: prediction.amount,
+      currency: Currencies[prediction.currency] , startingDate: prediction.startingDate };
+
+    this.http.post<number>(`${environment.apiUrl}/prediction`, predictionDto, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).pipe(
+        catchError(this.handleError)
+      ).subscribe(() => this.refreshToken$.next(undefined));
   }
 
   deletePrediction(predictionId: number): void {
     const predictionToDelete = this.predictions.findIndex((p) => p.id === predictionId);
     this.predictions.splice(predictionToDelete, 1);
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    if (error.error instanceof ErrorEvent) {
+      console.error('An error occurred:', error.error.message); // A client-side or network error
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);                            // The backend returned an unsuccessful response code.
+    }
+
+    return throwError(
+      'Something went wrong. Please try again later.');
+  }
+  
+  private updatePredictions(): void {
+    this.predictions$ = this.getPredictions();
   }
 }
 

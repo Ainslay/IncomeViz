@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { Prediction } from './../../interfaces/prediction.interface';
-import { Currencies } from './../../../utilities/currencies';
+import { Currencies, GetCurrenciesAsStrings } from './../../../utilities/currencies';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 import { MyErrorStateMatcher } from './../../../utilities/error-state-matcher';
@@ -15,7 +15,7 @@ import { MyErrorStateMatcher } from './../../../utilities/error-state-matcher';
 })
 export class AddPredictionDialogComponent {
   prediction: Prediction = { id: 0, name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
-  currencies: string[] = Currencies;
+  currencies = GetCurrenciesAsStrings();
 
   addPredictionFormGroup = new FormGroup({
     nameFormControl: new FormControl('', [
