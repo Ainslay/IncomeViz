@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Prediction } from '../interfaces/prediction.interface';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +12,16 @@ export class PredictionService {
     { id: 1, name: 'Test', startingDate: new Date(), amount: 1000, currency: 'PLN' }
   ];
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  getPredictions(): Prediction[] {
-    return this.predictions;
+  getPredictions(): Observable<Prediction[]> {
+    return this.http.get<Prediction[]>('https://localhost:44394/api/prediction/short-prediction/all', {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
   }
 
   addPrediction(prediction: Prediction): void {
