@@ -6,6 +6,7 @@ using IncomeViz.ProfitCalculation.Application.UseCases.GeneratePredictionByDateR
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetShortPredictions;
+using IncomeViz.ProfitCalculation.Application.UseCases.DeletePrediction;
 
 namespace IncomeViz.API.Controllers
 {
@@ -25,6 +26,13 @@ namespace IncomeViz.API.Controllers
         {
             var predictionId = await _mediator.Send(command);
             return Ok(predictionId);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(DeletePredictionCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
         }
 
         [HttpGet]

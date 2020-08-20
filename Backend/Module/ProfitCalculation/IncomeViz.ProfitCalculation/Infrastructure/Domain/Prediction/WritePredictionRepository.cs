@@ -1,6 +1,8 @@
 ﻿using System;
+using MediatR;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
 {
@@ -19,6 +21,19 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
             await _db.SaveChangesAsync();
 
             return prediction.EntityId;
+        }
+
+        public async Task<Unit> DeleteAndSave(Guid predictionId)
+        {
+            var predictionToDelete = await _db.Predictions.SingleOrDefaultAsync(p => p.EntityId == predictionId);
+
+            if(predictionToDelete != null)
+            {
+                _db.Predictions.Remove(predictionToDelete);
+                await _db.SaveChangesAsync();
+            }
+
+            return Unit.Value;
         }
     }
 }
