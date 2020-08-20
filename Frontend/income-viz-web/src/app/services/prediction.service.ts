@@ -1,6 +1,6 @@
 import { Prediction } from './../interfaces/prediction.interface';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, retry, switchMap } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
@@ -10,9 +10,6 @@ import { Currencies } from './../../utilities/currencies';
   providedIn: 'root'
 })
 export class PredictionService {
-  predictions: Prediction[] = [
-    { id: 1, name: 'Test', startingDate: new Date(), amount: 1000, currency: 'PLN' }
-  ];
   refreshToken$ = new BehaviorSubject(undefined);
   predictions$: Observable<Prediction[]> = this.refreshToken$.pipe(
     switchMap(() => this.getPredictions())
@@ -47,8 +44,19 @@ export class PredictionService {
   }
 
   deletePrediction(predictionId: number): void {
-    const predictionToDelete = this.predictions.findIndex((p) => p.id === predictionId);
-    this.predictions.splice(predictionToDelete, 1);
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        id: predictionId
+      }
+    };
+
+    this.http.delete(`${environment.apiUrl}/prediction`, options)
+      .pipe(
+        catchError(this.handleError)
+      ).subscribe(() => this.refreshToken$.next(undefined));
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
@@ -63,10 +71,4 @@ export class PredictionService {
     return throwError(
       'Something went wrong. Please try again later.');
   }
-  
-  private updatePredictions(): void {
-    this.predictions$ = this.getPredictions();
-  }
 }
-
-
