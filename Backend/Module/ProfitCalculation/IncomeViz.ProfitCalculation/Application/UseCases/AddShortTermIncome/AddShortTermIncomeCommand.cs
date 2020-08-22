@@ -18,6 +18,6 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermIncome
 
         [Required] public decimal Amount { get; set; }
 
-        public Currency Currency { get; set; } = Currency.PLN;
+        [Required] public Currency Currency { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.ShortTerm
             await _db.SaveChangesAsync();
         }
 
-        public async Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionByPredictionId(Guid predictionId)
+        public async Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionById(Guid predictionId)
         {
             return await _db.Predictions.Include(p => p.ShortTermIncomes)
                        .SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId))

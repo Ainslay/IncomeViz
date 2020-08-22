@@ -25,8 +25,20 @@ namespace IncomeViz.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Adds ShortTermIncome entry to the database.
+        /// </summary>
+        /// <exception cref="System.NullReferenceException">Thrown when predictionId does not exist</exception>
+        /// <exception cref="IncomeViz.BuildingBlocks.Exceptions.BusinessRuleValidationException">
+        /// Thrown when provided data breaks any business rule</exception>
+        /// <param name="command">Data provided in order to add ShortTermIncome</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("short-term")]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddShortTermIncomeCommand command)
         {
             await _mediator.Send(command);

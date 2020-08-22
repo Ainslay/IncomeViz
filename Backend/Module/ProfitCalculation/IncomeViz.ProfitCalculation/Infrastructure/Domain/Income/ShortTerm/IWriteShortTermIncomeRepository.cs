@@ -6,6 +6,6 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.ShortTerm
     public interface IWriteShortTermIncomeRepository
     {
         Task SaveAsync();
-        Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionByPredictionId(Guid predictionId);
+        Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionById(Guid predictionId);
     }
 }

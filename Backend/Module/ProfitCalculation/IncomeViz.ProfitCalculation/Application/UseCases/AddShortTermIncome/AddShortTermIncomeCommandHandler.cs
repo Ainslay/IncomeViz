@@ -15,13 +15,13 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermIncome
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(AddShortTermIncomeCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddShortTermIncomeCommand command, CancellationToken cancellationToken)
         {
-            var prediction = await _repository.GetPredictionByPredictionId(request.PredictionId);
+            var prediction = await _repository.GetPredictionById(command.PredictionId);
 
-            prediction.AddShortTermIncome(request.Name,
-                request.ExecutionDate,
-                new Money(request.Amount, request.Currency));
+            prediction.AddShortTermIncome(command.Name,
+                command.ExecutionDate,
+                new Money(command.Amount, command.Currency));
 
             await _repository.SaveAsync();
 

@@ -75,7 +75,7 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
         {
             CheckRule(new DuplicateNameNotAllowedRule(name, ShortTermIncomes));
             CheckRule(new ExecutionDateMustBeHigherOrEqualThanStartingDateRule(executionDate, _startingDate));
-            _shortTermExpenses.Add(new ShortTermExpense(Id, name, executionDate, money));
+            _shortTermIncomes.Add(new ShortTermIncome(Id, name, executionDate, money));
         }
 
         public List<DateMoneyDto> GeneratePrediction(DateTime minDate, DateTime maxDate)
