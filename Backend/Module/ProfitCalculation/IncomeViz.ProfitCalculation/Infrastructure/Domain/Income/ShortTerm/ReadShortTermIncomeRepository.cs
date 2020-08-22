@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.ShortTerm
 {
-    public class ReadShortTermIncomeRepository : IReadShortTermIncomeRepository
+    internal class ReadShortTermIncomeRepository : IReadShortTermIncomeRepository
     {
         private ProfitCalculationDbContext _db;
 

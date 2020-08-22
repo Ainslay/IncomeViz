@@ -6,6 +6,7 @@ using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.DeleteShortTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.DeleteLongTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermIncomes;
+using IncomeViz.ProfitCalculation.Application.UseCases.GetLongTermIncomes;
 
 namespace IncomeViz.API.Controllers
 {
@@ -101,6 +102,22 @@ namespace IncomeViz.API.Controllers
         {
             var shortTermIncomes = await _mediator.Send(query);
             return Ok(shortTermIncomes);
+        }
+
+        /// <summary>
+        /// Returns a collection of long term incomes
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("long-term/all")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        public async Task<IActionResult> Get([FromQuery] GetLongTermIncomesQuery query)
+        {
+            var longTermIncomes = await _mediator.Send(query);
+            return Ok(longTermIncomes);
         }
     }
 }

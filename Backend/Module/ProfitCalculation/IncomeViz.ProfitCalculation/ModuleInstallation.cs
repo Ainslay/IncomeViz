@@ -24,6 +24,7 @@ namespace IncomeViz.ProfitCalculation
             services.AddScoped<IWritePredictionRepository, WritePredictionRepository>();
             services.AddScoped<IReadPredictionRepository, ReadPredictionRepository>();
             services.AddScoped<IReadShortTermIncomeRepository, ReadShortTermIncomeRepository>();
+            services.AddScoped<IReadLongTermIncomeRepository, ReadLongTermIncomesRepository>();
 
             services.AddDbContext<ProfitCalculationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ProfitCalculationDbContext")));
