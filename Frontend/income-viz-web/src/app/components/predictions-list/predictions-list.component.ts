@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { PredictionService } from './../../services/prediction.service';
-import { Prediction } from './../../interfaces/prediction.interface';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddPredictionDialogComponent } from '../add-prediction-dialog/add-prediction-dialog.component';
-import { Observable } from 'rxjs';
+import { AddPredictionDialogComponent } from '@components/add-prediction-dialog/add-prediction-dialog.component';
+import { PredictionService } from '@services/prediction.service';
 
 @Component({
   selector: 'app-predictions-list',
@@ -21,7 +19,7 @@ export class PredictionsListComponent {
   }
 
   openAddPredictionDialog(): void {
-    const dialogRef = this.dialog.open(AddPredictionDialogComponent, {
+    this.dialog.open(AddPredictionDialogComponent, {
       width: '300px'
     });
   }

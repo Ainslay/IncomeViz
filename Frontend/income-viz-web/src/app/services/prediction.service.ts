@@ -1,10 +1,10 @@
-import { Prediction } from './../interfaces/prediction.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, retry, switchMap } from 'rxjs/operators';
-import { environment } from './../../environments/environment';
-import { Currencies } from './../../utilities/currencies';
+import { environment } from '@environments/environment';
+import { Currencies } from '@utilities/currencies';
+import { Prediction } from '@interfaces/prediction.interface';
 
 @Injectable({
   providedIn: 'root'

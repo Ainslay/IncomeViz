@@ -15,6 +15,38 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@services/*": [
+        "src/app/services/*"
+      ],
+      "@components/*": [
+        "src/app/components/*"
+      ],
+      "@containers/*": [
+        "src/app/containers/*"
+      ],
+      "@directives/*": [
+        "src/app/directives/*"
+      ],
+      "@guards/*": [
+        "src/app/guards/*"
+      ],
+      "@interfaces/*": [
+        "src/app/interfaces/*"
+      ],
+      "@pages/*": [
+        "src/app/pages/*"
+      ],
+      "@pipes/*": [
+        "src/app/pipes/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ],
+      "@utilities/*": [
+        "src/utilities/*"
+      ]
+    }
   }
 }
