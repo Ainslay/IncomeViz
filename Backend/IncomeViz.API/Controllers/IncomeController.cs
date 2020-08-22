@@ -5,6 +5,7 @@ using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.DeleteShortTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.DeleteLongTermIncome;
+using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermIncomes;
 
 namespace IncomeViz.API.Controllers
 {
@@ -30,9 +31,7 @@ namespace IncomeViz.API.Controllers
         [HttpPost]
         [Route("long-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddLongTermIncomeCommand command)
         {
             await _mediator.Send(command);
@@ -50,9 +49,7 @@ namespace IncomeViz.API.Controllers
         [HttpPost]
         [Route("short-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddShortTermIncomeCommand command)
         {
             await _mediator.Send(command);
@@ -67,9 +64,8 @@ namespace IncomeViz.API.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("short-term")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
         public async Task<IActionResult> Delete(DeleteShortTermIncomeCommand command)
         {
             await _mediator.Send(command);
@@ -84,13 +80,27 @@ namespace IncomeViz.API.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("long-term")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
         public async Task<IActionResult> Delete(DeleteLongTermIncomeCommand command)
         {
             await _mediator.Send(command);
             return Ok();
+        }
+
+        /// <summary>
+        /// Returns a collection of short term incomes
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("short-term/all")]
+        [Produces("application/json")] [Consumes("application/json")]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        public async Task<IActionResult> Get([FromQuery] GetShortTermIncomesQuery query)
+        {
+            var shortTermIncomes = await _mediator.Send(query);
+            return Ok(shortTermIncomes);
         }
     }
 }
