@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.LongTerm
 {
@@ -7,5 +8,6 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.LongTerm
     {
         Task SaveAsync();
         Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionById(Guid predictionId);
+        Task<Unit> DeleteLongTermIncome(Guid longTermIncomeId); 
     }
 }
