@@ -6,6 +6,6 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.LongTerm
     public interface IWriteLongTermIncomeRepository
     {
         Task SaveAsync();
-        Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionByPredictionId(Guid predictionId);
+        Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionById(Guid predictionId);
     }
 }

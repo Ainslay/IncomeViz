@@ -17,7 +17,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermIncome
 
         public async Task<Unit> Handle(AddLongTermIncomeCommand request, CancellationToken cancellationToken)
         {
-            var prediction = await _repository.GetPredictionByPredictionId(request.PredictionId);
+            var prediction = await _repository.GetPredictionById(request.PredictionId);
 
             prediction.AddLongTermIncome(
                 request.Name,

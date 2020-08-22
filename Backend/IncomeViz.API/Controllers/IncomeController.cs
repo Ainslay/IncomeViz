@@ -17,8 +17,20 @@ namespace IncomeViz.API.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Adds LongTermIncome entry to the database.
+        /// </summary>
+        /// <exception cref="System.NullReferenceException">Thrown when predictionId does not exist</exception>
+        /// <exception cref="IncomeViz.BuildingBlocks.Exceptions.BusinessRuleValidationException">
+        /// Thrown when provided data breaks any business rule</exception>
+        /// <param name="command">Data provided in order to add LongTermIncome</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("long-term")]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddLongTermIncomeCommand command)
         {
             await _mediator.Send(command);
