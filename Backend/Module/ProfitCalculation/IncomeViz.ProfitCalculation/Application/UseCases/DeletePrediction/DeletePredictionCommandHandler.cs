@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using IncomeViz.ProfitCalculation.Domain.Prediction;
 using IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction;
 using MediatR;
 

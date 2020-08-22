@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermIncome;
+using IncomeViz.ProfitCalculation.Application.UseCases.DeleteShortTermIncome;
 
 namespace IncomeViz.API.Controllers
 {
@@ -52,6 +53,23 @@ namespace IncomeViz.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddShortTermIncomeCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Deletes short term income with specified id from database
+        /// </summary>
+        /// <exception cref="System.NullReferenceException">Thrown when there is no short term income with specified id</exception>
+        /// <param name="command">Contains id of the short term income to remove</param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("short-term")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> Delete(DeleteShortTermIncomeCommand command)
         {
             await _mediator.Send(command);
             return Ok();
