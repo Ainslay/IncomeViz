@@ -5,6 +5,7 @@ using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetLongTermExpenses;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermExpenses;
+using IncomeViz.ProfitCalculation.Application.UseCases.UpdateShortTermExpense;
 
 namespace IncomeViz.API.Controllers
 {
@@ -79,6 +80,25 @@ namespace IncomeViz.API.Controllers
         {
             var longTermExpenses = await _mediator.Send(query);
             return Ok(longTermExpenses);
+        }
+
+        /// <summary>
+        /// Updates short term expense with specified id using data
+        /// provided in the request
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("short-term")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> Update(UpdateShortTermExpenseCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();    
         }
     }
 }
