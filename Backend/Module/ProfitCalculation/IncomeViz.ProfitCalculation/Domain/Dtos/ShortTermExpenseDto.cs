@@ -3,17 +3,17 @@ using IncomeViz.ProfitCalculation.Domain.Funds;
 
 namespace IncomeViz.ProfitCalculation.Domain.Dtos
 {
-    public class ShortTermIncomeDto
+    public class ShortTermExpenseDto
     {
-        public Guid ShortTermIncomeId { get; set; }
+        public Guid ShortTermExpenseId { get; set; }
         public string Name { get; set; }
         public DateTime ExecutionDate { get; set; }
         public decimal Amount { get; set; }
         public Currency Currency { get; set; }
         
-        public ShortTermIncomeDto(Guid shortTermIncomeId, string name, DateTime executionDate, decimal amount, Currency currency)
+        public ShortTermExpenseDto(Guid shortTermExpenseId, string name, DateTime executionDate, decimal amount, Currency currency)
         {
-            ShortTermIncomeId = shortTermIncomeId;
+            ShortTermExpenseId = shortTermExpenseId;
             Name = name;
             ExecutionDate = executionDate;
             Amount = amount;

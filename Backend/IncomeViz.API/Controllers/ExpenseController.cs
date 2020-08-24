@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermExpenses;
 
 namespace IncomeViz.API.Controllers
 {
@@ -45,6 +46,24 @@ namespace IncomeViz.API.Controllers
         {
             await _mediator.Send(command);
             return Ok();
+        }
+
+        /// <summary>
+        /// Returns a collection of short term expenses
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("short-term")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> Get([FromQuery] GetShortTermExpensesQuery query)
+        {
+            var shortTermExpenses = await _mediator.Send(query);
+            return Ok(shortTermExpenses);
         }
     }
 }
