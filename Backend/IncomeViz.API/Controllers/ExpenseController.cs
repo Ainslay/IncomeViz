@@ -1,12 +1,13 @@
-﻿using MediatR;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.DeleteShortTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetLongTermExpenses;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermExpenses;
 using IncomeViz.ProfitCalculation.Application.UseCases.UpdateLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.UpdateShortTermExpense;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IncomeViz.API.Controllers
 {
@@ -22,14 +23,16 @@ namespace IncomeViz.API.Controllers
         }
 
         /// <summary>
-        /// Adds LongTermExpense entry to the database
+        ///     Adds LongTermExpense entry to the database
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("long-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddLongTermExpenseCommand command)
         {
             await _mediator.Send(command);
@@ -37,14 +40,16 @@ namespace IncomeViz.API.Controllers
         }
 
         /// <summary>
-        /// Adds ShortTermExpense entry to the database
+        ///     Adds ShortTermExpense entry to the database
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("short-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddShortTermExpenseCommand command)
         {
             await _mediator.Send(command);
@@ -52,15 +57,17 @@ namespace IncomeViz.API.Controllers
         }
 
         /// <summary>
-        /// Returns a collection of short term expenses
+        ///     Returns a collection of short term expenses
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("short-term")]
         [Consumes("application/json")]
-        [Produces("application/json")] 
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery] GetShortTermExpensesQuery query)
         {
             var shortTermExpenses = await _mediator.Send(query);
@@ -68,15 +75,17 @@ namespace IncomeViz.API.Controllers
         }
 
         /// <summary>
-        /// Returns a collection of short term expenses
+        ///     Returns a collection of short term expenses
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("long-term")]
         [Consumes("application/json")]
-        [Produces("application/json")] 
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery] GetLongTermExpensesQuery query)
         {
             var longTermExpenses = await _mediator.Send(query);
@@ -84,32 +93,53 @@ namespace IncomeViz.API.Controllers
         }
 
         /// <summary>
-        /// Updates short term expense with specified id using data
-        /// provided in the request
+        ///     Updates short term expense with specified id using data
+        ///     provided in the request
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
         [Route("short-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Update(UpdateShortTermExpenseCommand command)
         {
             await _mediator.Send(command);
-            return Ok();    
+            return Ok();
         }
 
         /// <summary>
-        /// Updates long term expense with specified id using data
-        /// provided in the request
+        ///     Updates long term expense with specified id using data
+        ///     provided in the request
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
         [Route("long-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Update(UpdateLongTermExpenseCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        /// <summary>
+        ///     Deletes short term expense with specified id from database
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("short-term")]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> Delete(DeleteShortTermExpenseCommand command)
         {
             await _mediator.Send(command);
             return Ok();
