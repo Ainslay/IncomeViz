@@ -15,16 +15,16 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermIncome
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(AddLongTermIncomeCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddLongTermIncomeCommand command, CancellationToken cancellationToken)
         {
-            var prediction = await _repository.GetPredictionById(request.PredictionId);
+            var prediction = await _repository.GetPredictionById(command.PredictionId);
 
             prediction.AddLongTermIncome(
-                request.Name,
-                request.StartingDate,
-                request.EffectiveDate,
-                request.ExecutionDay,
-                new Money(request.Amount, request.Currency)
+                command.Name,
+                command.StartingDate,
+                command.EffectiveDate,
+                command.ExecutionDay,
+                new Money(command.Amount, command.Currency)
             );
 
             await _repository.SaveAsync();

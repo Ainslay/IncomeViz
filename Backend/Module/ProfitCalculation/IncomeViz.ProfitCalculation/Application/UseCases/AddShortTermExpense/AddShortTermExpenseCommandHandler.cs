@@ -17,14 +17,14 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermExpense
             _mediator = mediator;
         }
 
-        public async Task<Unit> Handle(AddShortTermExpenseCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddShortTermExpenseCommand command, CancellationToken cancellationToken)
         {
-            var prediction = await _repository.GetPredictionByPredictionId(request.PredictionId);
+            var prediction = await _repository.GetPredictionByPredictionId(command.PredictionId);
 
             prediction.AddShortTermExpense(
-                request.Name,
-                request.ExecutionDate,
-                new Money(request.Amount, request.Currency));
+                command.Name,
+                command.ExecutionDate,
+                new Money(command.Amount, command.Currency));
 
             await _repository.SaveAsync();
 

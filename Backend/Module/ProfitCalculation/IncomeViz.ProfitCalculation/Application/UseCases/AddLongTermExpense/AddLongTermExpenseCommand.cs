@@ -20,7 +20,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermExpense
 
         [Required] public decimal Amount { get; set; }
 
-        public Currency Currency { get; set; } = Currency.PLN;
+        [Required] public Currency Currency { get; set; }
 
         public DateTime? EffectiveDate { get; set; } = null;
     }
