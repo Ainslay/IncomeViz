@@ -1,8 +1,8 @@
-﻿using IncomeViz.BuildingBlocks.Domain;
+﻿using System;
+using IncomeViz.BuildingBlocks.Domain;
 using IncomeViz.BuildingBlocks.ValidationHelpers;
 using IncomeViz.ProfitCalculation.Domain.Funds;
 using IncomeViz.ProfitCalculation.Domain.Interfaces;
-using System;
 
 namespace IncomeViz.ProfitCalculation.Domain.Income.ShortTerm
 {
@@ -33,18 +33,17 @@ namespace IncomeViz.ProfitCalculation.Domain.Income.ShortTerm
             _money = money;
         }
 
-        public string GetName()
-        {
-            return _name;
-        }
+        public string GetName() => _name;
 
-        public DateTime GetExecutionDate()
+        public DateTime GetExecutionDate() => _executionDate.ToUniversalTime().Date;
+
+        public Money GetMoney() => _money;
+
+        public void Update(ShortTermIncome updatedShortTermIncome)
         {
-            return _executionDate.ToUniversalTime().Date;
-        }
-        public Money GetMoney()
-        {
-            return _money;
+            _name = updatedShortTermIncome.GetName();
+            _executionDate = updatedShortTermIncome.GetExecutionDate();
+            _money = updatedShortTermIncome.GetMoney();
         }
     }
 }
