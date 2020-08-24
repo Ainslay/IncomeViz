@@ -7,6 +7,7 @@ using IncomeViz.ProfitCalculation.Application.UseCases.DeleteShortTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.DeleteLongTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermIncomes;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetLongTermIncomes;
+using IncomeViz.ProfitCalculation.Application.UseCases.UpdateLongTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.UpdateShortTermIncome;
 
 namespace IncomeViz.API.Controllers
@@ -130,6 +131,21 @@ namespace IncomeViz.API.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
         public async Task<IActionResult> Update(UpdateShortTermIncomeCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Updates long term income with specified id
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("long-term")]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        public async Task<IActionResult> Update(UpdateLongTermIncomeCommand command)
         {
             await _mediator.Send(command);
             return Ok();

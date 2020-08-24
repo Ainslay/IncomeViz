@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using IncomeViz.ProfitCalculation.Domain.Income.LongTerm;
 using IncomeViz.ProfitCalculation.Infrastructure.Database;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,17 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.LongTerm
             _db.LongTermIncomes.Remove(longTermIncome);
 
             return Unit.Value;
+        }
+
+        public async Task<LongTermIncome> GetLongTermIncomeById(Guid longTermIncomeId)
+        {
+            return await _db.LongTermIncomes.SingleOrDefaultAsync(lti => lti.EntityId == longTermIncomeId)
+                   ?? throw new NullReferenceException(nameof(longTermIncomeId));
+        }
+
+        public void UpdateLongTermIncome(LongTermIncome longTermIncome)
+        {
+            _db.LongTermIncomes.Update(longTermIncome);
         }
     }
 }

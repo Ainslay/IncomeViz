@@ -54,5 +54,14 @@ namespace IncomeViz.ProfitCalculation.Domain.Income.LongTerm
         {
             return _money;
         }
+
+        public void Update(LongTermIncome update)
+        {
+            _name = update._name;
+            _money = update._money;
+            _startingDate = update._startingDate;
+            _effectiveDate = update._effectiveDate;
+            _executionDay = update._executionDay;
+        }
     }
 }
