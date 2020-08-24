@@ -37,24 +37,19 @@ namespace IncomeViz.ProfitCalculation.Domain.Expense.LongTerm
             _money = money;
         }
 
-        public string GetName()
-        {
-            return _name;
-        }
-
         public bool IsDateInValidRange(DateTime date)
         {
             return date.Date >= _startingDate && date.Date <= _effectiveDate;
         }
+        
+        public string GetName() => _name;
 
-        public int GetExecutionDay()
-        {
-            return _executionDay;
-        }
+        public int GetExecutionDay() => _executionDay;
 
-        public Money GetMoney()
-        {
-            return _money;
-        }
+        public DateTime GetStartingDate() => _startingDate;
+
+        public DateTime? GetEffectiveDate() => _effectiveDate;
+
+        public Money GetMoney() => _money;
     }
 }

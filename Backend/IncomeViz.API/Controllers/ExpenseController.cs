@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.GetLongTermExpenses;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermExpenses;
 
 namespace IncomeViz.API.Controllers
@@ -56,14 +57,28 @@ namespace IncomeViz.API.Controllers
         [HttpGet]
         [Route("short-term")]
         [Consumes("application/json")]
-        [Produces("application/json")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
+        [Produces("application/json")] 
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery] GetShortTermExpensesQuery query)
         {
             var shortTermExpenses = await _mediator.Send(query);
             return Ok(shortTermExpenses);
+        }
+
+        /// <summary>
+        /// Returns a collection of short term expenses
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("long-term")]
+        [Consumes("application/json")]
+        [Produces("application/json")] 
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        public async Task<IActionResult> Get([FromQuery] GetLongTermExpensesQuery query)
+        {
+            var longTermExpenses = await _mediator.Send(query);
+            return Ok(longTermExpenses);
         }
     }
 }
