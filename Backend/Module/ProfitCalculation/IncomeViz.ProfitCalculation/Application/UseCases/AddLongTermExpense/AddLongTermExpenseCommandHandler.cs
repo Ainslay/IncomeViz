@@ -6,7 +6,7 @@ using IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermExpense
 {
-    internal class AddLongTermExpenseCommandHandler : IRequestHandler<AddLongTermExpenseCommand>
+    public class AddLongTermExpenseCommandHandler : IRequestHandler<AddLongTermExpenseCommand>
     {
         private readonly IWriteLongTermExpenseRepository _repository;
 

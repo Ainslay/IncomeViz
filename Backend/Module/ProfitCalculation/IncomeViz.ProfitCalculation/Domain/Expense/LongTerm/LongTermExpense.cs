@@ -51,5 +51,14 @@ namespace IncomeViz.ProfitCalculation.Domain.Expense.LongTerm
         public DateTime? GetEffectiveDate() => _effectiveDate;
 
         public Money GetMoney() => _money;
+
+        public void Update(LongTermExpense update)
+        {
+            _name = update._name;
+            _money = update._money;
+            _startingDate = update._startingDate;
+            _effectiveDate = update._effectiveDate;
+            _executionDay = update._executionDay;
+        }
     }
 }

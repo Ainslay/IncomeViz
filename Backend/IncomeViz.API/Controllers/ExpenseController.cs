@@ -5,6 +5,7 @@ using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetLongTermExpenses;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermExpenses;
+using IncomeViz.ProfitCalculation.Application.UseCases.UpdateLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.UpdateShortTermExpense;
 
 namespace IncomeViz.API.Controllers
@@ -91,14 +92,27 @@ namespace IncomeViz.API.Controllers
         [HttpPut]
         [Route("short-term")]
         [Consumes("application/json")]
-        [Produces("application/json")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
         public async Task<IActionResult> Update(UpdateShortTermExpenseCommand command)
         {
             await _mediator.Send(command);
             return Ok();    
+        }
+
+        /// <summary>
+        /// Updates long term expense with specified id using data
+        /// provided in the request
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("long-term")]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        public async Task<IActionResult> Update(UpdateLongTermExpenseCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }

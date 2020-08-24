@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using IncomeViz.ProfitCalculation.Domain.Expense.LongTerm;
 using Microsoft.EntityFrameworkCore;
 using IncomeViz.ProfitCalculation.Infrastructure.Database;
 
@@ -25,6 +26,17 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm
                        .SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId))
                    ??
                    throw new NullReferenceException(nameof(predictionId));
+        }
+
+        public async Task<LongTermExpense> GetLongTermExpenseById(Guid longTermExpenseId)
+        {
+            return await _db.LongTermExpenses.SingleOrDefaultAsync(lte => lte.EntityId.Equals(longTermExpenseId))
+                ?? throw new NullReferenceException(nameof(longTermExpenseId));
+        }
+
+        public void UpdateLongTermExpense(LongTermExpense longTermExpense)
+        {
+            _db.LongTermExpenses.Update(longTermExpense);
         }
     }
 }
