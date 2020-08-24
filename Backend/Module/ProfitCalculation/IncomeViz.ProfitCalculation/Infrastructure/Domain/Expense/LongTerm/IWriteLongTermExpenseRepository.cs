@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Domain.Expense.LongTerm;
+using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm
 {
@@ -9,6 +10,8 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm
         Task SaveAsync();
         Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionByPredictionId(Guid predictionId);
         Task<LongTermExpense> GetLongTermExpenseById(Guid longTermExpenseId);
+        Task<Unit> DeleteLongTermExpense(Guid longTermExpenseId);
         void UpdateLongTermExpense(LongTermExpense longTermExpense);
+
     }
 }

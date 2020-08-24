@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.DeleteLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.DeleteShortTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetLongTermExpenses;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermExpenses;
@@ -140,6 +141,23 @@ namespace IncomeViz.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> Delete(DeleteShortTermExpenseCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        /// <summary>
+        ///     Deletes long term expense with specified id from database
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("long-term")]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> Delete(DeleteLongTermExpenseCommand command)
         {
             await _mediator.Send(command);
             return Ok();

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Domain.Expense.LongTerm;
 using Microsoft.EntityFrameworkCore;
 using IncomeViz.ProfitCalculation.Infrastructure.Database;
+using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm
 {
@@ -32,6 +33,16 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm
         {
             return await _db.LongTermExpenses.SingleOrDefaultAsync(lte => lte.EntityId.Equals(longTermExpenseId))
                 ?? throw new NullReferenceException(nameof(longTermExpenseId));
+        }
+
+        public async Task<Unit> DeleteLongTermExpense(Guid longTermExpenseId)
+        {
+            var longTermExpenseToDelete = await _db.LongTermExpenses.SingleOrDefaultAsync(lte => lte.EntityId.Equals(longTermExpenseId))
+                ?? throw new NullReferenceException(nameof(longTermExpenseId));
+
+            _db.LongTermExpenses.Remove(longTermExpenseToDelete);
+
+            return  Unit.Value;
         }
 
         public void UpdateLongTermExpense(LongTermExpense longTermExpense)
