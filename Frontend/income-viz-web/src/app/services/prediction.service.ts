@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@environments/environment';
+import { PredictionDto } from '@dtos/prediction.dto';
 import { Prediction } from '@interfaces/prediction.interface';
 import { Currencies } from '@utilities/currencies';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError, retry, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -17,48 +17,25 @@ export class PredictionService extends BaseService {
   );
 
   constructor(
-    private http: HttpClient
-  ) { super(); }
+    http: HttpClient
+  ) { super(http); }
 
   getPredictions(): Observable<Prediction[]> {
-    return this.http.get<Prediction[]>(`${environment.apiUrl}/prediction/short-prediction/all`, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }).pipe(
-      retry(3),
-      catchError(this.handleHttpError)
-    );
+    return this.get<Prediction[]>('prediction/short-prediction/all');
   }
 
   addPrediction(prediction: Prediction): void {
-    const predictionDto = {
+    const predictionDto: PredictionDto = {
       name: prediction.name, amount: prediction.amount,
       currency: Currencies[prediction.currency], startingDate: prediction.startingDate
     };
 
-    this.http.post<number>(`${environment.apiUrl}/prediction`, predictionDto, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }).pipe(
-      catchError(this.handleHttpError)
-    ).subscribe(() => this.refreshToken$.next(undefined));
+    this.post<PredictionDto>('prediction', predictionDto)
+      .subscribe(() => this.refreshToken$.next(undefined));
   }
 
   deletePrediction(predictionId: number): void {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: {
-        id: predictionId
-      }
-    };
-
-    this.http.delete(`${environment.apiUrl}/prediction`, options)
-      .pipe(
-        catchError(this.handleHttpError)
-      ).subscribe(() => this.refreshToken$.next(undefined));
+    this.delete('prediction', predictionId)
+      .subscribe(() => this.refreshToken$.next(undefined));
   }
 }
