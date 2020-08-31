@@ -22,30 +22,68 @@ namespace IncomeViz.API.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Creates a new prediction entry in database
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddPredictionCommand command)
         {
             var predictionId = await _mediator.Send(command);
             return Ok(predictionId);
         }
 
+        /// <summary>
+        /// Deletes database entry of prediction with specified id
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpDelete]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Delete(DeletePredictionCommand command)
         {
             await _mediator.Send(command);
             return Ok();
         }
 
+        /// <summary>
+        /// Returns a short prediction with specified id
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("short-prediction")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery]GetShortPredictionQuery query)
         {
             var prediction = await _mediator.Send(query);
             return Ok(prediction);
         }
 
+        /// <summary>
+        /// Returns a collection of short predictions
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("short-prediction/all")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery]GetShortPredictionsQuery query)
         {
             var predictions = await _mediator.Send(query);
@@ -61,13 +99,20 @@ namespace IncomeViz.API.Controllers
         [Route("full-prediction")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)] 
+        [ProducesResponseType(400)] 
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery] GetFullPredictionQuery query)
         {
             var prediction = await _mediator.Send(query);
             return Ok(prediction);
         }
 
+        /// <summary>
+        /// Generates prediction data based on starting date and prediction type
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpPost("generate")]
         [Produces("application/json")]
         public async Task<IActionResult> Post(GeneratePredictionByDateRangeQuery query)
