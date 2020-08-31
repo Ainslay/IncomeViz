@@ -8,7 +8,7 @@ using IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.AddPrediction
 {
-    public class AddPredictionCommandHandler : IRequestHandler<AddPredictionCommand, Guid>
+    public class AddPredictionCommandHandler : IRequestHandler<AddPredictionCommand>
     {
         private readonly IWritePredictionRepository _repository;
 
@@ -17,16 +17,14 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.AddPrediction
             _repository = repository;
         }
 
-        public async Task<Guid> Handle(AddPredictionCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddPredictionCommand request, CancellationToken cancellationToken)
         {
-            var prediction = new Prediction(
-                request.Name,
-                new Money(request.Amount, request.Currency),
-                request.StartingDate);
+            var prediction = new Prediction(request.Name, new Money(request.Amount, request.Currency), request.StartingDate);
 
-            var predictionId = await _repository.AddAndSave(prediction);
+            await _repository.AddPrediction(prediction);
+            await _repository.SaveAsync();
 
-            return predictionId;
+            return Unit.Value;
         }
     }
 }

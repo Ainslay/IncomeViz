@@ -6,7 +6,7 @@ using IncomeViz.ProfitCalculation.Domain.Funds;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.AddPrediction
 {
-    public class AddPredictionCommand : IRequest<Guid>
+    public class AddPredictionCommand : IRequest<Unit>
     {
         [Required(AllowEmptyStrings = false)]
         [NotNull]

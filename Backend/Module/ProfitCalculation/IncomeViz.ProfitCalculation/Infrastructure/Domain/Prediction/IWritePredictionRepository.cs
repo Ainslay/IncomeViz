@@ -6,7 +6,8 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
 {
     public interface IWritePredictionRepository
     {
-        Task<Guid> AddAndSave(ProfitCalculation.Domain.Prediction.Prediction prediction);
-        Task<Unit> DeleteAndSave(Guid predictionId);
+        Task SaveAsync();
+        Task<Unit> AddPrediction(ProfitCalculation.Domain.Prediction.Prediction prediction);
+        Task<Unit> DeletePredictionById(Guid predictionId);
     }
 }

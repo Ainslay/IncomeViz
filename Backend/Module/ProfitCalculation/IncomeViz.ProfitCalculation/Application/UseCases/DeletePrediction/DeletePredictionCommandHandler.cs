@@ -7,7 +7,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.DeletePrediction
 {
     class DeletePredictionCommandHandler : IRequestHandler<DeletePredictionCommand>
     {
-        private IWritePredictionRepository _repository;
+        private readonly IWritePredictionRepository _repository;
 
         public DeletePredictionCommandHandler(IWritePredictionRepository repository)
         {
@@ -16,7 +16,8 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.DeletePrediction
 
         public async Task<Unit> Handle(DeletePredictionCommand request, CancellationToken cancellationToken)
         {
-            await _repository.DeleteAndSave(request.Id);
+            await _repository.DeletePredictionById(request.Id);
+            await _repository.SaveAsync();
             return Unit.Value;
         }
     }

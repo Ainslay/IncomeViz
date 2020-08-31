@@ -15,23 +15,23 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
             _db = db;
         }
 
-        public async Task<Guid> AddAndSave(ProfitCalculation.Domain.Prediction.Prediction prediction)
+        public async Task SaveAsync()
         {
-            await _db.AddAsync(prediction);
             await _db.SaveChangesAsync();
-
-            return prediction.EntityId;
         }
 
-        public async Task<Unit> DeleteAndSave(Guid predictionId)
+        public async Task<Unit> AddPrediction(ProfitCalculation.Domain.Prediction.Prediction prediction)
         {
-            var predictionToDelete = await _db.Predictions.SingleOrDefaultAsync(p => p.EntityId == predictionId);
+            await _db.AddAsync(prediction);
+            return  Unit.Value;
+        }
 
-            if(predictionToDelete != null)
-            {
-                _db.Predictions.Remove(predictionToDelete);
-                await _db.SaveChangesAsync();
-            }
+        public async Task<Unit> DeletePredictionById(Guid predictionId)
+        {
+            var predictionToDelete = await _db.Predictions.SingleOrDefaultAsync(p => p.EntityId == predictionId)
+                ?? throw new NullReferenceException(nameof(predictionId));
+
+            _db.Predictions.Remove(predictionToDelete);
 
             return Unit.Value;
         }
