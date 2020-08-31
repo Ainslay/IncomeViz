@@ -16,6 +16,9 @@ namespace IncomeViz.ProfitCalculation
     {
         public static void Install(IServiceCollection services, IConfiguration configuration)
         {
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddScoped<IWriteLongTermIncomeRepository, WriteLongTermIncomeRepository>();
             services.AddScoped<IWriteShortTermIncomeRepository, WriteShortTermIncomeRepository>();

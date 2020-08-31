@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using IncomeViz.ProfitCalculation.Application.UseCases.GetShortPredictions;
 using IncomeViz.ProfitCalculation.Application.UseCases.DeletePrediction;
+using IncomeViz.ProfitCalculation.Application.UseCases.GetFullPrediction;
 
 namespace IncomeViz.API.Controllers
 {
@@ -49,6 +50,22 @@ namespace IncomeViz.API.Controllers
         {
             var predictions = await _mediator.Send(query);
             return Ok(predictions);
+        }
+
+        /// <summary>
+        /// Returns a full prediction containing all incomes and expenses
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("full-prediction")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        public async Task<IActionResult> Get([FromQuery] GetFullPredictionQuery query)
+        {
+            var prediction = await _mediator.Send(query);
+            return Ok(prediction);
         }
 
         [HttpPost("generate")]
