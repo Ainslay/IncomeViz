@@ -15,7 +15,22 @@ export abstract class BaseService {
     private readonly http: HttpClient
   ) { }
 
-  protected get<T>(url: string): Observable<T> {
+  protected getOne<T>(url: string, objectId: string): Observable<T> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      params: {
+        id: objectId
+      }
+    };
+
+    return this.http.get<T>(`${this.apiUrl}${url}`, options).pipe(
+      retry(3),
+      catchError(this.handleHttpError)
+    );
+  }
+  protected getAll<T>(url: string): Observable<T> {
     return this.http.get<T>(`${this.apiUrl}${url}`, this.httpOptions).pipe(
       retry(3),
       catchError(this.handleHttpError)

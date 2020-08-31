@@ -20,6 +20,9 @@ import { PredictionsListComponent } from './containers/predictions-list/predicti
 import { PredictionListItemComponent } from './components/prediction-list-item/prediction-list-item.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { AddPredictionDialogComponent } from './components/add-prediction-dialog/add-prediction-dialog.component';
+import { PredictionDetailsComponent } from './pages/prediction-details/prediction-details.component';
+import { PredictionComponent } from './containers/prediction/prediction.component';
+import { PredictionTopBarComponent } from './components/prediction-top-bar/prediction-top-bar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { AddPredictionDialogComponent } from './components/add-prediction-dialog
     PredictionsListComponent,
     PredictionListItemComponent,
     TopBarComponent,
-    AddPredictionDialogComponent
+    AddPredictionDialogComponent,
+    PredictionDetailsComponent,
+    PredictionComponent,
+    PredictionTopBarComponent
   ],
   imports: [
     BrowserModule,

@@ -10,9 +10,11 @@ import { PredictionService } from '@services/prediction.service';
   styleUrls: ['./predictions-list.component.scss']
 })
 export class PredictionsListComponent {
+  selectedPredictionId: number;
+
   constructor(
     public predictionService: PredictionService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) { }
 
   deletePrediction(id: number): void {
