@@ -1,6 +1,7 @@
+import { Guid } from 'guid-typescript';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Prediction } from '@interfaces/prediction.interface';
+import { ShortPrediction } from '@interfaces/short-prediction.interface';
 import { PredictionService } from '@services/prediction.service';
 
 @Component({
@@ -9,8 +10,8 @@ import { PredictionService } from '@services/prediction.service';
   styleUrls: ['./prediction.component.scss']
 })
 export class PredictionComponent implements OnInit {
-  predictionId: string;
-  prediction: Prediction;
+  predictionId: Guid;
+  prediction: ShortPrediction;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,12 +20,12 @@ export class PredictionComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.predictionId = this.route.snapshot.paramMap.get('id');
+    this.predictionId = Guid.parse(this.route.snapshot.paramMap.get('id'));
     this.predictionService.getShortPrediction(this.predictionId)
       .subscribe(result => this.prediction = result);
   }
 
-  deletePrediction(predictionId: number): void {
+  deletePrediction(predictionId: Guid): void {
     this.predictionService.deletePrediction(predictionId);
     this.router.navigateByUrl('dashboard');
   }

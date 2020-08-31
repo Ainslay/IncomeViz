@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Prediction } from '@interfaces/prediction.interface';
+import { ShortPrediction } from '@interfaces/short-prediction.interface';
 
 @Component({
   selector: 'app-prediction-list-item',
@@ -7,7 +7,7 @@ import { Prediction } from '@interfaces/prediction.interface';
   styleUrls: ['./prediction-list-item.component.scss']
 })
 export class PredictionListItemComponent {
-  @Input() prediction: Prediction;
+  @Input() prediction: ShortPrediction;
   @Output() deleteRequest: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() { }
