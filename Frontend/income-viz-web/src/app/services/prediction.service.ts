@@ -20,8 +20,12 @@ export class PredictionService extends BaseService {
     http: HttpClient
   ) { super(http); }
 
+  getShortPrediction(shortPredictionId: string): Observable<Prediction> {
+    return this.getOne<Prediction>('prediction/short-prediction', shortPredictionId);
+  }
+
   getPredictions(): Observable<Prediction[]> {
-    return this.get<Prediction[]>('prediction/short-prediction/all');
+    return this.getAll<Prediction[]>('prediction/short-prediction/all');
   }
 
   addPrediction(prediction: Prediction): void {

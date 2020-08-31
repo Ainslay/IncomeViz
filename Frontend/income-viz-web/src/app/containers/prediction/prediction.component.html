@@ -1,0 +1,10 @@
+<div class="flex-container">
+    <div class="prediction-details-container">
+        <app-prediction-top-bar 
+            class="prediction-top-bar" 
+            *ngIf="prediction" 
+            [prediction]="this.prediction"
+            (deleteRequest)="deletePrediction($event)">
+        </app-prediction-top-bar>
+    </div>
+</div>
