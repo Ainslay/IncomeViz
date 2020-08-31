@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { Prediction } from '@interfaces/prediction.interface';
+import { ShortPrediction } from '@interfaces/short-prediction.interface';
 
 @Component({
   selector: 'app-prediction-top-bar',
@@ -7,7 +7,7 @@ import { Prediction } from '@interfaces/prediction.interface';
   styleUrls: ['./prediction-top-bar.component.scss']
 })
 export class PredictionTopBarComponent {
-  @Input() prediction: Prediction;
+  @Input() prediction: ShortPrediction;
   @Output() deleteRequest: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() { }

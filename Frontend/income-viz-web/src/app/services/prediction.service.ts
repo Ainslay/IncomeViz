@@ -1,7 +1,8 @@
+import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PredictionDto } from '@dtos/prediction.dto';
-import { Prediction } from '@interfaces/prediction.interface';
+import { ShortPrediction } from '@interfaces/short-prediction.interface';
 import { Currencies } from '@utilities/currencies';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -12,23 +13,23 @@ import { BaseService } from './base.service';
 })
 export class PredictionService extends BaseService {
   refreshToken$ = new BehaviorSubject(undefined);
-  predictions$: Observable<Prediction[]> = this.refreshToken$.pipe(
-    switchMap(() => this.getPredictions())
+  predictions$: Observable<ShortPrediction[]> = this.refreshToken$.pipe(
+    switchMap(() => this.getShortPredictions())
   );
 
   constructor(
     http: HttpClient
   ) { super(http); }
 
-  getShortPrediction(shortPredictionId: string): Observable<Prediction> {
-    return this.getOne<Prediction>('prediction/short-prediction', shortPredictionId);
+  getShortPrediction(shortPredictionId: Guid): Observable<ShortPrediction> {
+    return this.getOne<ShortPrediction>('prediction/short-prediction', shortPredictionId);
   }
 
-  getPredictions(): Observable<Prediction[]> {
-    return this.getAll<Prediction[]>('prediction/short-prediction/all');
+  getShortPredictions(): Observable<ShortPrediction[]> {
+    return this.getAll<ShortPrediction[]>('prediction/short-prediction/all');
   }
 
-  addPrediction(prediction: Prediction): void {
+  addPrediction(prediction: ShortPrediction): void {
     const predictionDto: PredictionDto = {
       name: prediction.name, amount: prediction.amount,
       currency: Currencies[prediction.currency], startingDate: prediction.startingDate
@@ -38,7 +39,7 @@ export class PredictionService extends BaseService {
       .subscribe(() => this.refreshToken$.next(undefined));
   }
 
-  deletePrediction(predictionId: number): void {
+  deletePrediction(predictionId: Guid): void {
     this.delete('prediction', predictionId)
       .subscribe(() => this.refreshToken$.next(undefined));
   }
