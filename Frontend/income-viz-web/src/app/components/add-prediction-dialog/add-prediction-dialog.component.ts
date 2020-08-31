@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Prediction } from '@interfaces/prediction.interface';
+import { ShortPrediction } from '@interfaces/short-prediction.interface';
 import { PredictionService } from '@services/prediction.service';
 import { GetCurrenciesAsStrings } from '@utilities/currencies';
 import { MyErrorStateMatcher } from '@utilities/error-state-matcher';
@@ -12,7 +12,7 @@ import { MyErrorStateMatcher } from '@utilities/error-state-matcher';
   styleUrls: ['./add-prediction-dialog.component.scss']
 })
 export class AddPredictionDialogComponent {
-  prediction: Prediction = { id: 0, name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
+  prediction: ShortPrediction = { id: 0, name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
   currencies = GetCurrenciesAsStrings();
 
   addPredictionFormGroup = new FormGroup({
@@ -45,7 +45,7 @@ export class AddPredictionDialogComponent {
   }
 
   onSubmit(): void {
-    const predicion: Prediction = {
+    const predicion: ShortPrediction = {
       id: 0,
       name: this.addPredictionFormGroup.controls.nameFormControl.value,
       amount: this.addPredictionFormGroup.controls.inicialCapitalFormControl.value,

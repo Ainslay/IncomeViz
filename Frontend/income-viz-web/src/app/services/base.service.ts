@@ -1,3 +1,4 @@
+import { Guid } from 'guid-typescript';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { Observable, throwError } from 'rxjs';
@@ -15,13 +16,13 @@ export abstract class BaseService {
     private readonly http: HttpClient
   ) { }
 
-  protected getOne<T>(url: string, objectId: string): Observable<T> {
+  protected getOne<T>(url: string, objectId: Guid): Observable<T> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
       params: {
-        id: objectId
+        id: objectId.toString()
       }
     };
 
@@ -43,7 +44,7 @@ export abstract class BaseService {
     );
   }
 
-  protected delete(url: string, objectId: number): Observable<any> {
+  protected delete(url: string, objectId: Guid): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
