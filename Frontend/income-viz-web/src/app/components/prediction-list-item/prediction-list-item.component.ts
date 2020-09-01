@@ -1,3 +1,4 @@
+import { Guid } from 'guid-typescript';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ShortPrediction } from '@interfaces/short-prediction.interface';
 
@@ -8,7 +9,7 @@ import { ShortPrediction } from '@interfaces/short-prediction.interface';
 })
 export class PredictionListItemComponent {
   @Input() prediction: ShortPrediction;
-  @Output() deleteRequest: EventEmitter<number> = new EventEmitter<number>();
+  @Output() deleteRequest: EventEmitter<Guid> = new EventEmitter<Guid>();
 
   constructor() { }
 
