@@ -31,6 +31,7 @@ export abstract class BaseService {
       catchError(this.handleHttpError)
     );
   }
+
   protected getAll<T>(url: string): Observable<T> {
     return this.http.get<T>(`${this.apiUrl}${url}`, this.httpOptions).pipe(
       retry(3),

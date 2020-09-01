@@ -1,3 +1,4 @@
+import { FullPrediction } from './../interfaces/full-prediction.interface';
 import { Guid } from 'guid-typescript';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -27,6 +28,10 @@ export class PredictionService extends BaseService {
 
   getShortPredictions(): Observable<ShortPrediction[]> {
     return this.getAll<ShortPrediction[]>('prediction/short-prediction/all');
+  }
+
+  getFullPrediction(predictionId: Guid): Observable<FullPrediction> {
+    return this.getOne<FullPrediction>('prediction/full-prediction', predictionId);
   }
 
   addPrediction(prediction: ShortPrediction): void {

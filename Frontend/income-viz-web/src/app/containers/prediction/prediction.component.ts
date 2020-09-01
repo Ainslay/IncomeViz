@@ -1,8 +1,8 @@
-import { Guid } from 'guid-typescript';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ShortPrediction } from '@interfaces/short-prediction.interface';
 import { PredictionService } from '@services/prediction.service';
+import { Guid } from 'guid-typescript';
+import { FullPrediction } from '@interfaces/full-prediction.interface';
 
 @Component({
   selector: 'app-prediction',
@@ -11,7 +11,7 @@ import { PredictionService } from '@services/prediction.service';
 })
 export class PredictionComponent implements OnInit {
   predictionId: Guid;
-  prediction: ShortPrediction;
+  prediction: FullPrediction;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,8 +21,9 @@ export class PredictionComponent implements OnInit {
 
   ngOnInit(): void {
     this.predictionId = Guid.parse(this.route.snapshot.paramMap.get('id'));
-    this.predictionService.getShortPrediction(this.predictionId)
-      .subscribe(result => this.prediction = result);
+    console.log(this.predictionId);
+    this.predictionService.getFullPrediction(this.predictionId)
+      .subscribe(result => {this.prediction = result; console.log(this.prediction); });
   }
 
   deletePrediction(predictionId: Guid): void {
