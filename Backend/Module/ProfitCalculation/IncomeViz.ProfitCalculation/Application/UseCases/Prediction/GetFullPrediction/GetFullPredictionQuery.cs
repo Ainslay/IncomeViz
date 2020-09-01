@@ -7,6 +7,6 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetFullPre
 {
     public class GetFullPredictionQuery : IRequest<FullPredictionDto>
     {
-        [Required] public Guid PredictionId { get; set; }
+        [Required] public Guid Id { get; set; }
     }
 }

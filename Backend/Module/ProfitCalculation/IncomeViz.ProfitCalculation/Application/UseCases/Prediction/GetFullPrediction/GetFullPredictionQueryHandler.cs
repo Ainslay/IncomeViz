@@ -18,7 +18,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetFullPre
 
         public async Task<FullPredictionDto> Handle(GetFullPredictionQuery query, CancellationToken cancellationToken)
         {
-            var p = await _repository.GetFullPredictionById(query.PredictionId);
+            var p = await _repository.GetFullPredictionById(query.Id);
 
             var shortTermIncomesDto = p.ShortTermIncomes.Select(income => new ShortTermIncomeDto(income.EntityId,
                 income.GetName(), income.GetExecutionDate(), income.GetMoney().GetAmount(),
