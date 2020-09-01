@@ -5,6 +5,7 @@ import { ShortPrediction } from '@interfaces/short-prediction.interface';
 import { PredictionService } from '@services/prediction.service';
 import { GetCurrenciesAsStrings } from '@utilities/currencies';
 import { MyErrorStateMatcher } from '@utilities/error-state-matcher';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-add-prediction-dialog',
@@ -12,7 +13,7 @@ import { MyErrorStateMatcher } from '@utilities/error-state-matcher';
   styleUrls: ['./add-prediction-dialog.component.scss']
 })
 export class AddPredictionDialogComponent {
-  prediction: ShortPrediction = { id: 0, name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
+  prediction: ShortPrediction = { id: Guid.create(), name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
   currencies = GetCurrenciesAsStrings();
 
   addPredictionFormGroup = new FormGroup({
@@ -46,7 +47,7 @@ export class AddPredictionDialogComponent {
 
   onSubmit(): void {
     const predicion: ShortPrediction = {
-      id: 0,
+      id: Guid.create(),
       name: this.addPredictionFormGroup.controls.nameFormControl.value,
       amount: this.addPredictionFormGroup.controls.inicialCapitalFormControl.value,
       currency: this.addPredictionFormGroup.controls.currencyFormControl.value,

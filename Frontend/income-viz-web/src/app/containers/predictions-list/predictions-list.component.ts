@@ -1,3 +1,4 @@
+import { Guid } from 'guid-typescript';
 import { dialogWidth } from '@utilities/variables';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,14 +11,14 @@ import { PredictionService } from '@services/prediction.service';
   styleUrls: ['./predictions-list.component.scss']
 })
 export class PredictionsListComponent {
-  selectedPredictionId: number;
+  selectedPredictionId: Guid;
 
   constructor(
     public predictionService: PredictionService,
     public dialog: MatDialog,
   ) { }
 
-  deletePrediction(id: number): void {
+  deletePrediction(id: Guid): void {
     this.predictionService.deletePrediction(id);
   }
 
