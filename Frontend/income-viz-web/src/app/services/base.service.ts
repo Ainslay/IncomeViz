@@ -45,17 +45,14 @@ export abstract class BaseService {
     );
   }
 
-  protected delete(url: string, objectId: Guid): Observable<any> {
+  protected delete(url: string, id: Guid): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      }),
-      body: {
-        id: objectId
-      }
+      })
     };
 
-    return this.http.delete(`${this.apiUrl}${url}`, options).pipe(
+    return this.http.delete(`${this.apiUrl}${url}/${id}`).pipe(
       catchError(this.handleHttpError)
     );
   }

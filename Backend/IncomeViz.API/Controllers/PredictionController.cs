@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.AddPrediction;
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.DeletePrediction;
@@ -48,9 +49,10 @@ namespace IncomeViz.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Delete(DeletePredictionCommand command)
+        public async Task<IActionResult> Delete([FromQuery] Guid id )
         {
-            await _mediator.Send(command);
+            var request = new DeletePredictionCommand {Id = id};
+            await _mediator.Send(request);
             return Ok();
         }
 

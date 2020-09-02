@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-prediction-details',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prediction-details.component.scss']
 })
 export class PredictionDetailsComponent implements OnInit {
+  predictionId: Guid;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
+    this.predictionId = Guid.parse(this.route.snapshot.paramMap.get('id'));
   }
 
 }

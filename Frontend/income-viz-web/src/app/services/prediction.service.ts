@@ -44,8 +44,7 @@ export class PredictionService extends BaseService {
       .subscribe(() => this.refreshToken$.next(undefined));
   }
 
-  deletePrediction(predictionId: Guid): void {
-    this.delete('prediction', predictionId)
-      .subscribe(() => this.refreshToken$.next(undefined));
+  deletePrediction(predictionId: Guid): Observable<any> {
+    return this.delete('prediction', predictionId);
   }
 }
