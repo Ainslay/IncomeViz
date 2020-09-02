@@ -10,7 +10,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GeneratePr
 {
     public class GeneratePredictionByDateRangeQueryHandler : IRequestHandler<GeneratePredictionByDateRangeQuery, List<DateMoneyDto>>
     {
-        private IReadPredictionRepository _readPredictionRepository;
+        private readonly IReadPredictionRepository _readPredictionRepository;
 
         public GeneratePredictionByDateRangeQueryHandler(IReadPredictionRepository readPredictionRepository)
         {

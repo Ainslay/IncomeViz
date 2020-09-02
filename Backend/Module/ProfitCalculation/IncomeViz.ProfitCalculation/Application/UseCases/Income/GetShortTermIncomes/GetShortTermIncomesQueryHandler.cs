@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Domain.Dtos;
@@ -9,7 +10,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Income.GetShortTermIn
 {
     public class GetShortTermIncomesQueryHandler : IRequestHandler<GetShortTermIncomesQuery, ICollection<ShortTermIncomeDto>>
     {
-        private IReadShortTermIncomeRepository _repository;
+        private readonly IReadShortTermIncomeRepository _repository;
 
         public GetShortTermIncomesQueryHandler(IReadShortTermIncomeRepository repository)
         {
@@ -19,15 +20,9 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Income.GetShortTermIn
         public async Task<ICollection<ShortTermIncomeDto>> Handle(GetShortTermIncomesQuery query, CancellationToken cancellationToken)
         {
             var shortTermIncomes = await _repository.GetShortTermIncomes();
-            var shortTermIncomesDto = new List<ShortTermIncomeDto>();
 
-            foreach (var income in shortTermIncomes)
-            {
-                shortTermIncomesDto.Add(new ShortTermIncomeDto(income.EntityId, income.GetName(), income.GetExecutionDate(),
-                    income.GetMoney().GetAmount(), income.GetMoney().GetCurrency()));
-            }
-
-            return shortTermIncomesDto;
+            return shortTermIncomes.Select(income => new ShortTermIncomeDto(income.EntityId, income.GetName(),
+                income.GetExecutionDate(), income.GetMoney().GetAmount(), income.GetMoney().GetCurrency())).ToList();
         }
     }
 }

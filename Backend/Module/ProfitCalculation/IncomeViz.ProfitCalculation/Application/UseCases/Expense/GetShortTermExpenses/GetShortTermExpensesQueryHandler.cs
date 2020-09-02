@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Domain.Dtos;
@@ -19,15 +20,9 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetShortTermE
         public async Task<ICollection<ShortTermExpenseDto>> Handle(GetShortTermExpensesQuery request, CancellationToken cancellationToken)
         {
             var shortTermExpenses = await _repository.GetShortTermExpenses();
-            var shortTermExpensesDto = new List<ShortTermExpenseDto>();
 
-            foreach (var expense in shortTermExpenses)
-            {
-                    shortTermExpensesDto.Add(new ShortTermExpenseDto(expense.EntityId, expense.GetName(),
-                        expense.GetExecutionDate(), expense.GetMoney().GetAmount(), expense.GetMoney().GetCurrency()));
-            }
-
-            return shortTermExpensesDto;
+            return shortTermExpenses.Select(expense => new ShortTermExpenseDto(expense.EntityId, expense.GetName(),
+                expense.GetExecutionDate(), expense.GetMoney().GetAmount(), expense.GetMoney().GetCurrency())).ToList();
         }
     }
 }
