@@ -1,7 +1,6 @@
 ﻿using System;
-using IncomeViz.ProfitCalculation.Domain.Funds;
 
-namespace IncomeViz.ProfitCalculation.Domain.Prediction
+namespace IncomeViz.ProfitCalculation.Domain.Dtos
 {
     public class PredictionDto
     {

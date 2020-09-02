@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using IncomeViz.ProfitCalculation.Domain.Prediction;
+using IncomeViz.ProfitCalculation.Domain.Dtos;
 using IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction;
 using MediatR;
 
