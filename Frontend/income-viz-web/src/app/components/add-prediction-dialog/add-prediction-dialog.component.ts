@@ -23,7 +23,7 @@ export class AddPredictionDialogComponent {
     inicialCapitalFormControl: new FormControl(0, [
       Validators.required,
       Validators.max(999999999),
-      Validators.min(0)
+      Validators.min(-999999999)
     ]),
     dateFormControl: new FormControl('', [
       Validators.required
