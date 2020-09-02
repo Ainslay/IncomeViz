@@ -66,7 +66,7 @@ namespace IncomeViz.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Get([FromQuery]GetShortPredictionQuery query)
+        public async Task<IActionResult> Get([FromQuery] GetShortPredictionQuery query)
         {
             var prediction = await _mediator.Send(query);
             return Ok(prediction);
@@ -84,7 +84,7 @@ namespace IncomeViz.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Get([FromQuery]GetShortPredictionsQuery query)
+        public async Task<IActionResult> Get([FromQuery] GetShortPredictionsQuery query)
         {
             var predictions = await _mediator.Send(query);
             return Ok(predictions);
@@ -99,8 +99,8 @@ namespace IncomeViz.API.Controllers
         [Route("full-prediction")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        [ProducesResponseType(200)] 
-        [ProducesResponseType(400)] 
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery] GetFullPredictionQuery query)
         {
@@ -118,11 +118,7 @@ namespace IncomeViz.API.Controllers
         public async Task<IActionResult> Post(GeneratePredictionByDateRangeQuery query)
         {
             var result = await _mediator.Send(query);
-            return Ok(result.Select(r => new
-            {
-                Name = r.Date.Date,
-                Value = r.Money.GetAmount()
-            }));
+            return Ok(result.Select(r => new {Name = r.Date.Date, Value = r.Money.GetAmount()}));
         }
     }
 }

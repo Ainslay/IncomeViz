@@ -33,11 +33,20 @@ namespace IncomeViz.ProfitCalculation.Domain.Income.ShortTerm
             _money = money;
         }
 
-        public string GetName() => _name;
+        public string GetName()
+        {
+            return _name;
+        }
 
-        public DateTime GetExecutionDate() => _executionDate.ToUniversalTime().Date;
+        public DateTime GetExecutionDate()
+        {
+            return _executionDate.ToUniversalTime().Date;
+        }
 
-        public Money GetMoney() => _money;
+        public Money GetMoney()
+        {
+            return _money;
+        }
 
         public void Update(ShortTermIncome updatedShortTermIncome)
         {

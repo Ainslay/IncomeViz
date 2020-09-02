@@ -43,17 +43,30 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
             _startingMoney = startingMoney;
             _startingDate = startingDate;
         }
-        
-        public string GetName() => _name;
-        public Money GetStartingMoney() => _startingMoney;
-        public DateTime GetStartingDate() => _startingDate;
 
-        public void AddLongTermExpense(string name, DateTime expenseStartingDate, DateTime? effectiveDate, int executionDay, Money money)
+        public string GetName()
+        {
+            return _name;
+        }
+
+        public Money GetStartingMoney()
+        {
+            return _startingMoney;
+        }
+
+        public DateTime GetStartingDate()
+        {
+            return _startingDate;
+        }
+
+        public void AddLongTermExpense(string name, DateTime expenseStartingDate, DateTime? effectiveDate,
+            int executionDay, Money money)
         {
             CheckRule(new DuplicateNameNotAllowedRule(name, LongTermExpenses));
             CheckRule(new EffectiveDateMustBeHigherThanStartingDateRule(effectiveDate, _startingDate));
             CheckRule(new StartingDateMustBeHigherThanEffectiveDateRule(expenseStartingDate, effectiveDate));
-            _longTermExpenses.Add(new LongTermExpense(Id, name, expenseStartingDate, effectiveDate, executionDay, money));
+            _longTermExpenses.Add(
+                new LongTermExpense(Id, name, expenseStartingDate, effectiveDate, executionDay, money));
         }
 
         public void AddShortTermExpense(string name, DateTime executionDate, Money money)
@@ -63,7 +76,8 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
             _shortTermExpenses.Add(new ShortTermExpense(Id, name, executionDate, money));
         }
 
-        public void AddLongTermIncome(string name, DateTime incomeStartingDate, DateTime? effectiveDate, int executionDay, Money money)
+        public void AddLongTermIncome(string name, DateTime incomeStartingDate, DateTime? effectiveDate,
+            int executionDay, Money money)
         {
             CheckRule(new DuplicateNameNotAllowedRule(name, LongTermIncomes));
             CheckRule(new EffectiveDateMustBeHigherThanStartingDateRule(effectiveDate, _startingDate));
@@ -85,7 +99,8 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
 
             foreach (var date in eachCalendarDay)
             {
-                var previousPrediction = predictionByDate.SingleOrDefault(prediction => prediction.Date.Equals(date.AddDays(-1)));
+                var previousPrediction =
+                    predictionByDate.SingleOrDefault(prediction => prediction.Date.Equals(date.AddDays(-1)));
 
                 predictionByDate.Add(GeneratePredictionByDate(
                     date,
@@ -104,8 +119,7 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
 
             return new DateMoneyDto
             {
-                Date = date.Date,
-                Money = new Money(currentAmount.AddAmount(incomes).SubtractAmount(expenses))
+                Date = date.Date, Money = new Money(currentAmount.AddAmount(incomes).SubtractAmount(expenses))
             };
         }
 
@@ -123,7 +137,8 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
         private Money GetExpensesByDate(DateTime date)
         {
             var shortTimeExpenses = _shortTermExpenses.Where(ste => ste.GetExecutionDate().Equals(date));
-            var longTimeExpenses = _longTermExpenses.Where(lte => lte.GetExecutionDay().Equals(date.Date.Day) && lte.IsDateInValidRange(date));
+            var longTimeExpenses = _longTermExpenses.Where(lte =>
+                lte.GetExecutionDay().Equals(date.Date.Day) && lte.IsDateInValidRange(date));
 
             var shortTimeExpensesMoney = AddShortTimeExpensesMoney(shortTimeExpenses);
             var longTimeExpensesMoney = AddLongTimeExpensesMoney(longTimeExpenses);
@@ -141,6 +156,7 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
 
             return money;
         }
+
         private Money AddShortTermIncomesMoney(IEnumerable<ShortTermIncome> shortTermIncomes)
         {
             var money = new Money(0, Currency.PLN);
@@ -152,6 +168,7 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
 
             return money;
         }
+
         private Money AddLongTimeExpensesMoney(IEnumerable<LongTermExpense> longTimeExpenses)
         {
             var money = new Money(0, Currency.PLN);
@@ -163,6 +180,7 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
 
             return money;
         }
+
         private Money AddShortTimeExpensesMoney(IEnumerable<ShortTermExpense> shortTimeExpenses)
         {
             var money = new Money(0, Currency.PLN);

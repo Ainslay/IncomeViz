@@ -21,13 +21,12 @@ namespace IncomeViz.API
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(name: "DevelopmentPolicy",
+                options.AddPolicy("DevelopmentPolicy",
                     builder =>
                     {
                         builder.AllowAnyHeader();
                         builder.AllowAnyMethod();
                         builder.AllowAnyOrigin();
-
                     });
             });
 

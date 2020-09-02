@@ -5,5 +5,6 @@ using MediatR;
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetLongTermExpenses
 {
     public class GetLongTermExpensesQuery : IRequest<ICollection<LongTermExpenseDto>>
-    { }
+    {
+    }
 }

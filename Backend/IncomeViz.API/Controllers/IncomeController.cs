@@ -34,7 +34,9 @@ namespace IncomeViz.API.Controllers
         [HttpPost]
         [Route("long-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddLongTermIncomeCommand command)
         {
             await _mediator.Send(command);
@@ -52,7 +54,9 @@ namespace IncomeViz.API.Controllers
         [HttpPost]
         [Route("short-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddShortTermIncomeCommand command)
         {
             await _mediator.Send(command);
@@ -68,7 +72,9 @@ namespace IncomeViz.API.Controllers
         [HttpDelete]
         [Route("short-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Delete(DeleteShortTermIncomeCommand command)
         {
             await _mediator.Send(command);
@@ -84,7 +90,9 @@ namespace IncomeViz.API.Controllers
         [HttpDelete]
         [Route("long-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Delete(DeleteLongTermIncomeCommand command)
         {
             await _mediator.Send(command);
@@ -98,8 +106,11 @@ namespace IncomeViz.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("short-term/all")]
-        [Produces("application/json")] [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery] GetShortTermIncomesQuery query)
         {
             var shortTermIncomes = await _mediator.Send(query);
@@ -113,8 +124,11 @@ namespace IncomeViz.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("long-term/all")]
-        [Produces("application/json")] [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Get([FromQuery] GetLongTermIncomesQuery query)
         {
             var longTermIncomes = await _mediator.Send(query);
@@ -129,7 +143,9 @@ namespace IncomeViz.API.Controllers
         [HttpPut]
         [Route("short-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Update(UpdateShortTermIncomeCommand command)
         {
             await _mediator.Send(command);
@@ -144,7 +160,9 @@ namespace IncomeViz.API.Controllers
         [HttpPut]
         [Route("long-term")]
         [Consumes("application/json")]
-        [ProducesResponseType(200)] [ProducesResponseType(400)] [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Update(UpdateLongTermIncomeCommand command)
         {
             await _mediator.Send(command);

@@ -26,7 +26,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.UpdateLongTer
             _repository.UpdateLongTermExpense(longTermExpense);
             await _repository.SaveAsync();
 
-            return  Unit.Value;
+            return Unit.Value;
         }
     }
 }

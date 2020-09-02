@@ -23,13 +23,13 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
         public async Task<Unit> AddPrediction(ProfitCalculation.Domain.Prediction.Prediction prediction)
         {
             await _db.AddAsync(prediction);
-            return  Unit.Value;
+            return Unit.Value;
         }
 
         public async Task<Unit> DeletePredictionById(Guid predictionId)
         {
             var predictionToDelete = await _db.Predictions.SingleOrDefaultAsync(p => p.EntityId == predictionId)
-                ?? throw new NullReferenceException(nameof(predictionId));
+                                     ?? throw new NullReferenceException(nameof(predictionId));
 
             _db.Predictions.Remove(predictionToDelete);
 

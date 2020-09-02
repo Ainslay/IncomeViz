@@ -19,7 +19,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.DeleteShortTe
             await _repository.DeleteShortTermExpense(command.ShortTermExpenseId);
             await _repository.SaveAsync();
 
-            return  Unit.Value;
+            return Unit.Value;
         }
     }
 }

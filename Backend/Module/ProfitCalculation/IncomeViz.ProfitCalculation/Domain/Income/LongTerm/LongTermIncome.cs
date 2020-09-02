@@ -24,7 +24,8 @@ namespace IncomeViz.ProfitCalculation.Domain.Income.LongTerm
             // Just for ef core
         }
 
-        public LongTermIncome(int predictionId, string name, DateTime startingDate, DateTime? effectiveDate, int executionDay, Money money)
+        public LongTermIncome(int predictionId, string name, DateTime startingDate, DateTime? effectiveDate,
+            int executionDay, Money money)
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));
             Check.PositiveNumber(predictionId, nameof(predictionId));
@@ -37,13 +38,25 @@ namespace IncomeViz.ProfitCalculation.Domain.Income.LongTerm
             _money = money;
         }
 
-        public string GetName() => _name;
+        public string GetName()
+        {
+            return _name;
+        }
 
-        public int GetExecutionDay() => _executionDay;
+        public int GetExecutionDay()
+        {
+            return _executionDay;
+        }
 
-        public DateTime GetStartingDate() =>  _startingDate;
+        public DateTime GetStartingDate()
+        {
+            return _startingDate;
+        }
 
-        public DateTime? GetEffectiveDate() => _effectiveDate;
+        public DateTime? GetEffectiveDate()
+        {
+            return _effectiveDate;
+        }
 
         public bool IsDateInValidRange(DateTime date)
         {

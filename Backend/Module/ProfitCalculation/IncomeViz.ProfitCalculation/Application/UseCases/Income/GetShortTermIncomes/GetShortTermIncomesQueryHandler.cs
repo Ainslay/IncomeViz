@@ -8,7 +8,8 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Income.GetShortTermIncomes
 {
-    public class GetShortTermIncomesQueryHandler : IRequestHandler<GetShortTermIncomesQuery, ICollection<ShortTermIncomeDto>>
+    public class
+        GetShortTermIncomesQueryHandler : IRequestHandler<GetShortTermIncomesQuery, ICollection<ShortTermIncomeDto>>
     {
         private readonly IReadShortTermIncomeRepository _repository;
 
@@ -17,7 +18,8 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Income.GetShortTermIn
             _repository = repository;
         }
 
-        public async Task<ICollection<ShortTermIncomeDto>> Handle(GetShortTermIncomesQuery query, CancellationToken cancellationToken)
+        public async Task<ICollection<ShortTermIncomeDto>> Handle(GetShortTermIncomesQuery query,
+            CancellationToken cancellationToken)
         {
             var shortTermIncomes = await _repository.GetShortTermIncomes();
 

@@ -19,7 +19,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.DeleteLongTer
             await _repository.DeleteLongTermExpense(command.LongTermExpenseId);
             await _repository.SaveAsync();
 
-            return  Unit.Value;
+            return Unit.Value;
         }
     }
 }

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.DeletePrediction
 {
-    class DeletePredictionCommandHandler : IRequestHandler<DeletePredictionCommand>
+    internal class DeletePredictionCommandHandler : IRequestHandler<DeletePredictionCommand>
     {
         private readonly IWritePredictionRepository _repository;
 

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetFullPrediction
 {
-    class GetFullPredictionQueryHandler : IRequestHandler<GetFullPredictionQuery, FullPredictionDto>
+    internal class GetFullPredictionQueryHandler : IRequestHandler<GetFullPredictionQuery, FullPredictionDto>
     {
         private readonly IReadPredictionRepository _repository;
 
@@ -32,11 +32,13 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetFullPre
                 expense.GetName(), expense.GetExecutionDate(), expense.GetMoney().GetAmount(),
                 expense.GetMoney().GetCurrency())).ToList();
 
-            var longTermExpensesDto = p.LongTermExpenses.Select(expense => new LongTermExpenseDto(expense.EntityId, expense.GetName(),
+            var longTermExpensesDto = p.LongTermExpenses.Select(expense => new LongTermExpenseDto(expense.EntityId,
+                expense.GetName(),
                 expense.GetExecutionDay(), expense.GetStartingDate(), expense.GetEffectiveDate(),
                 expense.GetMoney().GetAmount(), expense.GetMoney().GetCurrency())).ToList();
 
-            var predictionDto = new FullPredictionDto(p.EntityId, p.GetName(), p.GetStartingMoney().GetAmount(), p.GetStartingMoney().GetCurrency().ToString(), p.GetStartingDate(),
+            var predictionDto = new FullPredictionDto(p.EntityId, p.GetName(), p.GetStartingMoney().GetAmount(),
+                p.GetStartingMoney().GetCurrency().ToString(), p.GetStartingDate(),
                 shortTermIncomesDto, longTermIncomesDto, shortTermExpensesDto, longTermExpensesDto);
 
             return predictionDto;

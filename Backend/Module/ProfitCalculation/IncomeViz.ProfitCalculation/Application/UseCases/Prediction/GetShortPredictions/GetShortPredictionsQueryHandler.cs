@@ -17,7 +17,8 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetShortPr
             _repository = repository;
         }
 
-        public async Task<ICollection<PredictionDto>> Handle(GetShortPredictionsQuery request, CancellationToken cancellationToken)
+        public async Task<ICollection<PredictionDto>> Handle(GetShortPredictionsQuery request,
+            CancellationToken cancellationToken)
         {
             var predictions = await _repository.GetShortPredictions();
 

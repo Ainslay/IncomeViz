@@ -21,12 +21,12 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Income.UpdateLongTerm
             var longTermIncome = await _repository.GetLongTermIncomeById(command.LongTermIncomeId);
             var update = new LongTermIncome(longTermIncome.PredictionId, command.Name, command.StartingDate,
                 command.EffectiveDate, command.ExecutionDay, new Money(command.Amount, command.Currency));
-            
+
             longTermIncome.Update(update);
             _repository.UpdateLongTermIncome(longTermIncome);
             await _repository.SaveAsync();
 
-            return  Unit.Value;
+            return Unit.Value;
         }
     }
 }

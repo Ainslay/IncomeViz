@@ -8,7 +8,9 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GeneratePredictionByDateRange
 {
-    public class GeneratePredictionByDateRangeQueryHandler : IRequestHandler<GeneratePredictionByDateRangeQuery, List<DateMoneyDto>>
+    public class
+        GeneratePredictionByDateRangeQueryHandler : IRequestHandler<GeneratePredictionByDateRangeQuery,
+            List<DateMoneyDto>>
     {
         private readonly IReadPredictionRepository _readPredictionRepository;
 
@@ -17,10 +19,11 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GeneratePr
             _readPredictionRepository = readPredictionRepository;
         }
 
-        public async Task<List<DateMoneyDto>> Handle(GeneratePredictionByDateRangeQuery request, CancellationToken cancellationToken)
+        public async Task<List<DateMoneyDto>> Handle(GeneratePredictionByDateRangeQuery request,
+            CancellationToken cancellationToken)
         {
             var prediction = await _readPredictionRepository.GetFullPredictionById(request.PredictionId);
-            (var minDate, var maxDate) = GetDateRange(request.PredictionType);
+            var (minDate, maxDate) = GetDateRange(request.PredictionType);
 
             var result = prediction.GeneratePrediction(minDate, maxDate);
 
@@ -30,7 +33,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GeneratePr
         private (DateTime, DateTime) GetDateRange(PredictionType predictionType)
         {
             var today = DateTime.Today.ToUniversalTime().Date;
-            DateTime predictionEnd = today;
+            var predictionEnd = today;
 
             switch (predictionType)
             {

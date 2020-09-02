@@ -31,7 +31,8 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.ShortTerm
 
         public async Task<Unit> DeleteShortTermIncome(Guid shortTermIncomeId)
         {
-            var shortTermIncome = await _db.ShortTermIncomes.SingleOrDefaultAsync(sti => sti.EntityId.Equals(shortTermIncomeId))
+            var shortTermIncome =
+                await _db.ShortTermIncomes.SingleOrDefaultAsync(sti => sti.EntityId.Equals(shortTermIncomeId))
                 ?? throw new NullReferenceException(nameof(shortTermIncomeId));
 
             _db.ShortTermIncomes.Remove(shortTermIncome);
@@ -47,7 +48,7 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.ShortTerm
         public async Task<ShortTermIncome> GetShortTermIncomeById(Guid shortTermIncomeId)
         {
             return await _db.ShortTermIncomes.SingleOrDefaultAsync(sti => sti.EntityId.Equals(shortTermIncomeId))
-               ?? throw new NullReferenceException(nameof(shortTermIncomeId));
+                   ?? throw new NullReferenceException(nameof(shortTermIncomeId));
         }
     }
 }

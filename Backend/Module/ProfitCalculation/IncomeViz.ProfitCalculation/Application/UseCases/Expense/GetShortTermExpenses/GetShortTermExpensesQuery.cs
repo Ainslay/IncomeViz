@@ -5,5 +5,6 @@ using MediatR;
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetShortTermExpenses
 {
     public class GetShortTermExpensesQuery : IRequest<ICollection<ShortTermExpenseDto>>
-    { }
+    {
+    }
 }

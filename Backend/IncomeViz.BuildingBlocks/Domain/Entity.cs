@@ -9,7 +9,10 @@ namespace IncomeViz.BuildingBlocks.Domain
 
         protected void CheckRule(IBusinessRule rule)
         {
-            if (rule.IsBroken()) throw new BusinessRuleValidationException(rule);
+            if (rule.IsBroken())
+            {
+                throw new BusinessRuleValidationException(rule);
+            }
         }
     }
 }

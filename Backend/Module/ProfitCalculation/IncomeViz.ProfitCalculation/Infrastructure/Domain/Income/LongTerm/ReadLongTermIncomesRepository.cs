@@ -19,7 +19,7 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.LongTerm
         public async Task<LongTermIncome> GetLongTermIncomeById(Guid longTermIncomeId)
         {
             return await _db.LongTermIncomes.SingleOrDefaultAsync(lti => lti.EntityId.Equals(longTermIncomeId))
-                ?? throw new NullReferenceException(nameof(longTermIncomeId));
+                   ?? throw new NullReferenceException(nameof(longTermIncomeId));
         }
 
         public async Task<ICollection<LongTermIncome>> GetLongTermIncomes()

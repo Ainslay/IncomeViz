@@ -7,7 +7,7 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.ShortTerm
 {
-    class WriteShortTermExpenseRepository : IWriteShortTermExpenseRepository
+    internal class WriteShortTermExpenseRepository : IWriteShortTermExpenseRepository
     {
         private readonly ProfitCalculationDbContext _db;
 
@@ -42,12 +42,13 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.ShortTerm
 
         public async Task<Unit> DeleteShortTermExpense(Guid shortTermExpenseId)
         {
-            var shortTermExpenseToDelete = await _db.ShortTermExpenses.SingleOrDefaultAsync(ste => ste.EntityId.Equals(shortTermExpenseId))
+            var shortTermExpenseToDelete =
+                await _db.ShortTermExpenses.SingleOrDefaultAsync(ste => ste.EntityId.Equals(shortTermExpenseId))
                 ?? throw new NullReferenceException(nameof(shortTermExpenseId));
 
             _db.ShortTermExpenses.Remove(shortTermExpenseToDelete);
 
-            return  Unit.Value;
+            return Unit.Value;
         }
     }
 }

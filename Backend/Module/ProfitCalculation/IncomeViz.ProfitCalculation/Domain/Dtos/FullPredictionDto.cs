@@ -14,7 +14,7 @@ namespace IncomeViz.ProfitCalculation.Domain.Dtos
         public ICollection<LongTermIncomeDto> LongTermIncomes { get; set; }
         public ICollection<ShortTermExpenseDto> ShortTermExpenses { get; set; }
         public ICollection<LongTermExpenseDto> LongTermExpenses { get; set; }
-        
+
         public FullPredictionDto(Guid id, string name, decimal amount, string currency, DateTime startingDate,
             ICollection<ShortTermIncomeDto> shortTermIncomes, ICollection<LongTermIncomeDto> longTermIncomes,
             ICollection<ShortTermExpenseDto> shortTermExpenses, ICollection<LongTermExpenseDto> longTermExpenses)

@@ -17,7 +17,8 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.AddPredict
 
         public async Task<Unit> Handle(AddPredictionCommand request, CancellationToken cancellationToken)
         {
-            var prediction = new Domain.Prediction.Prediction(request.Name, new Money(request.Amount, request.Currency), request.StartingDate);
+            var prediction = new Domain.Prediction.Prediction(request.Name, new Money(request.Amount, request.Currency),
+                request.StartingDate);
 
             await _repository.AddPrediction(prediction);
             await _repository.SaveAsync();

@@ -39,11 +39,20 @@ namespace IncomeViz.ProfitCalculation.Domain.Expense.ShortTerm
             _money = update._money;
             _executionDate = update._executionDate;
         }
-       
-        public string GetName() => _name;
 
-        public DateTime GetExecutionDate() => _executionDate.Date.ToUniversalTime();
+        public string GetName()
+        {
+            return _name;
+        }
 
-        public Money GetMoney() => _money;
+        public DateTime GetExecutionDate()
+        {
+            return _executionDate.Date.ToUniversalTime();
+        }
+
+        public Money GetMoney()
+        {
+            return _money;
+        }
     }
 }

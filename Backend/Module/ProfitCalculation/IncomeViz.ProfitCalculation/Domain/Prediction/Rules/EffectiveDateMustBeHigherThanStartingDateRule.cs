@@ -19,7 +19,9 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction.Rules
         {
             // Null effective date means not set end date -> infinite
             if (_effectiveDate == null)
+            {
                 return false;
+            }
 
             return _effectiveDate.Value.Date <= _startingDate;
         }

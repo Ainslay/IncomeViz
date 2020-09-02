@@ -19,7 +19,7 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.ShortTerm
         public async Task<ShortTermIncome> GetShortTermIncomeById(Guid shortTermIncomeId)
         {
             return await _db.ShortTermIncomes.SingleOrDefaultAsync(sti => sti.EntityId.Equals(shortTermIncomeId))
-                ?? throw new NullReferenceException(nameof(shortTermIncomeId));
+                   ?? throw new NullReferenceException(nameof(shortTermIncomeId));
         }
 
         public async Task<ICollection<ShortTermIncome>> GetShortTermIncomes()

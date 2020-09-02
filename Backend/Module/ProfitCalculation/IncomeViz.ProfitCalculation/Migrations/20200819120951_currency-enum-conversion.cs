@@ -7,7 +7,7 @@ namespace IncomeViz.ProfitCalculation.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Currency",
+                "Currency",
                 schema: "profitcalculation",
                 table: "Predictions",
                 nullable: true,
@@ -19,7 +19,7 @@ namespace IncomeViz.ProfitCalculation.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                name: "Currency",
+                "Currency",
                 schema: "profitcalculation",
                 table: "Predictions",
                 type: "int",

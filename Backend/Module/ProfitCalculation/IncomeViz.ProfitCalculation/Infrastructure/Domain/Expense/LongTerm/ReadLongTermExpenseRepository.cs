@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm
 {
-    class ReadLongTermExpenseRepository : IReadLongTermExpenseRepository
+    internal class ReadLongTermExpenseRepository : IReadLongTermExpenseRepository
     {
         private readonly ProfitCalculationDbContext _db;
 

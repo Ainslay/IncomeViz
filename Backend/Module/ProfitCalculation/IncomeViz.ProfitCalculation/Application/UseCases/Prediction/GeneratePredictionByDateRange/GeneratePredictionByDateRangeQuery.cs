@@ -6,12 +6,10 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GeneratePredictionByDateRange
 {
-    public class GeneratePredictionByDateRangeQuery: IRequest<List<DateMoneyDto>>
+    public class GeneratePredictionByDateRangeQuery : IRequest<List<DateMoneyDto>>
     {
-        [Required]
-        public Guid PredictionId { get; set; }
+        [Required] public Guid PredictionId { get; set; }
 
-        [Required]
-        public PredictionType PredictionType { get; set; }
+        [Required] public PredictionType PredictionType { get; set; }
     }
 }

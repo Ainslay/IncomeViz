@@ -32,17 +32,18 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm
         public async Task<LongTermExpense> GetLongTermExpenseById(Guid longTermExpenseId)
         {
             return await _db.LongTermExpenses.SingleOrDefaultAsync(lte => lte.EntityId.Equals(longTermExpenseId))
-                ?? throw new NullReferenceException(nameof(longTermExpenseId));
+                   ?? throw new NullReferenceException(nameof(longTermExpenseId));
         }
 
         public async Task<Unit> DeleteLongTermExpense(Guid longTermExpenseId)
         {
-            var longTermExpenseToDelete = await _db.LongTermExpenses.SingleOrDefaultAsync(lte => lte.EntityId.Equals(longTermExpenseId))
+            var longTermExpenseToDelete =
+                await _db.LongTermExpenses.SingleOrDefaultAsync(lte => lte.EntityId.Equals(longTermExpenseId))
                 ?? throw new NullReferenceException(nameof(longTermExpenseId));
 
             _db.LongTermExpenses.Remove(longTermExpenseToDelete);
 
-            return  Unit.Value;
+            return Unit.Value;
         }
 
         public void UpdateLongTermExpense(LongTermExpense longTermExpense)

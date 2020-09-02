@@ -8,7 +8,8 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetLongTermExpenses
 {
-    public class GetLongTermExpensesQueryHandler : IRequestHandler<GetLongTermExpensesQuery, ICollection<LongTermExpenseDto>>
+    public class
+        GetLongTermExpensesQueryHandler : IRequestHandler<GetLongTermExpensesQuery, ICollection<LongTermExpenseDto>>
     {
         private readonly IReadLongTermExpenseRepository _repository;
 
@@ -17,7 +18,8 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetLongTermEx
             _repository = repository;
         }
 
-        public async Task<ICollection<LongTermExpenseDto>> Handle(GetLongTermExpensesQuery query, CancellationToken cancellationToken)
+        public async Task<ICollection<LongTermExpenseDto>> Handle(GetLongTermExpensesQuery query,
+            CancellationToken cancellationToken)
         {
             var longTermExpenses = await _repository.GetLongTermExpenses();
 

@@ -19,7 +19,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Income.DeleteShortTer
             await _repository.DeleteShortTermIncome(command.ShortTermIncomeId);
             await _repository.SaveAsync();
 
-            return Unit.Value; 
+            return Unit.Value;
         }
     }
 }

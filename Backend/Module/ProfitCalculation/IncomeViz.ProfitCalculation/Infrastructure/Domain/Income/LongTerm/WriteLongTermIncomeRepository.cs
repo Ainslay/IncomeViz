@@ -31,7 +31,8 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.LongTerm
 
         public async Task<Unit> DeleteLongTermIncome(Guid longTermIncomeId)
         {
-            var longTermIncome = await _db.LongTermIncomes.SingleOrDefaultAsync(lti => lti.EntityId.Equals(longTermIncomeId))
+            var longTermIncome =
+                await _db.LongTermIncomes.SingleOrDefaultAsync(lti => lti.EntityId.Equals(longTermIncomeId))
                 ?? throw new NullReferenceException(nameof(longTermIncomeId));
 
             _db.LongTermIncomes.Remove(longTermIncome);

@@ -19,12 +19,13 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.UpdateShortTe
         public async Task<Unit> Handle(UpdateShortTermExpenseCommand command, CancellationToken cancellationToken)
         {
             var shortTermExpense = await _repository.GetShortTermExpenseById(command.ShortTermExpenseId);
-            var update = new ShortTermExpense(shortTermExpense.PredictionId, command.Name, command.ExecutionDate, new Money(command.Amount, command.Currency));
+            var update = new ShortTermExpense(shortTermExpense.PredictionId, command.Name, command.ExecutionDate,
+                new Money(command.Amount, command.Currency));
 
             shortTermExpense.Update(update);
             _repository.UpdateShortTermExpense(shortTermExpense);
             await _repository.SaveAsync();
-            
+
             return Unit.Value;
         }
     }

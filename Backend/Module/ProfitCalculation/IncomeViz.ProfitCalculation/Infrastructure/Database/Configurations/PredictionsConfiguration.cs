@@ -18,7 +18,8 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Database.Configurations
             builder.OwnsOne<Money>("_startingMoney", m =>
             {
                 m.Property<decimal>("_amount").HasColumnName("Amount").HasColumnType("decimal(18, 2)");
-                m.Property<Currency>("_currency").HasColumnName("Currency").HasConversion(new EnumToStringConverter<Currency>());
+                m.Property<Currency>("_currency").HasColumnName("Currency")
+                    .HasConversion(new EnumToStringConverter<Currency>());
             });
 
             builder.Property<DateTime>("_startingDate").HasColumnName("StartingDate");

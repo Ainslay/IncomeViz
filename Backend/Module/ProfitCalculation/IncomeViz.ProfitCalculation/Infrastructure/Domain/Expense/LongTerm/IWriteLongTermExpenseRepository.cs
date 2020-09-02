@@ -12,6 +12,5 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm
         Task<LongTermExpense> GetLongTermExpenseById(Guid longTermExpenseId);
         Task<Unit> DeleteLongTermExpense(Guid longTermExpenseId);
         void UpdateLongTermExpense(LongTermExpense longTermExpense);
-
     }
 }
