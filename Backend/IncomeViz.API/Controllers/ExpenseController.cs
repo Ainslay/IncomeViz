@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
-using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermExpense;
-using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermExpense;
-using IncomeViz.ProfitCalculation.Application.UseCases.DeleteLongTermExpense;
-using IncomeViz.ProfitCalculation.Application.UseCases.DeleteShortTermExpense;
-using IncomeViz.ProfitCalculation.Application.UseCases.GetLongTermExpenses;
-using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermExpenses;
-using IncomeViz.ProfitCalculation.Application.UseCases.UpdateLongTermExpense;
-using IncomeViz.ProfitCalculation.Application.UseCases.UpdateShortTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.Expense.AddLongTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.Expense.AddShortTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.Expense.DeleteLongTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.Expense.DeleteShortTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetLongTermExpenses;
+using IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetShortTermExpenses;
+using IncomeViz.ProfitCalculation.Application.UseCases.Expense.UpdateLongTermExpense;
+using IncomeViz.ProfitCalculation.Application.UseCases.Expense.UpdateShortTermExpense;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

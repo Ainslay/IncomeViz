@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using System.Threading.Tasks;
+using IncomeViz.ProfitCalculation.Application.UseCases.Income.AddLongTermIncome;
+using IncomeViz.ProfitCalculation.Application.UseCases.Income.AddShortTermIncome;
+using IncomeViz.ProfitCalculation.Application.UseCases.Income.DeleteLongTermIncome;
+using IncomeViz.ProfitCalculation.Application.UseCases.Income.DeleteShortTermIncome;
+using IncomeViz.ProfitCalculation.Application.UseCases.Income.GetLongTermIncomes;
+using IncomeViz.ProfitCalculation.Application.UseCases.Income.GetShortTermIncomes;
+using IncomeViz.ProfitCalculation.Application.UseCases.Income.UpdateLongTermIncome;
+using IncomeViz.ProfitCalculation.Application.UseCases.Income.UpdateShortTermIncome;
 using Microsoft.AspNetCore.Mvc;
-using IncomeViz.ProfitCalculation.Application.UseCases.AddLongTermIncome;
-using IncomeViz.ProfitCalculation.Application.UseCases.AddShortTermIncome;
-using IncomeViz.ProfitCalculation.Application.UseCases.DeleteShortTermIncome;
-using IncomeViz.ProfitCalculation.Application.UseCases.DeleteLongTermIncome;
-using IncomeViz.ProfitCalculation.Application.UseCases.GetShortTermIncomes;
-using IncomeViz.ProfitCalculation.Application.UseCases.GetLongTermIncomes;
-using IncomeViz.ProfitCalculation.Application.UseCases.UpdateLongTermIncome;
-using IncomeViz.ProfitCalculation.Application.UseCases.UpdateShortTermIncome;
 
 namespace IncomeViz.API.Controllers
 {

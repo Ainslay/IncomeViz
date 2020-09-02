@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using IncomeViz.ProfitCalculation.Application.UseCases.AddPrediction;
-using IncomeViz.ProfitCalculation.Application.UseCases.GetPrediction;
-using IncomeViz.ProfitCalculation.Application.UseCases.GeneratePredictionByDateRange;
+using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.AddPrediction;
+using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.DeletePrediction;
+using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GeneratePredictionByDateRange;
+using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetFullPrediction;
+using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetShortPrediction;
+using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetShortPredictions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using IncomeViz.ProfitCalculation.Application.UseCases.GetShortPredictions;
-using IncomeViz.ProfitCalculation.Application.UseCases.DeletePrediction;
-using IncomeViz.ProfitCalculation.Application.UseCases.GetFullPrediction;
 
 namespace IncomeViz.API.Controllers
 {
