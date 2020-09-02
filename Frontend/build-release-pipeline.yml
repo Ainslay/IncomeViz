@@ -1,0 +1,46 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: env-global
+
+steps:
+- task: NodeTool@0
+  displayName: 'Setup Enviroment'
+  inputs:
+    versionSpec: '10.x'
+    
+- script: npm install -g @angular/cli
+  displayName: 'Install Dependencies 1'
+  workingDirectory: 'Frontend/income-viz-web'
+
+- script: npm install
+  displayName: 'Install Dependencies 2'
+  workingDirectory: 'Frontend/income-viz-web'
+
+- task: replacetokens@3
+  displayName: 'Replace tokens'
+  inputs:
+    targetFiles: '**/environment.prod.ts'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: false
+    tokenPrefix: '#{'
+    tokenSuffix: '}#'
+    useLegacyPattern: false
+    enableTelemetry: true
+
+- script: ng build --prod
+  displayName: 'Build'
+  workingDirectory: 'Frontend/income-viz-web'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts'
+  inputs:
+    PathtoPublish: 'Frontend/income-viz-web/dist/'
+    ArtifactName: 'web-app'
+    publishLocation: 'Container'
