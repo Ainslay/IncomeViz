@@ -1,0 +1,28 @@
+@import "../../../utilities/variables.scss";
+
+.flex-container {
+    width: 100%;
+    height: 93%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prediction-details-container {
+    width: 80%;
+    height: 80%;
+    border: solid #333131 2px;
+    border-radius: $border-radius;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    overflow: auto;
+}
+
+.prediction-top-bar {
+    width: 100%;
+}
+
+.predicion-incomes-list {
+    width: 100%;
+}
