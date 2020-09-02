@@ -4,14 +4,16 @@ using IncomeViz.ProfitCalculation.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IncomeViz.ProfitCalculation.Migrations
 {
     [DbContext(typeof(ProfitCalculationDbContext))]
-    partial class ProfitCalculationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200902151005_currency-conversion")]
+    partial class currencyconversion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
