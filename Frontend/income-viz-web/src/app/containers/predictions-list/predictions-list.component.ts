@@ -1,3 +1,4 @@
+import { dialogWidth } from '@utilities/variables';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPredictionDialogComponent } from '@components/add-prediction-dialog/add-prediction-dialog.component';
@@ -20,7 +21,7 @@ export class PredictionsListComponent {
 
   openAddPredictionDialog(): void {
     this.dialog.open(AddPredictionDialogComponent, {
-      width: '300px'
+      width: dialogWidth
     });
   }
 }
