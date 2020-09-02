@@ -1,29 +1,41 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Prediction } from '../interfaces/prediction.interface';
+import { PredictionDto } from '@dtos/prediction.dto';
+import { Prediction } from '@interfaces/prediction.interface';
+import { Currencies } from '@utilities/currencies';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PredictionService {
-  predictions: Prediction[] = [
-    { id: 1, name: 'Test', startingDate: new Date(), amount: 1000, currency: 'PLN' }
-  ];
+export class PredictionService extends BaseService {
+  refreshToken$ = new BehaviorSubject(undefined);
+  predictions$: Observable<Prediction[]> = this.refreshToken$.pipe(
+    switchMap(() => this.getPredictions())
+  );
 
-  constructor() { }
+  constructor(
+    http: HttpClient
+  ) { super(http); }
 
-  getPredictions(): Prediction[] {
-    return this.predictions;
+  getPredictions(): Observable<Prediction[]> {
+    return this.get<Prediction[]>('prediction/short-prediction/all');
   }
 
   addPrediction(prediction: Prediction): void {
-    prediction.id = Math.floor(Math.random() * (1000000 - 3 + 1) + 3);
-    this.predictions.push(prediction);
+    const predictionDto: PredictionDto = {
+      name: prediction.name, amount: prediction.amount,
+      currency: Currencies[prediction.currency], startingDate: prediction.startingDate
+    };
+
+    this.post<PredictionDto>('prediction', predictionDto)
+      .subscribe(() => this.refreshToken$.next(undefined));
   }
 
   deletePrediction(predictionId: number): void {
-    const predictionToDelete = this.predictions.findIndex((p) => p.id === predictionId);
-    this.predictions.splice(predictionToDelete, 1);
+    this.delete('prediction', predictionId)
+      .subscribe(() => this.refreshToken$.next(undefined));
   }
 }
-
-

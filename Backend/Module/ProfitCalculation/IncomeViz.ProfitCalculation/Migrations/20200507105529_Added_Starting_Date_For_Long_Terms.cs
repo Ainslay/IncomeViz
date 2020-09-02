@@ -8,14 +8,14 @@ namespace IncomeViz.ProfitCalculation.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<DateTime>(
-                name: "StartingDate",
+                "StartingDate",
                 schema: "profitcalculation",
                 table: "LongTermIncomes",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "StartingDate",
+                "StartingDate",
                 schema: "profitcalculation",
                 table: "LongTermExpenses",
                 nullable: false,
@@ -25,12 +25,12 @@ namespace IncomeViz.ProfitCalculation.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "StartingDate",
+                "StartingDate",
                 schema: "profitcalculation",
                 table: "LongTermIncomes");
 
             migrationBuilder.DropColumn(
-                name: "StartingDate",
+                "StartingDate",
                 schema: "profitcalculation",
                 table: "LongTermExpenses");
         }

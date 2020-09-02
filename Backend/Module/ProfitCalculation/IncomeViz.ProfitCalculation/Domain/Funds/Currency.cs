@@ -2,6 +2,9 @@
 {
     public enum Currency
     {
-        PLN
+        PLN,
+        USD,
+        GBP,
+        EUR
     }
 }

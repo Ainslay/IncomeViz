@@ -33,6 +33,13 @@ namespace IncomeViz.ProfitCalculation.Domain.Expense.ShortTerm
             _money = money;
         }
 
+        public void Update(ShortTermExpense update)
+        {
+            _name = update._name;
+            _money = update._money;
+            _executionDate = update._executionDate;
+        }
+
         public string GetName()
         {
             return _name;

@@ -3,6 +3,7 @@ using IncomeViz.ProfitCalculation.Domain.Funds;
 using IncomeViz.ProfitCalculation.Domain.Prediction;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Database.Configurations
 {
@@ -17,7 +18,8 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Database.Configurations
             builder.OwnsOne<Money>("_startingMoney", m =>
             {
                 m.Property<decimal>("_amount").HasColumnName("Amount").HasColumnType("decimal(18, 2)");
-                m.Property<Currency>("_currency").HasColumnName("Currency");
+                m.Property<Currency>("_currency").HasColumnName("Currency")
+                    .HasConversion(new EnumToStringConverter<Currency>());
             });
 
             builder.Property<DateTime>("_startingDate").HasColumnName("StartingDate");

@@ -19,6 +19,17 @@ namespace IncomeViz.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("DevelopmentPolicy",
+                    builder =>
+                    {
+                        builder.AllowAnyHeader();
+                        builder.AllowAnyMethod();
+                        builder.AllowAnyOrigin();
+                    });
+            });
+
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
             services.AddSwaggerGen(c =>
@@ -31,8 +42,12 @@ namespace IncomeViz.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
-            
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseCors("DevelopmentPolicy");
+            }
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Income Viz V1"); });

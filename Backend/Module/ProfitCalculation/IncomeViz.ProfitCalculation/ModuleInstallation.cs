@@ -16,6 +16,9 @@ namespace IncomeViz.ProfitCalculation
     {
         public static void Install(IServiceCollection services, IConfiguration configuration)
         {
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddScoped<IWriteLongTermIncomeRepository, WriteLongTermIncomeRepository>();
             services.AddScoped<IWriteShortTermIncomeRepository, WriteShortTermIncomeRepository>();
@@ -23,6 +26,10 @@ namespace IncomeViz.ProfitCalculation
             services.AddScoped<IWriteShortTermExpenseRepository, WriteShortTermExpenseRepository>();
             services.AddScoped<IWritePredictionRepository, WritePredictionRepository>();
             services.AddScoped<IReadPredictionRepository, ReadPredictionRepository>();
+            services.AddScoped<IReadShortTermIncomeRepository, ReadShortTermIncomeRepository>();
+            services.AddScoped<IReadLongTermIncomeRepository, ReadLongTermIncomesRepository>();
+            services.AddScoped<IReadShortTermExpenseRepository, ReadShortTermExpenseRepository>();
+            services.AddScoped<IReadLongTermExpenseRepository, ReadLongTermExpenseRepository>();
 
             services.AddDbContext<ProfitCalculationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ProfitCalculationDbContext")));

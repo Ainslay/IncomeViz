@@ -1,6 +1,7 @@
 ﻿using IncomeViz.ProfitCalculation.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
@@ -14,16 +15,27 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
             _db = db;
         }
 
-        public async Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionByPredictionId(Guid predictionId)
+        public async Task<ProfitCalculation.Domain.Prediction.Prediction> GetShortPredictionById(Guid predictionId)
+        {
+            return await _db.Predictions.SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId))
+                   ?? throw new NullReferenceException(nameof(predictionId));
+        }
+
+        public async Task<ProfitCalculation.Domain.Prediction.Prediction> GetFullPredictionById(Guid predictionId)
         {
             return await _db.Predictions
-                .Include(p => p.ShortTermIncomes)
-                .Include(p => p.LongTermIncomes)
-                .Include(p => p.ShortTermExpenses)
-                .Include(p => p.LongTermExpenses)
-                .SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId))
+                       .Include(p => p.ShortTermIncomes)
+                       .Include(p => p.LongTermIncomes)
+                       .Include(p => p.ShortTermExpenses)
+                       .Include(p => p.LongTermExpenses)
+                       .SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId))
                    ??
                    throw new NullReferenceException(nameof(predictionId));
+        }
+
+        public async Task<ICollection<ProfitCalculation.Domain.Prediction.Prediction>> GetShortPredictions()
+        {
+            return await _db.Predictions.ToListAsync();
         }
     }
 }

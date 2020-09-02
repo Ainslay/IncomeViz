@@ -1,12 +1,10 @@
-import { PredictionService } from './../../services/prediction.service';
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-
-import { Prediction } from './../../interfaces/prediction.interface';
-import { Currencies } from './../../../utilities/currencies';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
-
-import { MyErrorStateMatcher } from './../../../utilities/error-state-matcher';
+import { Prediction } from '@interfaces/prediction.interface';
+import { PredictionService } from '@services/prediction.service';
+import { GetCurrenciesAsStrings } from '@utilities/currencies';
+import { MyErrorStateMatcher } from '@utilities/error-state-matcher';
 
 @Component({
   selector: 'app-add-prediction-dialog',
@@ -15,7 +13,7 @@ import { MyErrorStateMatcher } from './../../../utilities/error-state-matcher';
 })
 export class AddPredictionDialogComponent {
   prediction: Prediction = { id: 0, name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
-  currencies: string[] = Currencies;
+  currencies = GetCurrenciesAsStrings();
 
   addPredictionFormGroup = new FormGroup({
     nameFormControl: new FormControl('', [
@@ -49,10 +47,10 @@ export class AddPredictionDialogComponent {
   onSubmit(): void {
     const predicion: Prediction = {
       id: 0,
-      name: this.addPredictionFormGroup.controls['nameFormControl'].value,
-      amount: this.addPredictionFormGroup.controls['inicialCapitalFormControl'].value,
-      currency: this.addPredictionFormGroup.controls['currencyFormControl'].value,
-      startingDate: this.addPredictionFormGroup.controls['dateFormControl'].value
+      name: this.addPredictionFormGroup.controls.nameFormControl.value,
+      amount: this.addPredictionFormGroup.controls.inicialCapitalFormControl.value,
+      currency: this.addPredictionFormGroup.controls.currencyFormControl.value,
+      startingDate: this.addPredictionFormGroup.controls.dateFormControl.value
     };
     this.predictionService.addPrediction(predicion);
     this.dialogRef.close();

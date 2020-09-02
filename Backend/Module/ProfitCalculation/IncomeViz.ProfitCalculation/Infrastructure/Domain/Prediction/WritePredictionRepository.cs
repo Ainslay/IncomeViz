@@ -1,6 +1,8 @@
 ﻿using System;
+using MediatR;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
 {
@@ -13,12 +15,25 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
             _db = db;
         }
 
-        public async Task<Guid> AddAndSave(ProfitCalculation.Domain.Prediction.Prediction prediction)
+        public async Task SaveAsync()
+        {
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task<Unit> AddPrediction(ProfitCalculation.Domain.Prediction.Prediction prediction)
         {
             await _db.AddAsync(prediction);
-            await _db.SaveChangesAsync();
+            return Unit.Value;
+        }
 
-            return prediction.EntityId;
+        public async Task<Unit> DeletePredictionById(Guid predictionId)
+        {
+            var predictionToDelete = await _db.Predictions.SingleOrDefaultAsync(p => p.EntityId == predictionId)
+                                     ?? throw new NullReferenceException(nameof(predictionId));
+
+            _db.Predictions.Remove(predictionToDelete);
+
+            return Unit.Value;
         }
     }
 }

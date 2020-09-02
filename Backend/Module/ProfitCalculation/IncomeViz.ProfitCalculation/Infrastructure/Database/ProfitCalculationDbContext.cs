@@ -18,7 +18,8 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Database
 
         public ProfitCalculationDbContext(DbContextOptions<ProfitCalculationDbContext> options)
             : base(options)
-        { }
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
