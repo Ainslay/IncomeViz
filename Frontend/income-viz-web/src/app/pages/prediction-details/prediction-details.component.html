@@ -1,1 +1,14 @@
-<app-prediction></app-prediction>
+<div class="flex-container">
+    <div class="prediction-details-container">
+        <app-prediction-top-bar 
+            class="prediction-top-bar" 
+            [predictionId]="predictionId">
+        </app-prediction-top-bar>
+
+        <!-- app-prediction-chart component -->
+
+        <app-incomes-list 
+            class="prediction-incomes-list">
+        </app-incomes-list>
+    </div>
+</div>

@@ -21,8 +21,8 @@ import { PredictionListItemComponent } from './components/prediction-list-item/p
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { AddPredictionDialogComponent } from './components/add-prediction-dialog/add-prediction-dialog.component';
 import { PredictionDetailsComponent } from './pages/prediction-details/prediction-details.component';
-import { PredictionComponent } from './containers/prediction/prediction.component';
 import { PredictionTopBarComponent } from './components/prediction-top-bar/prediction-top-bar.component';
+import { IncomesListComponent } from './containers/incomes-list/incomes-list.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +34,8 @@ import { PredictionTopBarComponent } from './components/prediction-top-bar/predi
     TopBarComponent,
     AddPredictionDialogComponent,
     PredictionDetailsComponent,
-    PredictionComponent,
-    PredictionTopBarComponent
+    PredictionTopBarComponent,
+    IncomesListComponent
   ],
   imports: [
     BrowserModule,
