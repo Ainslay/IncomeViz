@@ -63,7 +63,7 @@ namespace IncomeViz.API.Controllers
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("short-term")]
+        [Route("short-term/all")]
         [Consumes("application/json")]
         [Produces("application/json")]
         [ProducesResponseType(200)]
@@ -81,7 +81,7 @@ namespace IncomeViz.API.Controllers
         /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("long-term")]
+        [Route("long-term/all")]
         [Consumes("application/json")]
         [Produces("application/json")]
         [ProducesResponseType(200)]
