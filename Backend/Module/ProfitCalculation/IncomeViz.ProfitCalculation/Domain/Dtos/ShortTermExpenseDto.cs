@@ -1,4 +1,5 @@
 ﻿using System;
+using IncomeViz.ProfitCalculation.Domain.Expense.ShortTerm;
 using IncomeViz.ProfitCalculation.Domain.Funds;
 
 namespace IncomeViz.ProfitCalculation.Domain.Dtos
@@ -11,14 +12,13 @@ namespace IncomeViz.ProfitCalculation.Domain.Dtos
         public decimal Amount { get; set; }
         public Currency Currency { get; set; }
 
-        public ShortTermExpenseDto(Guid shortTermExpenseId, string name, DateTime executionDate, decimal amount,
-            Currency currency)
+        public ShortTermExpenseDto(ShortTermExpense expense)
         {
-            ShortTermExpenseId = shortTermExpenseId;
-            Name = name;
-            ExecutionDate = executionDate;
-            Amount = amount;
-            Currency = currency;
+            ShortTermExpenseId = expense.EntityId;
+            Name = expense.GetName();
+            ExecutionDate = expense.GetExecutionDate();
+            Amount = expense.GetMoney().GetAmount();
+            Currency = expense.GetMoney().GetCurrency();
         }
     }
 }

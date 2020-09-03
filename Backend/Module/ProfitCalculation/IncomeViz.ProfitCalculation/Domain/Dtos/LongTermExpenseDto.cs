@@ -1,4 +1,6 @@
 ﻿using System;
+using IncomeViz.BuildingBlocks.ValidationHelpers;
+using IncomeViz.ProfitCalculation.Domain.Expense.LongTerm;
 using IncomeViz.ProfitCalculation.Domain.Funds;
 
 namespace IncomeViz.ProfitCalculation.Domain.Dtos
@@ -13,16 +15,17 @@ namespace IncomeViz.ProfitCalculation.Domain.Dtos
         public decimal Amount { get; set; }
         public Currency Currency { get; set; }
 
-        public LongTermExpenseDto(Guid longTermExpenseId, string name, int executionDay,
-            DateTime startingDate, DateTime? effectiveDate, decimal amount, Currency currency)
+        public LongTermExpenseDto(LongTermExpense expense)
         {
-            LongTermExpenseId = longTermExpenseId;
-            Name = name;
-            ExecutionDay = executionDay;
-            StartingDate = startingDate;
-            EffectiveDate = effectiveDate;
-            Amount = amount;
-            Currency = currency;
+            Check.NotNull(expense, nameof(expense));
+
+            LongTermExpenseId = expense.EntityId;
+            Name = expense.GetName();
+            ExecutionDay = expense.GetExecutionDay();
+            StartingDate = expense.GetStartingDate();
+            EffectiveDate = expense.GetEffectiveDate();
+            Amount = expense.GetMoney().GetAmount();
+            Currency = expense.GetMoney().GetCurrency();
         }
     }
 }

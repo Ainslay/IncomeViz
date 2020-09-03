@@ -1,5 +1,5 @@
 ﻿using System;
-using MediatR;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.Income.AddLongTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.Income.AddShortTermIncome;
@@ -9,6 +9,8 @@ using IncomeViz.ProfitCalculation.Application.UseCases.Income.GetLongTermIncomes
 using IncomeViz.ProfitCalculation.Application.UseCases.Income.GetShortTermIncomes;
 using IncomeViz.ProfitCalculation.Application.UseCases.Income.UpdateLongTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.Income.UpdateShortTermIncome;
+using IncomeViz.ProfitCalculation.Domain.Dtos;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IncomeViz.API.Controllers
@@ -100,7 +102,7 @@ namespace IncomeViz.API.Controllers
         [HttpGet]
         [Route("short-term/all")]
         [Produces("application/json")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(ICollection<ShortTermIncomeDto>), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetShortTermIncomes(Guid predictionId)
@@ -118,7 +120,7 @@ namespace IncomeViz.API.Controllers
         [HttpGet]
         [Route("long-term/all")]
         [Produces("application/json")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(ICollection<LongTermIncomeDto>), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetLongTermIncomes(Guid predictionId)

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.Expense.AddLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.Expense.AddShortTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.Expense.DeleteLongTermExpense;
@@ -7,6 +9,7 @@ using IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetLongTermExpens
 using IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetShortTermExpenses;
 using IncomeViz.ProfitCalculation.Application.UseCases.Expense.UpdateLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.Expense.UpdateShortTermExpense;
+using IncomeViz.ProfitCalculation.Domain.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -60,17 +63,17 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         ///     Returns a collection of short term expenses
         /// </summary>
-        /// <param name="query"></param>
+        /// <param name="predictionId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("short-term/all")]
-        [Consumes("application/json")]
         [Produces("application/json")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(ICollection<ShortTermExpenseDto>), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Get([FromQuery] GetShortTermExpensesQuery query)
+        public async Task<IActionResult> GetShortTermExpenses(Guid predictionId)
         {
+            var query = new GetShortTermExpensesQuery() { PredictionId = predictionId};
             var shortTermExpenses = await _mediator.Send(query);
             return Ok(shortTermExpenses);
         }
@@ -78,17 +81,17 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         ///     Returns a collection of short term expenses
         /// </summary>
-        /// <param name="query"></param>
+        /// <param name="predictionId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("long-term/all")]
-        [Consumes("application/json")]
         [Produces("application/json")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(ICollection<LongTermExpenseDto>), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Get([FromQuery] GetLongTermExpensesQuery query)
+        public async Task<IActionResult> GetLongTermExpenses(Guid predictionId)
         {
+            var query = new GetLongTermExpensesQuery() {PredictionId = predictionId};
             var longTermExpenses = await _mediator.Send(query);
             return Ok(longTermExpenses);
         }

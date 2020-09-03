@@ -8,8 +8,7 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetShortTermExpenses
 {
-    internal class
-        GetShortTermExpensesQueryHandler : IRequestHandler<GetShortTermExpensesQuery, ICollection<ShortTermExpenseDto>>
+    public class GetShortTermExpensesQueryHandler : IRequestHandler<GetShortTermExpensesQuery, ICollection<ShortTermExpenseDto>>
     {
         private readonly IReadShortTermExpenseRepository _repository;
 
@@ -18,13 +17,12 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetShortTermE
             _repository = repository;
         }
 
-        public async Task<ICollection<ShortTermExpenseDto>> Handle(GetShortTermExpensesQuery request,
+        public async Task<ICollection<ShortTermExpenseDto>> Handle(GetShortTermExpensesQuery query,
             CancellationToken cancellationToken)
         {
-            var shortTermExpenses = await _repository.GetShortTermExpenses();
+            var shortTermExpenses = await _repository.GetShortTermExpenses(query.PredictionId);
 
-            return shortTermExpenses.Select(expense => new ShortTermExpenseDto(expense.EntityId, expense.GetName(),
-                expense.GetExecutionDate(), expense.GetMoney().GetAmount(), expense.GetMoney().GetCurrency())).ToList();
+            return shortTermExpenses.Select(expense => new ShortTermExpenseDto(expense)).ToList();
         }
     }
 }

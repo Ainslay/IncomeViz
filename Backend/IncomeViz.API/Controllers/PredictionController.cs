@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.AddPrediction;
@@ -6,6 +7,7 @@ using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.DeletePredicti
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GeneratePredictionByDateRange;
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetPrediction;
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetShortPredictions;
+using IncomeViz.ProfitCalculation.Domain.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,16 +59,16 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Returns a short prediction with specified id
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="predictionId"></param>
         /// <returns></returns>
         [HttpGet]
         [Produces("application/json")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(PredictionDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> Get(Guid predictionId)
         {
-            var query = new GetPredictionQuery {Id = id};
+            var query = new GetPredictionQuery {Id = predictionId};
             var prediction = await _mediator.Send(query);
             return Ok(prediction);
         }
@@ -78,7 +80,7 @@ namespace IncomeViz.API.Controllers
         [HttpGet]
         [Route("/all")]
         [Produces("application/json")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(ICollection<PredictionDto>), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> Get()
