@@ -21,11 +21,9 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetLongTermEx
         public async Task<ICollection<LongTermExpenseDto>> Handle(GetLongTermExpensesQuery query,
             CancellationToken cancellationToken)
         {
-            var longTermExpenses = await _repository.GetLongTermExpenses();
+            var longTermExpenses = await _repository.GetLongTermExpenses(query.PredictionId);
 
-            return longTermExpenses.Select(expense => new LongTermExpenseDto(expense.EntityId, expense.GetName(),
-                expense.GetExecutionDay(), expense.GetStartingDate(), expense.GetEffectiveDate(),
-                expense.GetMoney().GetAmount(), expense.GetMoney().GetCurrency())).ToList();
+            return longTermExpenses.Select(expense => new LongTermExpenseDto(expense)).ToList();
         }
     }
 }

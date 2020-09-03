@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Domain.Expense.LongTerm;
 using IncomeViz.ProfitCalculation.Infrastructure.Database;
@@ -15,9 +17,13 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Expense.LongTerm
             _db = db;
         }
 
-        public async Task<ICollection<LongTermExpense>> GetLongTermExpenses()
+        public async Task<ICollection<LongTermExpense>> GetLongTermExpenses(Guid predictionId)
         {
-            return await _db.LongTermExpenses.ToListAsync();
+            var prediction = await _db.Predictions.Include(p => p.LongTermExpenses)
+                                 .SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId))
+                             ?? throw new NullReferenceException(nameof(predictionId));
+
+            return prediction.LongTermExpenses.ToList();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using IncomeViz.ProfitCalculation.Domain.Dtos;
 using MediatR;
 
@@ -6,5 +8,6 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Expense.GetShortTermE
 {
     public class GetShortTermExpensesQuery : IRequest<ICollection<ShortTermExpenseDto>>
     {
+        [Required] public Guid PredictionId { get; set; }
     }
 }
