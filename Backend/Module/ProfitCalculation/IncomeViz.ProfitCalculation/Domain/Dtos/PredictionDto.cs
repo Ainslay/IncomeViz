@@ -1,4 +1,5 @@
 ﻿using System;
+using IncomeViz.ProfitCalculation.Domain.Funds;
 
 namespace IncomeViz.ProfitCalculation.Domain.Dtos
 {
@@ -7,16 +8,16 @@ namespace IncomeViz.ProfitCalculation.Domain.Dtos
         public Guid Id { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set; }
-        public string Currency { get; set; }
+        public Currency Currency { get; set; }
         public DateTime StartingDate { get; set; }
 
-        public PredictionDto(Guid id, string name, decimal amount, string currency, DateTime startingDate)
+        public PredictionDto(Prediction.Prediction prediction)
         {
-            Id = id;
-            Name = name;
-            Amount = amount;
-            Currency = currency;
-            StartingDate = startingDate;
+            Id = prediction.EntityId;
+            Name = prediction.GetName();
+            Amount = prediction.GetStartingMoney().GetAmount();
+            Currency = prediction.GetStartingMoney().GetCurrency();
+            StartingDate = prediction.GetStartingDate();
         }
     }
 }

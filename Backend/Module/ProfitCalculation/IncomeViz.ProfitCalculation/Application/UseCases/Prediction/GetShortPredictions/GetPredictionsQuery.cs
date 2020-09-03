@@ -4,7 +4,7 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetShortPredictions
 {
-    public class GetShortPredictionsQuery : IRequest<ICollection<PredictionDto>>
+    public class GetPredictionsQuery : IRequest<ICollection<PredictionDto>>
     {
     }
 }

@@ -8,23 +8,21 @@ using MediatR;
 
 namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetShortPredictions
 {
-    public class GetShortPredictionsQueryHandler : IRequestHandler<GetShortPredictionsQuery, ICollection<PredictionDto>>
+    public class GetPredictionsQueryHandler : IRequestHandler<GetPredictionsQuery, ICollection<PredictionDto>>
     {
         private readonly IReadPredictionRepository _repository;
 
-        public GetShortPredictionsQueryHandler(IReadPredictionRepository repository)
+        public GetPredictionsQueryHandler(IReadPredictionRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<ICollection<PredictionDto>> Handle(GetShortPredictionsQuery request,
+        public async Task<ICollection<PredictionDto>> Handle(GetPredictionsQuery request,
             CancellationToken cancellationToken)
         {
             var predictions = await _repository.GetShortPredictions();
 
-            return predictions.Select(prediction => new PredictionDto(prediction.EntityId, prediction.GetName(),
-                prediction.GetStartingMoney().GetAmount(), prediction.GetStartingMoney().GetCurrency().ToString(),
-                prediction.GetStartingDate())).ToList();
+            return predictions.Select(prediction => new PredictionDto(prediction)).ToList();
         }
     }
 }
