@@ -21,11 +21,9 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Income.GetLongTermInc
         public async Task<ICollection<LongTermIncomeDto>> Handle(GetLongTermIncomesQuery query,
             CancellationToken cancellationToken)
         {
-            var longTermIncomes = await _repository.GetLongTermIncomes();
+            var longTermIncomes = await _repository.GetLongTermIncomes(query.PredictionId);
 
-            return longTermIncomes.Select(income => new LongTermIncomeDto(income.EntityId, income.GetName(),
-                income.GetExecutionDay(), income.GetStartingDate(), income.GetEffectiveDate(),
-                income.GetMoney().GetAmount(), income.GetMoney().GetCurrency())).ToList();
+            return longTermIncomes.Select(income => new LongTermIncomeDto(income)).ToList();
         }
     }
 }

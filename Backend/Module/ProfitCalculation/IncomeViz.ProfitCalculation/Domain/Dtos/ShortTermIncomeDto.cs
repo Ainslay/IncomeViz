@@ -1,5 +1,7 @@
 ﻿using System;
+using IncomeViz.BuildingBlocks.ValidationHelpers;
 using IncomeViz.ProfitCalculation.Domain.Funds;
+using IncomeViz.ProfitCalculation.Domain.Income.ShortTerm;
 
 namespace IncomeViz.ProfitCalculation.Domain.Dtos
 {
@@ -11,14 +13,15 @@ namespace IncomeViz.ProfitCalculation.Domain.Dtos
         public decimal Amount { get; set; }
         public Currency Currency { get; set; }
 
-        public ShortTermIncomeDto(Guid shortTermIncomeId, string name, DateTime executionDate, decimal amount,
-            Currency currency)
+        public ShortTermIncomeDto(ShortTermIncome income)
         {
-            ShortTermIncomeId = shortTermIncomeId;
-            Name = name;
-            ExecutionDate = executionDate;
-            Amount = amount;
-            Currency = currency;
+            Check.NotNull(income, nameof(income));
+
+            ShortTermIncomeId = income.EntityId;
+            Name = income.GetName();
+            ExecutionDate = income.GetExecutionDate();
+            Amount = income.GetMoney().GetAmount();
+            Currency = income.GetMoney().GetCurrency();
         }
     }
 }

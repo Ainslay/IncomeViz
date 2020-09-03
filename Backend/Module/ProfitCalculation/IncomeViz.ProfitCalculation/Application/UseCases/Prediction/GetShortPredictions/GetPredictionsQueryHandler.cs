@@ -20,7 +20,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetShortPr
         public async Task<ICollection<PredictionDto>> Handle(GetPredictionsQuery request,
             CancellationToken cancellationToken)
         {
-            var predictions = await _repository.GetShortPredictions();
+            var predictions = await _repository.GetPredictions();
 
             return predictions.Select(prediction => new PredictionDto(prediction)).ToList();
         }

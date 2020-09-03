@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Domain.Income.ShortTerm;
 using IncomeViz.ProfitCalculation.Infrastructure.Database;
@@ -9,7 +10,7 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.ShortTerm
 {
     internal class ReadShortTermIncomeRepository : IReadShortTermIncomeRepository
     {
-        private ProfitCalculationDbContext _db;
+        private readonly ProfitCalculationDbContext _db;
 
         public ReadShortTermIncomeRepository(ProfitCalculationDbContext db)
         {
@@ -22,9 +23,12 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.ShortTerm
                    ?? throw new NullReferenceException(nameof(shortTermIncomeId));
         }
 
-        public async Task<ICollection<ShortTermIncome>> GetShortTermIncomes()
+        public async Task<ICollection<ShortTermIncome>> GetShortTermIncomes(Guid predictionId)
         {
-            return await _db.ShortTermIncomes.ToListAsync();
+            var prediction = await _db.Predictions.Include(p => p.ShortTermIncomes)
+                .SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId));
+
+            return prediction.ShortTermIncomes.ToList();
         }
     }
 }

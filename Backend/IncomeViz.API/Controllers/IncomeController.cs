@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.Income.AddLongTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.Income.AddShortTermIncome;
@@ -26,9 +27,6 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Adds LongTermIncome entry to the database.
         /// </summary>
-        /// <exception cref="System.NullReferenceException">Thrown when predictionId does not exist</exception>
-        /// <exception cref="IncomeViz.BuildingBlocks.Exceptions.BusinessRuleValidationException">
-        /// Thrown when provided data breaks any business rule</exception>
         /// <param name="command">Data provided in order to add LongTermIncome</param>
         /// <returns></returns>
         [HttpPost]
@@ -46,9 +44,6 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Adds ShortTermIncome entry to the database.
         /// </summary>
-        /// <exception cref="System.NullReferenceException">Thrown when predictionId does not exist</exception>
-        /// <exception cref="IncomeViz.BuildingBlocks.Exceptions.BusinessRuleValidationException">
-        /// Thrown when provided data breaks any business rule</exception>
         /// <param name="command">Data provided in order to add ShortTermIncome</param>
         /// <returns></returns>
         [HttpPost]
@@ -66,7 +61,6 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Deletes short term income with specified id from database
         /// </summary>
-        /// <exception cref="System.NullReferenceException">Thrown when there is no short term income with specified id</exception>
         /// <param name="command">Contains id of the short term income to remove</param>
         /// <returns></returns>
         [HttpDelete]
@@ -84,7 +78,6 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Deletes long term income with specified id from database
         /// </summary>
-        /// <exception cref="System.NullReferenceException">Thrown when there is no long term income with specified id</exception>
         /// <param name="command">Contains id of the long term income to remove</param>
         /// <returns></returns>
         [HttpDelete]
@@ -102,17 +95,17 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Returns a collection of short term incomes
         /// </summary>
-        /// <param name="query"></param>
+        /// <param name="predictionId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("short-term/all")]
         [Produces("application/json")]
-        [Consumes("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Get([FromQuery] GetShortTermIncomesQuery query)
+        public async Task<IActionResult> GetShortTermIncomes(Guid predictionId)
         {
+            var query = new GetShortTermIncomesQuery() { PredictionId = predictionId};
             var shortTermIncomes = await _mediator.Send(query);
             return Ok(shortTermIncomes);
         }
@@ -120,17 +113,17 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Returns a collection of long term incomes
         /// </summary>
-        /// <param name="query"></param>
+        /// <param name="predictionId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("long-term/all")]
         [Produces("application/json")]
-        [Consumes("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Get([FromQuery] GetLongTermIncomesQuery query)
+        public async Task<IActionResult> GetLongTermIncomes(Guid predictionId)
         {
+            var query = new GetLongTermIncomesQuery() {PredictionId = predictionId};
             var longTermIncomes = await _mediator.Send(query);
             return Ok(longTermIncomes);
         }

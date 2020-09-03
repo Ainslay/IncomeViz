@@ -15,7 +15,7 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
             _db = db;
         }
 
-        public async Task<ProfitCalculation.Domain.Prediction.Prediction> GetShortPredictionById(Guid predictionId)
+        public async Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionById(Guid predictionId)
         {
             return await _db.Predictions.SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId))
                    ?? throw new NullReferenceException(nameof(predictionId));
@@ -33,7 +33,7 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
                    throw new NullReferenceException(nameof(predictionId));
         }
 
-        public async Task<ICollection<ProfitCalculation.Domain.Prediction.Prediction>> GetShortPredictions()
+        public async Task<ICollection<ProfitCalculation.Domain.Prediction.Prediction>> GetPredictions()
         {
             return await _db.Predictions.ToListAsync();
         }
