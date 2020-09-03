@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPredictionDialogComponent } from '@components/add-prediction-dialog/add-prediction-dialog.component';
-import { ShortPrediction } from '@interfaces/short-prediction.interface';
+import { Prediction } from '@interfaces/prediction.interface';
 import { PredictionService } from '@services/prediction.service';
 import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
@@ -17,8 +17,8 @@ export class PredictionsListComponent {
   selectedPredictionId: Guid;
 
   refreshToken$ = new BehaviorSubject(undefined);
-  predictions$: Observable<ShortPrediction[]> = this.refreshToken$.pipe(
-    switchMap(() => this.predictionService.getShortPredictions())
+  predictions$: Observable<Prediction[]> = this.refreshToken$.pipe(
+    switchMap(() => this.predictionService.getPredictions())
   );
 
   constructor(

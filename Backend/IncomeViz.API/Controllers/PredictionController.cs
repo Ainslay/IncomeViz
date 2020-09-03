@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.AddPrediction;
@@ -42,15 +43,16 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Deletes database entry of prediction with specified id
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="predictionId"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Route("{predictionId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Delete(Guid id )
+        public async Task<IActionResult> Delete(Guid predictionId )
         {
-            var command = new DeletePredictionCommand {Id = id};
+            var command = new DeletePredictionCommand {Id = predictionId};
             await _mediator.Send(command);
             return Ok();
         }
@@ -61,6 +63,7 @@ namespace IncomeViz.API.Controllers
         /// <param name="predictionId"></param>
         /// <returns></returns>
         [HttpGet]
+        [Route("{predictionId}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(PredictionDto), 200)]
         [ProducesResponseType(400)]
@@ -77,7 +80,7 @@ namespace IncomeViz.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("/all")]
+        [Route("all")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ICollection<PredictionDto>), 200)]
         [ProducesResponseType(400)]

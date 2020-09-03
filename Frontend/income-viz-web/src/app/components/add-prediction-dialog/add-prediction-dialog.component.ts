@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ShortPrediction } from '@interfaces/short-prediction.interface';
+import { Prediction } from '@interfaces/prediction.interface';
 import { GetCurrenciesAsStrings } from '@utilities/currencies';
 import { MyErrorStateMatcher } from '@utilities/error-state-matcher';
 import { Guid } from 'guid-typescript';
@@ -12,8 +12,8 @@ import { Guid } from 'guid-typescript';
   styleUrls: ['./add-prediction-dialog.component.scss']
 })
 export class AddPredictionDialogComponent {
-  @Output() addRequest: EventEmitter<ShortPrediction> = new EventEmitter<ShortPrediction>();
-  prediction: ShortPrediction = { id: Guid.create(), name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
+  @Output() addRequest: EventEmitter<Prediction> = new EventEmitter<Prediction>();
+  prediction: Prediction = { id: Guid.create(), name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
   currencies = GetCurrenciesAsStrings();
   stateMatcher = new MyErrorStateMatcher();
 
@@ -44,7 +44,7 @@ export class AddPredictionDialogComponent {
   }
 
   onSubmit(): void {
-    const predicion: ShortPrediction = {
+    const predicion: Prediction = {
       id: Guid.create(),
       name: this.addPredictionFormGroup.controls.nameFormControl.value,
       amount: this.addPredictionFormGroup.controls.inicialCapitalFormControl.value,

@@ -63,10 +63,10 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Deletes short term income with specified id from database
         /// </summary>
-        /// <param name="command">Contains id of the short term income to remove</param>
+        /// <param name="id">Contains id of the short term income to remove</param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("short-term")]
+        [Route("short-term/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
@@ -80,10 +80,10 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Deletes long term income with specified id from database
         /// </summary>
-        /// <param name="command">Contains id of the long term income to remove</param>
+        /// <param name="id">Contains id of the long term income to remove</param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("long-term")]
+        [Route("long-term/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
