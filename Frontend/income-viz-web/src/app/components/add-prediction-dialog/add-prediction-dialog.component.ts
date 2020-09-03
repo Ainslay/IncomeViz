@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ShortPrediction } from '@interfaces/short-prediction.interface';
-import { PredictionService } from '@services/prediction.service';
 import { GetCurrenciesAsStrings } from '@utilities/currencies';
 import { MyErrorStateMatcher } from '@utilities/error-state-matcher';
 import { Guid } from 'guid-typescript';
@@ -13,8 +12,10 @@ import { Guid } from 'guid-typescript';
   styleUrls: ['./add-prediction-dialog.component.scss']
 })
 export class AddPredictionDialogComponent {
+  @Output() addRequest: EventEmitter<ShortPrediction> = new EventEmitter<ShortPrediction>();
   prediction: ShortPrediction = { id: Guid.create(), name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
   currencies = GetCurrenciesAsStrings();
+  stateMatcher = new MyErrorStateMatcher();
 
   addPredictionFormGroup = new FormGroup({
     nameFormControl: new FormControl('', [
@@ -34,11 +35,8 @@ export class AddPredictionDialogComponent {
     ])
   });
 
-  stateMatcher = new MyErrorStateMatcher();
-
   constructor(
-    public dialogRef: MatDialogRef<AddPredictionDialogComponent>,
-    private predictionService: PredictionService
+    public dialogRef: MatDialogRef<AddPredictionDialogComponent>
   ) { }
 
   onNoClick(): void {
@@ -53,7 +51,8 @@ export class AddPredictionDialogComponent {
       currency: this.addPredictionFormGroup.controls.currencyFormControl.value,
       startingDate: this.addPredictionFormGroup.controls.dateFormControl.value
     };
-    this.predictionService.addPrediction(predicion);
+
+    this.addRequest.emit(predicion);
     this.dialogRef.close();
   }
 }

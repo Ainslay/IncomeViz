@@ -67,12 +67,12 @@ namespace IncomeViz.API.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("short-term")]
-        [Consumes("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Delete(DeleteShortTermIncomeCommand command)
+        public async Task<IActionResult> DeleteShortTermIncome(Guid id)
         {
+            var command = new DeleteShortTermIncomeCommand {ShortTermIncomeId = id};
             await _mediator.Send(command);
             return Ok();
         }
@@ -84,12 +84,12 @@ namespace IncomeViz.API.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("long-term")]
-        [Consumes("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Delete(DeleteLongTermIncomeCommand command)
+        public async Task<IActionResult> DeleteLongTermIncome(Guid id)
         {
+            var command = new DeleteLongTermIncomeCommand {LongTermIncomeId = id};
             await _mediator.Send(command);
             return Ok();
         }
