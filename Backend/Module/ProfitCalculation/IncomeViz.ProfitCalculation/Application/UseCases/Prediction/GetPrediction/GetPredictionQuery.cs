@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using IncomeViz.ProfitCalculation.Domain.Dtos;
 using MediatR;
 
-namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetShortPrediction
+namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetPrediction
 {
-    public class GetShortPredictionQuery : IRequest<PredictionDto>
+    public class GetPredictionQuery : IRequest<PredictionDto>
     {
         [Required] public Guid Id { get; set; }
     }
