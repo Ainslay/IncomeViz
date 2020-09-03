@@ -1,6 +1,6 @@
-import { Guid } from 'guid-typescript';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '@environments/environment';
+import { Guid } from 'guid-typescript';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
@@ -9,24 +9,16 @@ export abstract class BaseService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      Accept: 'application/json'
     })
   };
+
   constructor(
     private readonly http: HttpClient
   ) { }
 
-  protected getOne<T>(url: string, objectId: Guid): Observable<T> {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      params: {
-        id: objectId.toString()
-      }
-    };
-
-    return this.http.get<T>(`${this.apiUrl}${url}`, options).pipe(
+  protected getOne<T>(url: string, id: Guid): Observable<T> {
+    return this.http.get<T>(`${this.apiUrl}${url}/${id}`).pipe(
       retry(3),
       catchError(this.handleHttpError)
     );
@@ -46,7 +38,7 @@ export abstract class BaseService {
   }
 
   protected delete(url: string, id: Guid): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}${url}?id=${id}`).pipe(
+    return this.http.delete<any>(`${this.apiUrl}${url}/${id}`).pipe(
       catchError(this.handleHttpError)
     );
   }

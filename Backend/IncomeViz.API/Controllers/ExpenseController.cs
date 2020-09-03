@@ -138,7 +138,7 @@ namespace IncomeViz.API.Controllers
         /// <param name="id">Id of the short term expense to remove</param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("short-term")]
+        [Route("short-term/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
@@ -155,7 +155,7 @@ namespace IncomeViz.API.Controllers
         /// <param name="id">Id of the long term expense to remove</param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("long-term")]
+        [Route("long-term/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]

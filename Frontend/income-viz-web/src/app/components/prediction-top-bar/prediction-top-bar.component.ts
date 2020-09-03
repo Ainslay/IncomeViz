@@ -1,4 +1,4 @@
-import { ShortPrediction } from './../../interfaces/short-prediction.interface';
+import { Prediction } from '../../interfaces/prediction.interface';
 import { Component, Input, OnInit } from '@angular/core';
 import { PredictionService } from '@services/prediction.service';
 import { Guid } from 'guid-typescript';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class PredictionTopBarComponent implements OnInit{
   @Input() predictionId: Guid;
-  prediction: ShortPrediction;
+  prediction: Prediction;
   isLoading = true;
 
   constructor(
@@ -20,7 +20,7 @@ export class PredictionTopBarComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.predictionService.getShortPrediction(this.predictionId)
+    this.predictionService.getPrediction(this.predictionId)
       .subscribe({
           next: result => this.prediction = result,
           complete: () => this.isLoading = false

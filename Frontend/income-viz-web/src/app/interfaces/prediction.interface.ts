@@ -1,6 +1,6 @@
 import { Guid } from 'guid-typescript';
 
-export interface ShortPrediction {
+export interface Prediction {
     id: Guid;
     name: string;
     startingDate: Date;
