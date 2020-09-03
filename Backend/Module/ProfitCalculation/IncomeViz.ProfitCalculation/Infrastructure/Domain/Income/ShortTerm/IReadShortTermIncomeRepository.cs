@@ -8,6 +8,6 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.ShortTerm
     public interface IReadShortTermIncomeRepository
     {
         Task<ShortTermIncome> GetShortTermIncomeById(Guid shortTermIncomeId);
-        Task<ICollection<ShortTermIncome>> GetShortTermIncomes();
+        Task<ICollection<ShortTermIncome>> GetShortTermIncomes(Guid predictionId);
     }
 }

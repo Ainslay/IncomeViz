@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Domain.Income.LongTerm;
 using IncomeViz.ProfitCalculation.Infrastructure.Database;
@@ -9,7 +10,7 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.LongTerm
 {
     internal class ReadLongTermIncomesRepository : IReadLongTermIncomeRepository
     {
-        private ProfitCalculationDbContext _db;
+        private readonly ProfitCalculationDbContext _db;
 
         public ReadLongTermIncomesRepository(ProfitCalculationDbContext db)
         {
@@ -22,9 +23,12 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.LongTerm
                    ?? throw new NullReferenceException(nameof(longTermIncomeId));
         }
 
-        public async Task<ICollection<LongTermIncome>> GetLongTermIncomes()
+        public async Task<ICollection<LongTermIncome>> GetLongTermIncomes(Guid predictionId)
         {
-            return await _db.LongTermIncomes.ToListAsync();
+            var prediction = await _db.Predictions.Include(p => p.LongTermIncomes).SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId))
+                    ?? throw new NullReferenceException(nameof(predictionId));
+
+            return prediction.LongTermIncomes.ToList();
         }
     }
 }

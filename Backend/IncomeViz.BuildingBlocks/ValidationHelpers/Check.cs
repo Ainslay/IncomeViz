@@ -28,6 +28,14 @@ namespace IncomeViz.BuildingBlocks.ValidationHelpers
             }
         }
 
+        public static void NotNull(object obj, string argumentName)
+        {
+            if (obj == null)
+            {
+                throw new ArgumentException(argumentName);
+            }
+        }
+
         public static void NotNullOrWhiteSpace(string value, string argumentName)
         {
             if (string.IsNullOrWhiteSpace(value))

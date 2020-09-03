@@ -17,7 +17,7 @@ namespace IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GetPredict
 
         public async Task<PredictionDto> Handle(GetPredictionQuery query, CancellationToken cancellationToken)
         {
-            var prediction = await _repository.GetShortPredictionById(query.Id);
+            var prediction = await _repository.GetPredictionById(query.Id);
 
             return new PredictionDto(prediction);
         }

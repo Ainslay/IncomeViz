@@ -9,6 +9,6 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Income.LongTerm
     public interface IReadLongTermIncomeRepository
     {
         Task<LongTermIncome> GetLongTermIncomeById(Guid longTermIncomeId);
-        Task<ICollection<LongTermIncome>> GetLongTermIncomes();
+        Task<ICollection<LongTermIncome>> GetLongTermIncomes(Guid predictionId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using IncomeViz.BuildingBlocks.ValidationHelpers;
 using IncomeViz.ProfitCalculation.Domain.Funds;
 
 namespace IncomeViz.ProfitCalculation.Domain.Dtos
@@ -13,6 +14,8 @@ namespace IncomeViz.ProfitCalculation.Domain.Dtos
 
         public PredictionDto(Prediction.Prediction prediction)
         {
+            Check.NotNull(prediction, nameof(prediction));
+
             Id = prediction.EntityId;
             Name = prediction.GetName();
             Amount = prediction.GetStartingMoney().GetAmount();
