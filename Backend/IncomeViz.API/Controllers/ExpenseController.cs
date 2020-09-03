@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.Expense.AddLongTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.Expense.AddShortTermExpense;
 using IncomeViz.ProfitCalculation.Application.UseCases.Expense.DeleteLongTermExpense;
@@ -132,16 +133,16 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         ///     Deletes short term expense with specified id from database
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="id">Id of the short term expense to remove</param>
         /// <returns></returns>
         [HttpDelete]
         [Route("short-term")]
-        [Consumes("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Delete(DeleteShortTermExpenseCommand command)
+        public async Task<IActionResult> DeleteShortTermExpense(Guid id)
         {
+            var command = new DeleteShortTermExpenseCommand {ShortTermExpenseId = id};
             await _mediator.Send(command);
             return Ok();
         }
@@ -149,16 +150,16 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         ///     Deletes long term expense with specified id from database
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="id">Id of the long term expense to remove</param>
         /// <returns></returns>
         [HttpDelete]
         [Route("long-term")]
-        [Consumes("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Delete(DeleteLongTermExpenseCommand command)
+        public async Task<IActionResult> Delete(Guid id)
         {
+            var command = new DeleteLongTermExpenseCommand {LongTermExpenseId = id};
             await _mediator.Send(command);
             return Ok();
         }

@@ -42,17 +42,16 @@ namespace IncomeViz.API.Controllers
         /// <summary>
         /// Deletes database entry of prediction with specified id
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Consumes("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Delete([FromQuery] Guid id )
+        public async Task<IActionResult> Delete(Guid id )
         {
-            var request = new DeletePredictionCommand {Id = id};
-            await _mediator.Send(request);
+            var command = new DeletePredictionCommand {Id = id};
+            await _mediator.Send(command);
             return Ok();
         }
 

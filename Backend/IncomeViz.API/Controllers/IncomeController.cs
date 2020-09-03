@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using System.Threading.Tasks;
 using IncomeViz.ProfitCalculation.Application.UseCases.Income.AddLongTermIncome;
 using IncomeViz.ProfitCalculation.Application.UseCases.Income.AddShortTermIncome;
@@ -67,16 +68,16 @@ namespace IncomeViz.API.Controllers
         /// Deletes short term income with specified id from database
         /// </summary>
         /// <exception cref="System.NullReferenceException">Thrown when there is no short term income with specified id</exception>
-        /// <param name="command">Contains id of the short term income to remove</param>
+        /// <param name="id">Id of the short term income to remove</param>
         /// <returns></returns>
         [HttpDelete]
         [Route("short-term")]
-        [Consumes("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Delete(DeleteShortTermIncomeCommand command)
+        public async Task<IActionResult> DeleteShortTermIncome(Guid id)
         {
+            var command = new DeleteShortTermIncomeCommand {ShortTermIncomeId = id};
             await _mediator.Send(command);
             return Ok();
         }
@@ -85,16 +86,16 @@ namespace IncomeViz.API.Controllers
         /// Deletes long term income with specified id from database
         /// </summary>
         /// <exception cref="System.NullReferenceException">Thrown when there is no long term income with specified id</exception>
-        /// <param name="command">Contains id of the long term income to remove</param>
+        /// <param name="id">Id of the long term income to remove</param>
         /// <returns></returns>
         [HttpDelete]
         [Route("long-term")]
-        [Consumes("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Delete(DeleteLongTermIncomeCommand command)
+        public async Task<IActionResult> DeleteLongTermIncome(Guid id)
         {
+            var command = new DeleteLongTermIncomeCommand {LongTermIncomeId = id};
             await _mediator.Send(command);
             return Ok();
         }
