@@ -24,8 +24,15 @@ export abstract class BaseService {
     );
   }
 
-  protected getAll<T>(url: string): Observable<T> {
-    return this.http.get<T>(`${this.apiUrl}${url}`, this.httpOptions).pipe(
+  protected getAll<T>(url: string, id?: Guid): Observable<T> {
+    if (typeof(id) !== 'undefined') {
+      return this.http.get<T>(`${this.apiUrl}${url}/${id}`).pipe(
+        retry(3),
+        catchError(this.handleHttpError)
+      );
+    }
+
+    return this.http.get<T>(`${this.apiUrl}${url}`).pipe(
       retry(3),
       catchError(this.handleHttpError)
     );
