@@ -1,10 +1,10 @@
 <mat-grid-list cols="1" rowHeight="70px">
     <mat-grid-tile
-        *ngFor="let shortTermIncome of shortTermIncomes$ | async">
-        <app-short-term-incomes-list-item
+        *ngFor="let longTermIncome of longTermIncomes$ | async">
+        <app-long-term-incomes-list-item
             class="item"
-            [shortTermIncome]="shortTermIncome">
-        </app-short-term-incomes-list-item>
+            [longTermIncome]="longTermIncome">
+        </app-long-term-incomes-list-item>
     </mat-grid-tile>
 </mat-grid-list>
 
