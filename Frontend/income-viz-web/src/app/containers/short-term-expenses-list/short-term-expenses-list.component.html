@@ -1,0 +1,15 @@
+<mat-grid-list cols="1" rowHeight="70px">
+    <mat-grid-tile
+        *ngFor="let shortTermExpense of shortTermExpenses$ | async">
+        <app-short-term-expenses-list-item
+            class="item"
+            [shortTermExpense]="shortTermExpense">
+        </app-short-term-expenses-list-item>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<div class="add-button">
+    <button mat-fab color="basic">
+        <mat-icon>add</mat-icon>
+    </button>
+</div> 

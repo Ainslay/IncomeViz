@@ -1,0 +1,11 @@
+.item {
+    display: flex; 
+    justify-content: flex-start; 
+    width: 100%;
+}
+
+.add-button {
+    display: flex; 
+    justify-content: flex-end;
+    margin: 15px;
+}

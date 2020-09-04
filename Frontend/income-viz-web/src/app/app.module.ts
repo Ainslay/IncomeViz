@@ -27,6 +27,8 @@ import { ShortTermIncomesListComponent } from './containers/short-term-incomes-l
 import { ShortTermIncomesListItemComponent } from './components/short-term-incomes-list-item/short-term-incomes-list-item.component';
 import { LongTermIncomesListComponent } from './containers/long-term-incomes-list/long-term-incomes-list.component';
 import { LongTermIncomesListItemComponent } from './components/long-term-incomes-list-item/long-term-incomes-list-item.component';
+import { ShortTermExpensesListComponent } from './containers/short-term-expenses-list/short-term-expenses-list.component';
+import { ShortTermExpensesListItemComponent } from './components/short-term-expenses-list-item/short-term-expenses-list-item.component';
 
 
 
@@ -45,6 +47,8 @@ import { LongTermIncomesListItemComponent } from './components/long-term-incomes
     ShortTermIncomesListItemComponent,
     LongTermIncomesListComponent,
     LongTermIncomesListItemComponent,
+    ShortTermExpensesListComponent,
+    ShortTermExpensesListItemComponent,
   ],
   imports: [
     BrowserModule,
