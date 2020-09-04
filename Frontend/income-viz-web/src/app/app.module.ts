@@ -25,6 +25,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PredictionDetailsComponent } from './pages/prediction-details/prediction-details.component';
 import { ShortTermIncomesListComponent } from './containers/short-term-incomes-list/short-term-incomes-list.component';
 import { ShortTermIncomesListItemComponent } from './components/short-term-incomes-list-item/short-term-incomes-list-item.component';
+import { LongTermIncomesListComponent } from './containers/long-term-incomes-list/long-term-incomes-list.component';
+import { LongTermIncomesListItemComponent } from './components/long-term-incomes-list-item/long-term-incomes-list-item.component';
 
 
 
@@ -41,6 +43,8 @@ import { ShortTermIncomesListItemComponent } from './components/short-term-incom
     PredictionTopBarComponent,
     ShortTermIncomesListComponent,
     ShortTermIncomesListItemComponent,
+    LongTermIncomesListComponent,
+    LongTermIncomesListItemComponent,
   ],
   imports: [
     BrowserModule,

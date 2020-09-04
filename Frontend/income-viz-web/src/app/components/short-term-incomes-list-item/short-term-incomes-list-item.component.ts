@@ -1,6 +1,6 @@
-import { Currencies, GetCurrenciesAsStrings } from '@utilities/currencies';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShortTermIncome } from '@interfaces/short-term-income.interface';
-import { Component, OnInit, Input } from '@angular/core';
+import { GetCurrenciesAsStrings } from '@utilities/currencies';
 
 @Component({
   selector: 'app-short-term-incomes-list-item',
