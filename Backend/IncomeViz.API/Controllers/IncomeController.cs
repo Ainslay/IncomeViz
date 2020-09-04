@@ -100,7 +100,7 @@ namespace IncomeViz.API.Controllers
         /// <param name="predictionId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("short-term/all")]
+        [Route("short-term/all/{predictionId}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ICollection<ShortTermIncomeDto>), 200)]
         [ProducesResponseType(400)]
@@ -118,7 +118,7 @@ namespace IncomeViz.API.Controllers
         /// <param name="predictionId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("long-term/all")]
+        [Route("long-term/all/{predictionId}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ICollection<LongTermIncomeDto>), 200)]
         [ProducesResponseType(400)]
