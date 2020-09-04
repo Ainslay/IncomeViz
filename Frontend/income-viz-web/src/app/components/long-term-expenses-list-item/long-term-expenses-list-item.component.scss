@@ -1,0 +1,33 @@
+.item-container {
+    width: 100%;
+}
+
+.toolbar {
+    -webkit-box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.15);
+}
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.properties-container {
+    width: 75%;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+.property {
+    display: flex;
+    min-width: 100px;
+    max-width: 400px;
+}
+
+.controls-container {
+    display: flex; 
+    justify-content: space-evenly; 
+    width: 15%;
+    max-width: 100px;
+}
