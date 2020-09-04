@@ -1,5 +1,5 @@
-import { LongTermIncomeDto } from './../dtos/long-term-income.dto';
-import { ShortTermIncomeDto } from './../dtos/short-term-income.dto';
+import { LongTermIncomeDto } from '@dtos/long-term-income.dto';
+import { ShortTermIncomeDto } from '@dtos/short-term-income.dto';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
