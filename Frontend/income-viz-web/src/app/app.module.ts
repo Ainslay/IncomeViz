@@ -1,28 +1,32 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatGridListModule } from '@angular/material/grid-list';
 
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PredictionsComponent } from './containers/predictions/predictions.component';
-import { PredictionsListComponent } from './containers/predictions-list/predictions-list.component';
-import { PredictionListItemComponent } from './components/prediction-list-item/prediction-list-item.component';
-import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { AddPredictionDialogComponent } from './components/add-prediction-dialog/add-prediction-dialog.component';
-import { PredictionDetailsComponent } from './pages/prediction-details/prediction-details.component';
+import { PredictionListItemComponent } from './components/prediction-list-item/prediction-list-item.component';
 import { PredictionTopBarComponent } from './components/prediction-top-bar/prediction-top-bar.component';
-import { IncomesListComponent } from './containers/incomes-list/incomes-list.component';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { PredictionsListComponent } from './containers/predictions-list/predictions-list.component';
+import { PredictionsComponent } from './containers/predictions/predictions.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PredictionDetailsComponent } from './pages/prediction-details/prediction-details.component';
+import { ShortTermIncomesListComponent } from './containers/short-term-incomes-list/short-term-incomes-list.component';
+import { ShortTermIncomesListItemComponent } from './components/short-term-incomes-list-item/short-term-incomes-list-item.component';
+
+
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { IncomesListComponent } from './containers/incomes-list/incomes-list.com
     AddPredictionDialogComponent,
     PredictionDetailsComponent,
     PredictionTopBarComponent,
-    IncomesListComponent
+    ShortTermIncomesListComponent,
+    ShortTermIncomesListItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,9 @@ import { IncomesListComponent } from './containers/incomes-list/incomes-list.com
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
