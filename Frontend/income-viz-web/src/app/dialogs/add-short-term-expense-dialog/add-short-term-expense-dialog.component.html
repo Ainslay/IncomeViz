@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add short term income</h1>
+<h1 mat-dialog-title>Add short term expense</h1>
 <div mat-dialog-content>
     <form [formGroup]="addShortTermExpenseFormGroup">
         <mat-form-field class="input">
@@ -25,7 +25,7 @@
                 Amount <strong>cannot be over 999 999 999</strong>
             </mat-error>
             <mat-error *ngIf="addShortTermExpenseFormGroup.controls['amountFormControl'].hasError('min')">
-                Amount <strong>cannot be lover than 999 999 999</strong>
+                Amount <strong>cannot be lower than 999 999 999</strong>
             </mat-error>
         </mat-form-field>
 

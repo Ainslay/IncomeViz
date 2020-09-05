@@ -1,0 +1,87 @@
+<h1 mat-dialog-title>Add long term income</h1>
+<div mat-dialog-content>
+    <form [formGroup]="addLongTermIncomeFormGroup">
+        <mat-form-field class="input">
+            <mat-label>Name</mat-label>
+            <input type="text" 
+                matInput 
+                formControlName="nameFormControl"
+                [errorStateMatcher]="stateMatcher"/>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['nameFormControl'].hasError('required')">
+                Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['nameFormControl'].hasError('maxlength')">
+                Name has to be <strong>less than 50 characters long</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input">
+            <mat-label>Amount</mat-label>
+            <input type="number" matInput formControlName="amountFormControl" [errorStateMatcher]="stateMatcher"/>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['amountFormControl'].hasError('required')">
+                Amount is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['amountFormControl'].hasError('max')">
+                Amount <strong>cannot be over 999 999 999</strong>
+            </mat-error>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['amountFormControl'].hasError('min')">
+                Amount <strong>cannot be lower than 999 999 999</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input">
+            <mat-label>Currency</mat-label>
+            <mat-select formControlName="currencyFormControl" [errorStateMatcher]="stateMatcher">
+                <mat-option *ngFor="let currency of currencies"
+                    [value]="currency">
+                    {{currency}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['currencyFormControl'].hasError('required')">
+                Currency is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input">
+            <mat-label>Execution day</mat-label>
+            <input type="number" matInput formControlName="executionDayFormControl" 
+                [errorStateMatcher]="stateMatcher"/>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['executionDayFormControl'].hasError('required')">
+                Execution date is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['executionDayFormControl'].hasError('max')">
+                Execution day <strong>cannot be over 28</strong>
+            </mat-error>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['executionDayFormControl'].hasError('min')">
+                Execution day <strong>cannot be lower than 1</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input">
+            <mat-label>Starting date</mat-label>
+            <input type="date" matInput formControlName="startingDateFormControl" 
+                [errorStateMatcher]="stateMatcher"/>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['startingDateFormControl'].hasError('required')">
+                Execution date is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input">
+            <mat-label>Effective date</mat-label>
+            <input type="date" matInput formControlName="effectiveDateFormControl" 
+                [errorStateMatcher]="stateMatcher"/>
+            <mat-error *ngIf="addLongTermIncomeFormGroup.controls['effectiveDateFormControl'].hasError('required')">
+                Execution date is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="compareDates()">
+                Starting date <strong>must be ealier</strong> than effective date
+            </mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions class="buttons-container">
+    <button mat-raised-button color="primary" (click)="onSubmit()"
+    [disabled]="(!addLongTermIncomeFormGroup.valid) && compareDates()">Add</button>
+    <button mat-raised-button color="warn"
+    (click)="onNoClick()">Cancel</button>
+</div>
