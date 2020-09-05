@@ -49,6 +49,9 @@
       ],
       "@dtos/*": [
         "src/app/dtos/*"
+      ],
+      "@dialogs/*": [
+        "src/app/dialogs/*"
       ]
     }
   }

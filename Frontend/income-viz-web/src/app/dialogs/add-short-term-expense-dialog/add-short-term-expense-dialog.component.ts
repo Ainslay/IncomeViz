@@ -1,22 +1,22 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ShortTermIncome } from '@interfaces/short-term-income.interface';
+import { ShortTermExpense } from '@interfaces/short-term-expense.interface';
 import { GetCurrenciesAsStrings } from '@utilities/currencies';
 import { MyErrorStateMatcher } from '@utilities/error-state-matcher';
 import { Guid } from 'guid-typescript';
 
 @Component({
-  selector: 'app-add-short-term-income-dialog',
-  templateUrl: './add-short-term-income-dialog.component.html',
-  styleUrls: ['./add-short-term-income-dialog.component.scss']
+  selector: 'app-add-short-term-expense-dialog',
+  templateUrl: './add-short-term-expense-dialog.component.html',
+  styleUrls: ['./add-short-term-expense-dialog.component.scss']
 })
-export class AddShortTermIncomeDialogComponent {
-  @Output() addRequest: EventEmitter<ShortTermIncome> = new EventEmitter<ShortTermIncome>();
+export class AddShortTermExpenseDialogComponent {
+  @Output() addRequest: EventEmitter<ShortTermExpense> = new EventEmitter<ShortTermExpense>();
   currencies = GetCurrenciesAsStrings();
   stateMatcher = new MyErrorStateMatcher();
 
-  addShortTermIncomeFormGroup = new FormGroup({
+  addShortTermExpenseFormGroup = new FormGroup({
     nameFormControl: new FormControl('', [
       Validators.required,
       Validators.maxLength(50)
@@ -35,7 +35,7 @@ export class AddShortTermIncomeDialogComponent {
   });
 
   constructor(
-    private dialogRef: MatDialogRef<AddShortTermIncomeDialogComponent>
+    private dialogRef: MatDialogRef<AddShortTermExpenseDialogComponent>
   ) { }
 
   onNoClick(): void {
@@ -43,15 +43,15 @@ export class AddShortTermIncomeDialogComponent {
   }
 
   onSubmit(): void {
-    const shortTermIncome: ShortTermIncome = {
-      shortTermIncomeId: Guid.createEmpty(),
-      name: this.addShortTermIncomeFormGroup.controls.nameFormControl.value,
-      amount: this.addShortTermIncomeFormGroup.controls.amountFormControl.value,
-      currency: this.addShortTermIncomeFormGroup.controls.currencyFormControl.value,
-      executionDate: this.addShortTermIncomeFormGroup.controls.executionDateFormControl.value
+    const shortTermExpense: ShortTermExpense = {
+      shortTermExpenseId: Guid.createEmpty(),
+      name: this.addShortTermExpenseFormGroup.controls.nameFormControl.value,
+      amount: this.addShortTermExpenseFormGroup.controls.amountFormControl.value,
+      currency: this.addShortTermExpenseFormGroup.controls.currencyFormControl.value,
+      executionDate: this.addShortTermExpenseFormGroup.controls.executionDateFormControl.value
     };
 
-    this.addRequest.emit(shortTermIncome);
+    this.addRequest.emit(shortTermExpense);
     this.dialogRef.close();
   }
 }
