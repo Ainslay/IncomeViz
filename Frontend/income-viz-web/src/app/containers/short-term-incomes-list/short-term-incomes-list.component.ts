@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ShortTermIncome } from '@interfaces/short-term-income.interface';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { IncomeService } from './../../services/income.service';
   templateUrl: './short-term-incomes-list.component.html',
   styleUrls: ['./short-term-incomes-list.component.scss']
 })
-export class ShortTermIncomesListComponent implements OnInit {
+export class ShortTermIncomesListComponent {
   @Input() predictionId: Guid;
 
   refreshToken$ = new BehaviorSubject(undefined);
@@ -22,7 +22,9 @@ export class ShortTermIncomesListComponent implements OnInit {
     private incomeService: IncomeService
   ) { }
 
-  ngOnInit(): void {
+  deleteShortTermIncome(shortTermIncomeId: Guid): void {
+    this.incomeService.deleteShortTermIncome(shortTermIncomeId)
+      .subscribe(() => this.refreshToken$.next(undefined));
+    console.log('Deleted')
   }
-
 }

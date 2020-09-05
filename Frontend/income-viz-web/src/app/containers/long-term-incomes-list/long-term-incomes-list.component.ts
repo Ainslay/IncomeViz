@@ -21,4 +21,9 @@ export class LongTermIncomesListComponent {
   constructor(
     private incomeService: IncomeService
   ) { }
+
+  deleteLongTermIncome(longTermIncomeId: Guid): void {
+    this.incomeService.deleteLongTermIncome(longTermIncomeId)
+      .subscribe(() => this.refreshToken$.next(undefined));
+  }
 }
