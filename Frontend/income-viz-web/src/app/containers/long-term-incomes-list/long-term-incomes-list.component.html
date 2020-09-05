@@ -1,15 +1,17 @@
-<mat-grid-list cols="1" rowHeight="70px">
+<mat-grid-list cols="1" rowHeight="80px">
     <mat-grid-tile
         *ngFor="let longTermIncome of longTermIncomes$ | async">
         <app-long-term-incomes-list-item
             class="item"
-            [longTermIncome]="longTermIncome">
+            [longTermIncome]="longTermIncome"
+            (deleteRequest)="deleteLongTermIncome($event)">
         </app-long-term-incomes-list-item>
     </mat-grid-tile>
+    <mat-grid-tile>
+        <div class="add-button">
+            <button mat-fab color="basic">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div> 
+    </mat-grid-tile>
 </mat-grid-list>
-
-<div class="add-button">
-    <button mat-fab color="basic">
-        <mat-icon>add</mat-icon>
-    </button>
-</div> 

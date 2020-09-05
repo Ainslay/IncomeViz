@@ -22,4 +22,8 @@ export class ShortTermExpensesListComponent {
     private expenseService: ExpenseService
   ) { }
 
+  deleteShortTermExpense(shortTermExpenseId: Guid): void {
+    this.expenseService.deleteShortTermExpense(shortTermExpenseId)
+      .subscribe(() => this.refreshToken$.next(undefined));
+  }
 }
