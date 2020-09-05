@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="80px">
+<mat-grid-list cols="1" rowHeight="80px" style="overflow: auto">
     <mat-grid-tile
         *ngFor="let shortTermIncome of shortTermIncomes$ | async">
         <app-short-term-incomes-list-item
@@ -9,7 +9,7 @@
     </mat-grid-tile>
     <mat-grid-tile>
         <div class="add-button">
-            <button mat-fab color="basic">
+            <button mat-fab color="basic" (click)="openAddShortTermIncomeDialog()">
                 <mat-icon>add</mat-icon>
             </button>
         </div> 
