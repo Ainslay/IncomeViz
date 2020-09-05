@@ -1,9 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddShortTermExpenseDialogComponent } from '@dialogs/add-short-term-expense-dialog/add-short-term-expense-dialog.component';
 import { ShortTermExpense } from '@interfaces/short-term-expense.interface';
+import { ExpenseService } from '@services/expense.service';
+import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { ExpenseService } from './../../services/expense.service';
 
 @Component({
   selector: 'app-short-term-expenses-list',
@@ -19,11 +22,27 @@ export class ShortTermExpensesListComponent {
   );
 
   constructor(
-    private expenseService: ExpenseService
+    private expenseService: ExpenseService,
+    private dialog: MatDialog
   ) { }
 
   deleteShortTermExpense(shortTermExpenseId: Guid): void {
     this.expenseService.deleteShortTermExpense(shortTermExpenseId)
       .subscribe(() => this.refreshToken$.next(undefined));
+  }
+
+  openAddShortTermExpenseDialog(): void {
+    const dialogRef = this.dialog.open(AddShortTermExpenseDialogComponent, {
+      width: dialogWidth
+    });
+
+    dialogRef.componentInstance.addRequest.subscribe(
+      shortTermExpense => this.expenseService.addShortTermExpense(this.predictionId, shortTermExpense)
+        .subscribe(() => this.refreshToken$.next(undefined))
+    );
+
+    dialogRef.afterClosed().subscribe(
+      () => dialogRef.componentInstance.addRequest.unsubscribe()
+    );
   }
 }

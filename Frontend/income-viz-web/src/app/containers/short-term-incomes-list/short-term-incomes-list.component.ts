@@ -1,12 +1,12 @@
 import { dialogWidth } from '@utilities/variables';
-import { AddShortTermIncomeDialogComponent } from './../../dialogs/add-short-term-income-dialog/add-short-term-income-dialog.component';
+import { AddShortTermIncomeDialogComponent } from '@dialogs/add-short-term-income-dialog/add-short-term-income-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, Input } from '@angular/core';
 import { ShortTermIncome } from '@interfaces/short-term-income.interface';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { IncomeService } from './../../services/income.service';
+import { IncomeService } from '@services/income.service';
 
 @Component({
   selector: 'app-short-term-incomes-list',
