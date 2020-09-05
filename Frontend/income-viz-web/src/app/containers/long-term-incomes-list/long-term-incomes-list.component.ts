@@ -1,3 +1,6 @@
+import { dialogWidth } from '@utilities/variables';
+import { AddLongTermIncomeDialogComponent } from '@dialogs/add-long-term-income-dialog/add-long-term-income-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Component, Input } from '@angular/core';
 import { LongTermIncome } from '@interfaces/long-term-income.interface';
 import { IncomeService } from '@services/income.service';
@@ -19,11 +22,27 @@ export class LongTermIncomesListComponent {
   );
 
   constructor(
-    private incomeService: IncomeService
+    private incomeService: IncomeService,
+    private dialog: MatDialog
   ) { }
 
   deleteLongTermIncome(longTermIncomeId: Guid): void {
     this.incomeService.deleteLongTermIncome(longTermIncomeId)
       .subscribe(() => this.refreshToken$.next(undefined));
+  }
+
+  openAddLongTermIncomeDialog(): void {
+    const dialogRef = this.dialog.open(AddLongTermIncomeDialogComponent, {
+      width: dialogWidth
+    });
+
+    dialogRef.componentInstance.addRequest.subscribe(
+      longTermIncome => this.incomeService.addLongTermIncome(this.predictionId, longTermIncome)
+        .subscribe(() => this.refreshToken$.next(undefined))
+    );
+
+    dialogRef.afterClosed().subscribe(
+      () => dialogRef.componentInstance.addRequest.unsubscribe()
+    );
   }
 }
