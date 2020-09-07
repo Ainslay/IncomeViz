@@ -34,6 +34,7 @@ import { LongTermExpensesListItemComponent } from './components/long-term-expens
 import { AddShortTermIncomeDialogComponent } from './dialogs/add-short-term-income-dialog/add-short-term-income-dialog.component';
 import { AddShortTermExpenseDialogComponent } from './dialogs/add-short-term-expense-dialog/add-short-term-expense-dialog.component';
 import { AddLongTermIncomeDialogComponent } from './dialogs/add-long-term-income-dialog/add-long-term-income-dialog.component';
+import { AddLongTermExpenseDialogComponent } from './dialogs/add-long-term-expense-dialog/add-long-term-expense-dialog.component';
 
 
 
@@ -59,6 +60,7 @@ import { AddLongTermIncomeDialogComponent } from './dialogs/add-long-term-income
     AddShortTermIncomeDialogComponent,
     AddShortTermExpenseDialogComponent,
     AddLongTermIncomeDialogComponent,
+    AddLongTermExpenseDialogComponent,
   ],
   imports: [
     BrowserModule,
