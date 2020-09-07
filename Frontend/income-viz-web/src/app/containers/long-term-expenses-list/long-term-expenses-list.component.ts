@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddLongTermExpenseDialogComponent } from '@dialogs/add-long-term-expense-dialog/add-long-term-expense-dialog.component';
 import { LongTermExpense } from '@interfaces/long-term-expense.interface';
 import { ExpenseService } from '@services/expense.service';
+import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -19,11 +22,27 @@ export class LongTermExpensesListComponent {
   );
 
   constructor(
-    private expenseService: ExpenseService
+    private expenseService: ExpenseService,
+    private dialog: MatDialog
   ) { }
 
   deleteLongTermExpense(longTermExpenseId: Guid): void {
     this.expenseService.deleteLongTermExpense(longTermExpenseId)
       .subscribe(() => this.refreshToken$.next(undefined));
+  }
+
+  openAddLongTermExpenseDialog(): void {
+    const dialogRef = this.dialog.open(AddLongTermExpenseDialogComponent, {
+      width: dialogWidth
+    });
+
+    dialogRef.componentInstance.addRequest.subscribe(
+      longTermExpense => this.expenseService.addLongTermExpense(this.predictionId, longTermExpense)
+        .subscribe(() => this.refreshToken$.next(undefined))
+    );
+
+    dialogRef.afterClosed().subscribe(
+      () => dialogRef.componentInstance.addRequest.unsubscribe()
+    );
   }
 }

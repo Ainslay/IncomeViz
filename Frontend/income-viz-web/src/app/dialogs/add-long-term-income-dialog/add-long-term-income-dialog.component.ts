@@ -51,7 +51,7 @@ export class AddLongTermIncomeDialogComponent {
   }
 
   onSubmit(): void {
-    const shortTermExpense: LongTermIncome = {
+    const longTermIncome: LongTermIncome = {
       longTermIncomeId: Guid.createEmpty(),
       name: this.addLongTermIncomeFormGroup.controls.nameFormControl.value,
       amount: this.addLongTermIncomeFormGroup.controls.amountFormControl.value,
@@ -61,7 +61,7 @@ export class AddLongTermIncomeDialogComponent {
       effectiveDate: this.addLongTermIncomeFormGroup.controls.effectiveDateFormControl.value
     };
 
-    this.addRequest.emit(shortTermExpense);
+    this.addRequest.emit(longTermIncome);
     this.dialogRef.close();
   }
 
