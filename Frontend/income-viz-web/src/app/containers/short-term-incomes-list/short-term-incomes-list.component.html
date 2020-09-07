@@ -4,7 +4,8 @@
         <app-short-term-incomes-list-item
             class="item"
             [shortTermIncome]="shortTermIncome"
-            (deleteRequest)="deleteShortTermIncome($event)">
+            (deleteRequest)="deleteShortTermIncome($event)"
+            (editRequest)="editShortTermIncome($event)">
         </app-short-term-incomes-list-item>
     </mat-grid-tile>
     <mat-grid-tile>

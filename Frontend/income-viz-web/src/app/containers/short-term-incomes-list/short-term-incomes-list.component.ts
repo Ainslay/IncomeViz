@@ -1,12 +1,12 @@
-import { dialogWidth } from '@utilities/variables';
-import { AddShortTermIncomeDialogComponent } from '@dialogs/add-short-term-income-dialog/add-short-term-income-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddShortTermIncomeDialogComponent } from '@dialogs/add-short-term-income-dialog/add-short-term-income-dialog.component';
 import { ShortTermIncome } from '@interfaces/short-term-income.interface';
+import { IncomeService } from '@services/income.service';
+import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { IncomeService } from '@services/income.service';
 
 @Component({
   selector: 'app-short-term-incomes-list',
@@ -29,7 +29,11 @@ export class ShortTermIncomesListComponent {
   deleteShortTermIncome(shortTermIncomeId: Guid): void {
     this.incomeService.deleteShortTermIncome(shortTermIncomeId)
       .subscribe(() => this.refreshToken$.next(undefined));
-    console.log('Deleted')
+  }
+
+  editShortTermIncome(editedIncome: ShortTermIncome): void {
+    this.incomeService.updateShortTermIncome(editedIncome)
+      .subscribe(() => this.refreshToken$.next(undefined));
   }
 
   openAddShortTermIncomeDialog(): void {

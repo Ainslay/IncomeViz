@@ -51,6 +51,11 @@ export class IncomeService extends BaseService {
     return this.post<LongTermIncomeDto>('income/long-term', longTermIncomeDto);
   }
 
+  updateShortTermIncome(editedIncome: ShortTermIncome): Observable<any>
+  {
+    return this.put<ShortTermIncome>('income/short-term', editedIncome);
+  }
+
   deleteShortTermIncome(incomeId: Guid): Observable<any> {
     return this.delete('income/short-term', incomeId);
   }

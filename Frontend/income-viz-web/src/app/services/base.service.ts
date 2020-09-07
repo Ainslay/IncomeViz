@@ -50,6 +50,12 @@ export abstract class BaseService {
     );
   }
 
+  protected put<T>(url: string, object: T): Observable<any> {
+    return this.http.put(`${this.apiUrl}${url}`, object, this.httpOptions).pipe(
+      catchError(this.handleHttpError)
+    );
+  }
+
   private handleHttpError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message); // A client-side or network error
