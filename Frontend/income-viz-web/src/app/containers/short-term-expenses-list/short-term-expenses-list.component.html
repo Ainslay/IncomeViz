@@ -4,7 +4,8 @@
         <app-short-term-expenses-list-item
             class="item"
             [shortTermExpense]="shortTermExpense"
-            (deleteRequest)="deleteShortTermExpense($event)">
+            (deleteRequest)="deleteShortTermExpense($event)"
+            (editRequest)="editShortTermExpense($event)">
         </app-short-term-expenses-list-item>
     </mat-grid-tile>
     <mat-grid-tile>

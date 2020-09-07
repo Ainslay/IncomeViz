@@ -31,6 +31,11 @@ export class ShortTermExpensesListComponent {
       .subscribe(() => this.refreshToken$.next(undefined));
   }
 
+  editShortTermExpense(editedExpense: ShortTermExpense): void {
+    this.expenseService.updateShortTermExpense(editedExpense)
+      .subscribe(() => this.refreshToken$.next(undefined));
+  }
+
   openAddShortTermExpenseDialog(): void {
     const dialogRef = this.dialog.open(AddShortTermExpenseDialogComponent, {
       width: dialogWidth
