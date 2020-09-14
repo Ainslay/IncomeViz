@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddPredictionDialogComponent } from '@components/add-prediction-dialog/add-prediction-dialog.component';
+import { AddPredictionDialogComponent } from '@dialogs/add-prediction-dialog/add-prediction-dialog.component';
 import { Prediction } from '@interfaces/prediction.interface';
 import { PredictionService } from '@services/prediction.service';
 import { dialogWidth } from '@utilities/variables';

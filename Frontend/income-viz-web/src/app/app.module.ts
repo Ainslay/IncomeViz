@@ -15,7 +15,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddPredictionDialogComponent } from './components/add-prediction-dialog/add-prediction-dialog.component';
+import { AddPredictionDialogComponent } from '@dialogs/add-prediction-dialog/add-prediction-dialog.component';
 import { PredictionListItemComponent } from './components/prediction-list-item/prediction-list-item.component';
 import { PredictionTopBarComponent } from './components/prediction-top-bar/prediction-top-bar.component';
 import { HeaderComponent } from './components/header/header.component';
