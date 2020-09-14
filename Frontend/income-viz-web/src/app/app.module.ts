@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
 import { AddPredictionDialogComponent } from './components/add-prediction-dialog/add-prediction-dialog.component';
 import { PredictionListItemComponent } from './components/prediction-list-item/prediction-list-item.component';
 import { PredictionTopBarComponent } from './components/prediction-top-bar/prediction-top-bar.component';
-import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { HeaderComponent } from './components/header/header.component';
 import { PredictionsListComponent } from './containers/predictions-list/predictions-list.component';
 import { PredictionsComponent } from './containers/predictions/predictions.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -49,7 +49,7 @@ import { EditPredictionDialogComponent } from './dialogs/edit-prediction-dialog/
     PredictionsComponent,
     PredictionsListComponent,
     PredictionListItemComponent,
-    TopBarComponent,
+    HeaderComponent,
     AddPredictionDialogComponent,
     PredictionDetailsComponent,
     PredictionTopBarComponent,
