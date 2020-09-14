@@ -1,3 +1,4 @@
+import { Currencies, GetCurrenciesAsStrings } from '@utilities/currencies';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -20,7 +21,7 @@ export class PredictionTopBarComponent implements OnInit {
   isLoading = true;
   refreshToken$ = new BehaviorSubject(undefined);
   prediction$: Observable<Prediction>;
-
+  currencies: string[] = GetCurrenciesAsStrings();
   constructor(
     private predictionService: PredictionService,
     private router: Router,

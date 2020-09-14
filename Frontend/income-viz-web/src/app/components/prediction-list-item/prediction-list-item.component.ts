@@ -1,3 +1,4 @@
+import { GetCurrenciesAsStrings } from '@utilities/currencies';
 import { Guid } from 'guid-typescript';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Prediction } from '@interfaces/prediction.interface';
@@ -10,6 +11,7 @@ import { Prediction } from '@interfaces/prediction.interface';
 export class PredictionListItemComponent {
   @Input() prediction: Prediction;
   @Output() deleteRequest: EventEmitter<Guid> = new EventEmitter<Guid>();
+  currencies: string[] = GetCurrenciesAsStrings();
 
   constructor() { }
 
