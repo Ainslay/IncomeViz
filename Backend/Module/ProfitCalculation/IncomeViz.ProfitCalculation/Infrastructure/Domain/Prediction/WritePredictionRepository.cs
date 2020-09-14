@@ -26,6 +26,17 @@ namespace IncomeViz.ProfitCalculation.Infrastructure.Domain.Prediction
             return Unit.Value;
         }
 
+        public async Task<ProfitCalculation.Domain.Prediction.Prediction> GetPredictionById(Guid predictionId)
+        {
+            return await _db.Predictions.SingleOrDefaultAsync(p => p.EntityId.Equals(predictionId))
+                   ?? throw new NullReferenceException(nameof(predictionId));
+        }
+
+        public void UpdatePrediction(ProfitCalculation.Domain.Prediction.Prediction prediction)
+        {
+            _db.Predictions.Update(prediction);
+        }
+
         public async Task<Unit> DeletePredictionById(Guid predictionId)
         {
             var predictionToDelete = await _db.Predictions.SingleOrDefaultAsync(p => p.EntityId == predictionId)

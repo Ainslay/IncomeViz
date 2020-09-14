@@ -1,0 +1,62 @@
+<h1 mat-dialog-title>Edit prediction</h1>
+<div mat-dialog-content>
+    <form [formGroup]="editPredictionFormGroup">
+        <mat-form-field class="input">
+            <mat-label>Name</mat-label>
+            <input type="text" 
+            matInput 
+            formControlName="nameFormControl"
+            name="name"
+            [errorStateMatcher]="stateMatcher"/>
+            <mat-error *ngIf="editPredictionFormGroup.controls['nameFormControl'].hasError('required')">
+                Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="editPredictionFormGroup.controls['nameFormControl'].hasError('maxlength')">
+                Name has to be <strong>less than 50 characters long</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input">
+            <mat-label>Inicial capital</mat-label>
+            <input type="number" matInput formControlName="inicialCapitalFormControl" />
+            <mat-error *ngIf="editPredictionFormGroup.controls['inicialCapitalFormControl'].hasError('required')">
+                Inicial capital is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="editPredictionFormGroup.controls['inicialCapitalFormControl'].hasError('max')">
+                Inicial capital <strong>cannot be over 999 999 999</strong>
+            </mat-error>
+            <mat-error *ngIf="editPredictionFormGroup.controls['inicialCapitalFormControl'].hasError('min')">
+                Inicial capital <strong>cannot be lower than 999 999 999</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input">
+            <mat-label>Currency</mat-label>
+            <mat-select formControlName="currencyFormControl" name="currency">
+                <mat-option *ngFor="let currency of currencies"
+                    [value]="currency">
+                    {{currency}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="editPredictionFormGroup.controls['currencyFormControl'].hasError('required')">
+                Currency is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="input">
+            <mat-label>Starting date</mat-label>
+            <input type="date" matInput formControlName="dateFormControl" 
+            name="startingDate"/>
+            <mat-error *ngIf="editPredictionFormGroup.controls['dateFormControl'].hasError('required')">
+                Starting date is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+    
+</div>
+<div mat-dialog-actions class="buttons-container">
+    <button mat-raised-button color="primary" (click)="onSubmit()"
+    [disabled]="!editPredictionFormGroup.valid">Apply</button>
+    <button mat-raised-button color="warn"
+    (click)="onNoClick()">Cancel</button>
+</div>

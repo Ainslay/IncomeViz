@@ -33,6 +33,10 @@ export class PredictionService extends BaseService {
     return this.post<PredictionDto>('prediction', predictionDto);
   }
 
+  updatePrediction(editedPrediciton: Prediction): Observable<any> {
+    return this.put<Prediction>('prediction', editedPrediciton);
+  }
+
   deletePrediction(predictionId: Guid): Observable<any> {
     return this.delete('prediction', predictionId);
   }

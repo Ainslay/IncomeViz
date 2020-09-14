@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IncomeViz.ProfitCalculation.Application.UseCases.Prediction;
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.AddPrediction;
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.DeletePrediction;
 using IncomeViz.ProfitCalculation.Application.UseCases.Prediction.GeneratePredictionByDateRange;
@@ -35,6 +36,17 @@ namespace IncomeViz.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> Post(AddPredictionCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Consumes("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> Put(UpdatePredictionCommand command)
         {
             await _mediator.Send(command);
             return Ok();

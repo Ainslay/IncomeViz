@@ -23,7 +23,7 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
 
         private string _name;
         private Money _startingMoney;
-        private readonly DateTime _startingDate;
+        private DateTime _startingDate;
 
         private readonly List<ShortTermIncome> _shortTermIncomes = new List<ShortTermIncome>();
         private readonly List<LongTermIncome> _longTermIncomes = new List<LongTermIncome>();
@@ -191,6 +191,13 @@ namespace IncomeViz.ProfitCalculation.Domain.Prediction
             }
 
             return money;
+        }
+
+        public void Update(Prediction update)
+        {
+            _name = update._name;
+            _startingMoney = update._startingMoney;
+            _startingDate = update._startingDate;
         }
     }
 }

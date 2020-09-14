@@ -14,7 +14,7 @@ import { Guid } from 'guid-typescript';
 export class LongTermExpensesListItemComponent {
   @Input() longTermExpense: LongTermExpense;
   @Output() deleteRequest: EventEmitter<Guid> = new EventEmitter<Guid>();
-  @Output() editRequest: EventEmitter<LongTermExpense> = new EventEmitter<LongTermExpense>()
+  @Output() editRequest: EventEmitter<LongTermExpense> = new EventEmitter<LongTermExpense>();
   currencies: string[] = GetCurrenciesAsStrings();
 
   constructor(private dialog: MatDialog) { }

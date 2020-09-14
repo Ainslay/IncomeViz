@@ -21,3 +21,10 @@
     width: 18px;
     height: 18px;
 }
+
+.controls-container {
+    display: flex; 
+    justify-content: space-evenly; 
+    width: 15%;
+    max-width: 100px;
+}
