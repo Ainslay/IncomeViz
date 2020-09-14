@@ -2,20 +2,20 @@ import { formatDate } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LongTermIncome } from '@interfaces/long-term-income.interface';
 import { GetCurrenciesAsStrings } from '@utilities/currencies';
 import { MyErrorStateMatcher } from '@utilities/error-state-matcher';
+import { LongTermExpense } from '@interfaces/long-term-expense.interface';
 
 @Component({
-  selector: 'app-edit-long-term-income-dialog',
-  templateUrl: './edit-long-term-income-dialog.component.html',
-  styleUrls: ['./edit-long-term-income-dialog.component.scss']
+  selector: 'app-edit-long-term-expense-dialog',
+  templateUrl: './edit-long-term-expense-dialog.component.html',
+  styleUrls: ['./edit-long-term-expense-dialog.component.scss']
 })
-export class EditLongTermIncomeDialogComponent {
+export class EditLongTermExpenseDialogComponent {
   currencies = GetCurrenciesAsStrings();
   stateMatcher = new MyErrorStateMatcher();
 
-  editLongTermIncomeFormGroup = new FormGroup({
+  editLongTermExpenseFormGroup = new FormGroup({
     nameFormControl: new FormControl(this.data.name, [
       Validators.required,
       Validators.maxLength(50)
@@ -42,8 +42,8 @@ export class EditLongTermIncomeDialogComponent {
   });
 
   constructor(
-    private dialogRef: MatDialogRef<EditLongTermIncomeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: LongTermIncome
+    private dialogRef: MatDialogRef<EditLongTermExpenseDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: LongTermExpense
   ) { }
 
   onNoClick(): void {
@@ -51,16 +51,16 @@ export class EditLongTermIncomeDialogComponent {
   }
 
   onSubmit(): void {
-    const longTermIncome: LongTermIncome = {
-      longTermIncomeId: this.data.longTermIncomeId,
-      name: this.editLongTermIncomeFormGroup.controls.nameFormControl.value,
-      amount: this.editLongTermIncomeFormGroup.controls.amountFormControl.value,
-      currency: this.editLongTermIncomeFormGroup.controls.currencyFormControl.value,
-      executionDay: this.editLongTermIncomeFormGroup.controls.executionDayFormControl.value,
-      startingDate: this.editLongTermIncomeFormGroup.controls.startingDateFormControl.value,
-      effectiveDate: this.editLongTermIncomeFormGroup.controls.effectiveDateFormControl.value
+    const longTermExpense: LongTermExpense = {
+      longTermExpenseId: this.data.longTermExpenseId,
+      name: this.editLongTermExpenseFormGroup.controls.nameFormControl.value,
+      amount: this.editLongTermExpenseFormGroup.controls.amountFormControl.value,
+      currency: this.editLongTermExpenseFormGroup.controls.currencyFormControl.value,
+      executionDay: this.editLongTermExpenseFormGroup.controls.executionDayFormControl.value,
+      startingDate: this.editLongTermExpenseFormGroup.controls.startingDateFormControl.value,
+      effectiveDate: this.editLongTermExpenseFormGroup.controls.effectiveDateFormControl.value
     };
 
-    this.dialogRef.close(longTermIncome);
+    this.dialogRef.close(longTermExpense);
   }
 }

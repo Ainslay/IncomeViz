@@ -4,7 +4,8 @@
         <app-long-term-expenses-list-item
             class="item"
             [longTermExpense]="longTermExpense"
-            (deleteRequest)="deleteLongTermExpense($event)">
+            (deleteRequest)="deleteLongTermExpense($event)"
+            (editRequest)="editLongTermExpense($event)">
         </app-long-term-expenses-list-item>
     </mat-grid-tile>
     <mat-grid-tile>

@@ -55,6 +55,10 @@ export class ExpenseService extends BaseService {
     return this.put<ShortTermExpense>('expense/short-term', editedExpense);
   }
 
+  updateLongTermExpense(editedExpense: LongTermExpense): Observable<any> {
+    return this.put<LongTermExpense>('expense/long-term', editedExpense);
+  }
+
   deleteShortTermExpense(expenseId: Guid): Observable<any> {
     return this.delete('expense/short-term', expenseId);
   }

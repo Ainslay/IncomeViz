@@ -31,6 +31,11 @@ export class LongTermExpensesListComponent {
       .subscribe(() => this.refreshToken$.next(undefined));
   }
 
+  editLongTermExpense(editedExpense: LongTermExpense): void {
+    this.expenseService.updateLongTermExpense(editedExpense)
+      .subscribe(() => this.refreshToken$.next(undefined));
+  }
+
   openAddLongTermExpenseDialog(): void {
     const dialogRef = this.dialog.open(AddLongTermExpenseDialogComponent, {
       width: dialogWidth
