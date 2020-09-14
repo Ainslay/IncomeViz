@@ -4,7 +4,8 @@
         <app-long-term-incomes-list-item
             class="item"
             [longTermIncome]="longTermIncome"
-            (deleteRequest)="deleteLongTermIncome($event)">
+            (deleteRequest)="deleteLongTermIncome($event)"
+            (editRequest)="editLongTermIncome($event)">
         </app-long-term-incomes-list-item>
     </mat-grid-tile>
     <mat-grid-tile>

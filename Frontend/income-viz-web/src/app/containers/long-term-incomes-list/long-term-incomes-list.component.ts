@@ -31,6 +31,10 @@ export class LongTermIncomesListComponent {
       .subscribe(() => this.refreshToken$.next(undefined));
   }
 
+  editLongTermIncome(editedIncome: LongTermIncome): void {
+    this.incomeService.updateLongTermIncome(editedIncome)
+      .subscribe(() => this.refreshToken$.next(undefined));
+  }
   openAddLongTermIncomeDialog(): void {
     const dialogRef = this.dialog.open(AddLongTermIncomeDialogComponent, {
       width: dialogWidth

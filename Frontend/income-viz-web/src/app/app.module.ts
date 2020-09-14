@@ -37,6 +37,7 @@ import { AddLongTermIncomeDialogComponent } from './dialogs/add-long-term-income
 import { AddLongTermExpenseDialogComponent } from './dialogs/add-long-term-expense-dialog/add-long-term-expense-dialog.component';
 import { EditShortTermIncomeDialogComponent } from './dialogs/edit-short-term-income-dialog/edit-short-term-income-dialog.component';
 import { EditShortTermExpenseDialogComponent } from './dialogs/edit-short-term-expense-dialog/edit-short-term-expense-dialog.component';
+import { EditLongTermIncomeDialogComponent } from './dialogs/edit-long-term-income-dialog/edit-long-term-income-dialog.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { EditShortTermExpenseDialogComponent } from './dialogs/edit-short-term-e
     AddLongTermExpenseDialogComponent,
     EditShortTermIncomeDialogComponent,
     EditShortTermExpenseDialogComponent,
+    EditLongTermIncomeDialogComponent,
   ],
   imports: [
     BrowserModule,
