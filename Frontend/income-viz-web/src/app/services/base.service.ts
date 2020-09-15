@@ -1,8 +1,11 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteDialogComponent } from '@dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 import { environment } from '@environments/environment';
+import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, flatMap, map, retry } from 'rxjs/operators';
 
 export abstract class BaseService {
   private readonly apiUrl = environment.apiUrl;
@@ -14,7 +17,8 @@ export abstract class BaseService {
   };
 
   constructor(
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private readonly dialog: MatDialog
   ) { }
 
   protected getOne<T>(url: string, id: Guid): Observable<T> {
@@ -45,9 +49,16 @@ export abstract class BaseService {
   }
 
   protected delete(url: string, id: Guid): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}${url}/${id}`).pipe(
-      catchError(this.handleHttpError)
-    );
+    return this.dialog.open(ConfirmDeleteDialogComponent, {
+        width: dialogWidth
+      }).afterClosed().pipe(flatMap(result => {
+        if (result) {
+          return this.http.delete<any>(`${this.apiUrl}${url}/${id}`).pipe(
+            catchError(this.handleHttpError)
+          );
+        }
+        return new Observable<any>();
+      }));
   }
 
   protected put<T>(url: string, object: T): Observable<any> {

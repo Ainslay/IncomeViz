@@ -40,6 +40,7 @@ import { EditShortTermExpenseDialogComponent } from './dialogs/edit-short-term-e
 import { EditLongTermIncomeDialogComponent } from './dialogs/edit-long-term-income-dialog/edit-long-term-income-dialog.component';
 import { EditLongTermExpenseDialogComponent } from './dialogs/edit-long-term-expense-dialog/edit-long-term-expense-dialog.component';
 import { EditPredictionDialogComponent } from './dialogs/edit-prediction-dialog/edit-prediction-dialog.component';
+import { ConfirmDeleteDialogComponent } from './dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { EditPredictionDialogComponent } from './dialogs/edit-prediction-dialog/
     EditLongTermIncomeDialogComponent,
     EditLongTermExpenseDialogComponent,
     EditPredictionDialogComponent,
+    ConfirmDeleteDialogComponent,
   ],
   imports: [
     BrowserModule,

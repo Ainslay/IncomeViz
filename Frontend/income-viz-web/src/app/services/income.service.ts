@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { LongTermIncomeDto } from '@dtos/long-term-income.dto';
 import { ShortTermIncomeDto } from '@dtos/short-term-income.dto';
 import { Observable } from 'rxjs';
@@ -14,8 +15,9 @@ import { Guid } from 'guid-typescript';
 export class IncomeService extends BaseService {
 
   constructor(
-    http: HttpClient
-  ) { super(http); }
+    http: HttpClient,
+    dialog: MatDialog
+  ) { super(http, dialog); }
 
   getShortTermIncomes(predictionId: Guid): Observable<ShortTermIncome[]> {
     return this.getAll<ShortTermIncome[]>('income/short-term/all', predictionId);

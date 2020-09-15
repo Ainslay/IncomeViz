@@ -1,3 +1,4 @@
+import { ConfirmDeleteDialogComponent } from './../../dialogs/confirm-delete-dialog/confirm-delete-dialog.component';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPredictionDialogComponent } from '@dialogs/add-prediction-dialog/add-prediction-dialog.component';
@@ -28,7 +29,10 @@ export class PredictionsListComponent {
 
   deletePrediction(id: Guid): void {
     this.predictionService.deletePrediction(id).subscribe(
-      () => this.refreshToken$.next(undefined)
+      (result) => {
+        console.log('result from method', result);
+        this.refreshToken$.next(undefined);
+      }
     );
   }
 

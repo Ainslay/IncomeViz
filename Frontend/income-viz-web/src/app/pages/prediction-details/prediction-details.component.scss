@@ -11,8 +11,8 @@
 .prediction-details-container {
     width: 80%;
     height: 80%;
-    border: solid #333131 2px;
     border-radius: $border-radius;
+    box-shadow: 0.1rem 0.4rem 2rem 0.2rem rgba(63, 81, 181, 0.45);
     display: flex;
     flex-flow: column;
     justify-content: flex-start;

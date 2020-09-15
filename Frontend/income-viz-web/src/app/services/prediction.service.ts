@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PredictionDto } from '@dtos/prediction.dto';
@@ -13,8 +14,9 @@ import { BaseService } from './base.service';
 export class PredictionService extends BaseService {
 
   constructor(
-    http: HttpClient
-  ) { super(http); }
+    http: HttpClient,
+    dialog: MatDialog
+  ) { super(http, dialog); }
 
   getPrediction(predictionId: Guid): Observable<Prediction> {
     return this.getOne<Prediction>('prediction', predictionId);

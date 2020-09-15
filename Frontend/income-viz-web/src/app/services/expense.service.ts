@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LongTermExpenseDto } from '@dtos/long-term-expense.dto';
@@ -14,8 +15,9 @@ import { BaseService } from './base.service';
 export class ExpenseService extends BaseService {
 
   constructor(
-    http: HttpClient
-  ) { super(http); }
+    http: HttpClient,
+    dialog: MatDialog
+  ) { super(http, dialog); }
 
   getShortTermExpenses(predictionId: Guid): Observable<ShortTermExpense[]> {
     return this.getAll<ShortTermExpense[]>('expense/short-term/all', predictionId);
