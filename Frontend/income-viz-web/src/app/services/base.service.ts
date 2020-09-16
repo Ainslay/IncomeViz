@@ -49,16 +49,9 @@ export abstract class BaseService {
   }
 
   protected delete(url: string, id: Guid): Observable<any> {
-    return this.dialog.open(ConfirmDeleteDialogComponent, {
-        width: dialogWidth
-      }).afterClosed().pipe(flatMap(result => {
-        if (result) {
-          return this.http.delete<any>(`${this.apiUrl}${url}/${id}`).pipe(
-            catchError(this.handleHttpError)
-          );
-        }
-        return new Observable<any>();
-      }));
+    return this.http.delete<any>(`${this.apiUrl}${url}/${id}`).pipe(
+      catchError(this.handleHttpError)
+    );
   }
 
   protected put<T>(url: string, object: T): Observable<any> {
