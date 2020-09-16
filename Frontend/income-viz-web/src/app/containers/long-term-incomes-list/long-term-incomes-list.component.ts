@@ -25,8 +25,16 @@ export class LongTermIncomesListComponent {
   ) { }
 
   deleteLongTermIncome(longTermIncomeId: Guid): void {
-    this.incomeService.deleteLongTermIncome(longTermIncomeId)
-      .subscribe(() => this.refresh$.next(undefined));
+    this.dialogService.openDeleteConfirmationDialog()
+      .pipe(
+        filter(result => result === true),
+        switchMap(() =>
+          this.incomeService.deleteLongTermIncome(longTermIncomeId)
+            .pipe(
+              tap(() => this.refresh$.next(undefined))
+            )
+        )
+      ).subscribe();
   }
 
   editLongTermIncome(editedIncome: LongTermIncome): void {

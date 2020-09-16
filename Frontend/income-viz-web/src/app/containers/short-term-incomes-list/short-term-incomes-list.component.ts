@@ -14,8 +14,8 @@ import { filter, switchMap, tap } from 'rxjs/operators';
 export class ShortTermIncomesListComponent {
   @Input() predictionId: Guid;
 
-  refreshToken$ = new BehaviorSubject(undefined);
-  shortTermIncomes$: Observable<ShortTermIncome[]> = this.refreshToken$.pipe(
+  refresh$ = new BehaviorSubject(undefined);
+  shortTermIncomes$: Observable<ShortTermIncome[]> = this.refresh$.pipe(
     switchMap(() => this.incomeService.getShortTermIncomes(this.predictionId))
   );
 
@@ -25,13 +25,21 @@ export class ShortTermIncomesListComponent {
   ) { }
 
   deleteShortTermIncome(shortTermIncomeId: Guid): void {
-    this.incomeService.deleteShortTermIncome(shortTermIncomeId)
-      .subscribe(() => this.refreshToken$.next(undefined));
+    this.dialogService.openDeleteConfirmationDialog()
+      .pipe(
+        filter(result => result === true),
+        switchMap(() =>
+          this.incomeService.deleteShortTermIncome(shortTermIncomeId)
+            .pipe(
+              tap(() => this.refresh$.next(undefined))
+            )
+        )
+      ).subscribe();
   }
 
   editShortTermIncome(editedIncome: ShortTermIncome): void {
     this.incomeService.updateShortTermIncome(editedIncome)
-      .subscribe(() => this.refreshToken$.next(undefined));
+      .subscribe(() => this.refresh$.next(undefined));
   }
 
   onAddClick(): void {
@@ -41,7 +49,7 @@ export class ShortTermIncomesListComponent {
         switchMap(shortTermIncome =>
           this.incomeService.addShortTermIncome(this.predictionId, shortTermIncome)
             .pipe(
-              tap(() => this.refreshToken$.next(undefined))
+              tap(() => this.refresh$.next(undefined))
             )
         )
       ).subscribe();

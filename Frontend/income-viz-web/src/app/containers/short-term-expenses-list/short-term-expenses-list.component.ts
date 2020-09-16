@@ -25,8 +25,16 @@ export class ShortTermExpensesListComponent {
   ) { }
 
   deleteShortTermExpense(shortTermExpenseId: Guid): void {
-    this.expenseService.deleteShortTermExpense(shortTermExpenseId)
-      .subscribe(() => this.refresh$.next(undefined));
+    this.dialogService.openDeleteConfirmationDialog()
+      .pipe(
+        filter(result => result === true),
+        switchMap(() =>
+          this.expenseService.deleteShortTermExpense(shortTermExpenseId)
+            .pipe(
+              tap(() => this.refresh$.next(undefined))
+            )
+        )
+      ).subscribe();
   }
 
   editShortTermExpense(editedExpense: ShortTermExpense): void {

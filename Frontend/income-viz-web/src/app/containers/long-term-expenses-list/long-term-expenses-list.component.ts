@@ -27,8 +27,16 @@ export class LongTermExpensesListComponent {
   ) { }
 
   deleteLongTermExpense(longTermExpenseId: Guid): void {
-    this.expenseService.deleteLongTermExpense(longTermExpenseId)
-      .subscribe(() => this.refresh$.next(undefined));
+    this.dialogService.openDeleteConfirmationDialog()
+      .pipe(
+        filter(result => result === true),
+        switchMap(() =>
+          this.expenseService.deleteLongTermExpense(longTermExpenseId)
+            .pipe(
+              tap(() => this.refresh$.next(undefined))
+            )
+        )
+      ).subscribe();
   }
 
   editLongTermExpense(editedExpense: LongTermExpense): void {
