@@ -1,12 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AddShortTermIncomeDialogComponent } from '@dialogs/add-short-term-income-dialog/add-short-term-income-dialog.component';
 import { ShortTermIncome } from '@interfaces/short-term-income.interface';
+import { DialogService } from '@services/dialog.service';
 import { IncomeService } from '@services/income.service';
-import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-short-term-incomes-list',
@@ -23,7 +21,7 @@ export class ShortTermIncomesListComponent {
 
   constructor(
     private incomeService: IncomeService,
-    private dialog: MatDialog
+    private dialogService: DialogService
   ) { }
 
   deleteShortTermIncome(shortTermIncomeId: Guid): void {
@@ -36,18 +34,16 @@ export class ShortTermIncomesListComponent {
       .subscribe(() => this.refreshToken$.next(undefined));
   }
 
-  openAddShortTermIncomeDialog(): void {
-    const dialogRef = this.dialog.open(AddShortTermIncomeDialogComponent, {
-      width: dialogWidth
-    });
-
-    dialogRef.componentInstance.addRequest.subscribe(
-      shortTermIncome => this.incomeService.addShortTermIncome(this.predictionId, shortTermIncome)
-        .subscribe(() => this.refreshToken$.next(undefined))
-    );
-
-    dialogRef.afterClosed().subscribe(
-      () => dialogRef.componentInstance.addRequest.unsubscribe()
-    );
+  onAddClick(): void {
+    this.dialogService.openAddShortTermIncomeDialog()
+      .pipe(
+        filter(shortTermIncome => shortTermIncome !== undefined),
+        switchMap(shortTermIncome =>
+          this.incomeService.addShortTermIncome(this.predictionId, shortTermIncome)
+            .pipe(
+              tap(() => this.refreshToken$.next(undefined))
+            )
+        )
+      ).subscribe();
   }
 }

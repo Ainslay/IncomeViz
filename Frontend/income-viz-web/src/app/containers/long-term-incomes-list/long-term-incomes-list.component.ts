@@ -1,12 +1,10 @@
-import { dialogWidth } from '@utilities/variables';
-import { AddLongTermIncomeDialogComponent } from '@dialogs/add-long-term-income-dialog/add-long-term-income-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 import { Component, Input } from '@angular/core';
 import { LongTermIncome } from '@interfaces/long-term-income.interface';
+import { DialogService } from '@services/dialog.service';
 import { IncomeService } from '@services/income.service';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-long-term-incomes-list',
@@ -16,37 +14,36 @@ import { switchMap } from 'rxjs/operators';
 export class LongTermIncomesListComponent {
   @Input() predictionId: Guid;
 
-  refreshToken$ = new BehaviorSubject(undefined);
-  longTermIncomes$: Observable<LongTermIncome[]> = this.refreshToken$.pipe(
+  refresh$ = new BehaviorSubject(undefined);
+  longTermIncomes$: Observable<LongTermIncome[]> = this.refresh$.pipe(
     switchMap(() => this.incomeService.getLongTermIncomes(this.predictionId))
   );
 
   constructor(
     private incomeService: IncomeService,
-    private dialog: MatDialog
+    private dialogService: DialogService
   ) { }
 
   deleteLongTermIncome(longTermIncomeId: Guid): void {
     this.incomeService.deleteLongTermIncome(longTermIncomeId)
-      .subscribe(() => this.refreshToken$.next(undefined));
+      .subscribe(() => this.refresh$.next(undefined));
   }
 
   editLongTermIncome(editedIncome: LongTermIncome): void {
     this.incomeService.updateLongTermIncome(editedIncome)
-      .subscribe(() => this.refreshToken$.next(undefined));
+      .subscribe(() => this.refresh$.next(undefined));
   }
-  openAddLongTermIncomeDialog(): void {
-    const dialogRef = this.dialog.open(AddLongTermIncomeDialogComponent, {
-      width: dialogWidth
-    });
 
-    dialogRef.componentInstance.addRequest.subscribe(
-      longTermIncome => this.incomeService.addLongTermIncome(this.predictionId, longTermIncome)
-        .subscribe(() => this.refreshToken$.next(undefined))
-    );
-
-    dialogRef.afterClosed().subscribe(
-      () => dialogRef.componentInstance.addRequest.unsubscribe()
-    );
+  onAddClick(): void {
+    this.dialogService.openAddLongTermIncomeDialog()
+      .pipe(
+        filter(longTermIncome => longTermIncome !== undefined),
+        switchMap(longTermIncome =>
+          this.incomeService.addLongTermIncome(this.predictionId, longTermIncome)
+            .pipe(
+              tap(() => this.refresh$.next(undefined))
+            )
+        )
+      ).subscribe();
   }
 }

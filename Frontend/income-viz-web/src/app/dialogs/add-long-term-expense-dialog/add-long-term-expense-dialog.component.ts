@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LongTermExpense } from '@interfaces/long-term-expense.interface';
@@ -12,7 +12,6 @@ import { Guid } from 'guid-typescript';
   styleUrls: ['./add-long-term-expense-dialog.component.scss']
 })
 export class AddLongTermExpenseDialogComponent {
-  @Output() addRequest: EventEmitter<LongTermExpense> = new EventEmitter<LongTermExpense>();
   currencies = GetCurrenciesAsStrings();
   stateMatcher = new MyErrorStateMatcher();
 
@@ -46,7 +45,7 @@ export class AddLongTermExpenseDialogComponent {
     private dialogRef: MatDialogRef<AddLongTermExpenseDialogComponent>
   ) { }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 
@@ -61,8 +60,7 @@ export class AddLongTermExpenseDialogComponent {
       effectiveDate: this.addLongTermExpenseFormGroup.controls.effectiveDateFormControl.value
     };
 
-    this.addRequest.emit(longTermExpense);
-    this.dialogRef.close();
+    this.dialogRef.close(longTermExpense);
   }
 
   compareDates(): boolean {

@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { EditLongTermExpenseDialogComponent } from '@dialogs/edit-long-term-expense-dialog/edit-long-term-expense-dialog.component';
 import { LongTermExpense } from '@interfaces/long-term-expense.interface';
+import { DialogService } from '@services/dialog.service';
 import { GetCurrenciesAsStrings } from '@utilities/currencies';
-import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
+import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-long-term-expenses-list-item',
@@ -17,20 +16,17 @@ export class LongTermExpensesListItemComponent {
   @Output() editRequest: EventEmitter<LongTermExpense> = new EventEmitter<LongTermExpense>();
   currencies: string[] = GetCurrenciesAsStrings();
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialogService: DialogService) { }
 
-  onClickDelete(): void {
+  onDeleteClick(): void {
     this.deleteRequest.emit(this.longTermExpense.longTermExpenseId);
   }
 
-  openEditLongTermExpenseDialog(): void {
-    this.dialog.open(EditLongTermExpenseDialogComponent, {
-      data: this.longTermExpense,
-      width: dialogWidth
-    }).afterClosed().subscribe(editedIncome => {
-      if (typeof(editedIncome) !== 'undefined') {
-        this.editRequest.emit(editedIncome);
-      }
-    });
+  onEditClick(): void {
+    this.dialogService.openEditLongTermExpenseDialog(this.longTermExpense)
+      .pipe(
+        filter(editedExpense => editedExpense !== undefined),
+        tap(editedExpense => this.editRequest.emit(editedExpense))
+      ).subscribe();
   }
 }

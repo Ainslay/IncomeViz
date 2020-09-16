@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { EditLongTermIncomeDialogComponent } from '@dialogs/edit-long-term-income-dialog/edit-long-term-income-dialog.component';
 import { LongTermIncome } from '@interfaces/long-term-income.interface';
+import { DialogService } from '@services/dialog.service';
 import { GetCurrenciesAsStrings } from '@utilities/currencies';
-import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
+import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-long-term-incomes-list-item',
@@ -18,20 +17,17 @@ export class LongTermIncomesListItemComponent {
 
   currencies: string[] = GetCurrenciesAsStrings();
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialogService: DialogService) { }
 
-  onClickDelete(): void {
+  onDeleteClick(): void {
     this.deleteRequest.emit(this.longTermIncome.longTermIncomeId);
   }
 
-  openEditLongTermIncomeDialog(): void {
-    this.dialog.open(EditLongTermIncomeDialogComponent, {
-      data: this.longTermIncome,
-      width: dialogWidth
-    }).afterClosed().subscribe(editedIncome => {
-      if (typeof(editedIncome) !== 'undefined') {
-        this.editRequest.emit(editedIncome);
-      }
-    });
+  onEditClick(): void {
+    this.dialogService.openEditLongTermIncomeDialog(this.longTermIncome)
+      .pipe(
+        filter(editedIncome => editedIncome !== undefined),
+        tap(editedIncome => this.editRequest.emit(editedIncome))
+      ).subscribe();
   }
 }

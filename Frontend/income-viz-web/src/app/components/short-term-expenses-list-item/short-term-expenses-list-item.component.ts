@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { EditShortTermExpenseDialogComponent } from '@dialogs/edit-short-term-expense-dialog/edit-short-term-expense-dialog.component';
 import { ShortTermExpense } from '@interfaces/short-term-expense.interface';
+import { DialogService } from '@services/dialog.service';
 import { GetCurrenciesAsStrings } from '@utilities/currencies';
-import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
+import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-short-term-expenses-list-item',
@@ -18,20 +17,17 @@ export class ShortTermExpensesListItemComponent {
 
   currencies: string[] = GetCurrenciesAsStrings();
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialogService: DialogService) { }
 
-  onClickDelete(): void {
+  onDeleteClick(): void {
     this.deleteRequest.emit(this.shortTermExpense.shortTermExpenseId);
   }
 
-  openEditShortTermIncomeDialog(): void {
-    this.dialog.open(EditShortTermExpenseDialogComponent, {
-      data: this.shortTermExpense,
-      width: dialogWidth
-    }).afterClosed().subscribe(editedExpense => {
-      if (typeof(editedExpense) !== 'undefined') {
-        this.editRequest.emit(editedExpense);
-      }
-    });
+  onEditClick(): void {
+    this.dialogService.openEditShortTermExpenseDialog(this.shortTermExpense)
+      .pipe(
+        filter(editedExpense => editedExpense !== undefined),
+        tap(editedExpense => this.editRequest.emit(editedExpense))
+      ).subscribe();
   }
 }

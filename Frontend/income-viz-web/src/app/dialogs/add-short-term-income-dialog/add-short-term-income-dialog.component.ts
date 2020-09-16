@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ShortTermIncome } from '@interfaces/short-term-income.interface';
@@ -12,7 +12,6 @@ import { Guid } from 'guid-typescript';
   styleUrls: ['./add-short-term-income-dialog.component.scss']
 })
 export class AddShortTermIncomeDialogComponent {
-  @Output() addRequest: EventEmitter<ShortTermIncome> = new EventEmitter<ShortTermIncome>();
   currencies = GetCurrenciesAsStrings();
   stateMatcher = new MyErrorStateMatcher();
 
@@ -38,7 +37,7 @@ export class AddShortTermIncomeDialogComponent {
     private dialogRef: MatDialogRef<AddShortTermIncomeDialogComponent>
   ) { }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 
@@ -51,7 +50,6 @@ export class AddShortTermIncomeDialogComponent {
       executionDate: this.addShortTermIncomeFormGroup.controls.executionDateFormControl.value
     };
 
-    this.addRequest.emit(shortTermIncome);
-    this.dialogRef.close();
+    this.dialogRef.close(shortTermIncome);
   }
 }

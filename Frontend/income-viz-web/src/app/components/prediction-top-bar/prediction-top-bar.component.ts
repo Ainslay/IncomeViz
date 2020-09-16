@@ -1,38 +1,35 @@
-import { Currencies, GetCurrenciesAsStrings } from '@utilities/currencies';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { EditPredictionDialogComponent } from '@dialogs/edit-prediction-dialog/edit-prediction-dialog.component';
 import { Prediction } from '@interfaces/prediction.interface';
+import { DialogService } from '@services/dialog.service';
 import { PredictionService } from '@services/prediction.service';
-import { dialogWidth } from '@utilities/variables';
+import { GetCurrenciesAsStrings } from '@utilities/currencies';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-prediction-top-bar',
   templateUrl: './prediction-top-bar.component.html',
   styleUrls: ['./prediction-top-bar.component.scss']
 })
-export class PredictionTopBarComponent implements OnInit {
+export class PredictionTopBarComponent implements OnInit{
   @Input() predictionId: Guid;
   prediction: Prediction;
   isLoading = true;
-  refreshToken$ = new BehaviorSubject(undefined);
-  prediction$: Observable<Prediction>;
+  refresh$ = new BehaviorSubject(undefined);
+  prediction$: Observable<Prediction> = this.refresh$.pipe(
+    switchMap(() => this.predictionService.getPrediction(this.predictionId))
+  );
   currencies: string[] = GetCurrenciesAsStrings();
+
   constructor(
     private predictionService: PredictionService,
     private router: Router,
-    private dialog: MatDialog
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
-    this.prediction$ = this.refreshToken$.pipe(
-      switchMap(() => this.predictionService.getPrediction(this.predictionId))
-    );
-
     this.prediction$.subscribe({
       next: result => {
         this.prediction = result;
@@ -46,15 +43,16 @@ export class PredictionTopBarComponent implements OnInit {
       () => this.router.navigateByUrl('dashboard'));
   }
 
-  openEditPredictionDialog(): void {
-    this.dialog.open(EditPredictionDialogComponent, {
-      data: this.prediction,
-      width: dialogWidth
-    }).afterClosed().subscribe(editedPrediction => {
-      if (typeof(editedPrediction) !== 'undefined') {
-        this.predictionService.updatePrediction(editedPrediction)
-          .subscribe(() => this.refreshToken$.next(undefined));
-      }
-    });
+  onEditClick(): void {
+    this.dialogService.openEditPredictionDialog(this.prediction)
+      .pipe(
+        filter(editedPrediction => editedPrediction !== undefined),
+        switchMap(editedPrediction =>
+          this.predictionService.updatePrediction(editedPrediction)
+            .pipe(
+              tap(() => this.refresh$.next(undefined))
+            )
+        )
+      ).subscribe();
   }
 }

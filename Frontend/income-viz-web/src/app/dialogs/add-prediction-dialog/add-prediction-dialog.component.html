@@ -8,11 +8,6 @@
             formControlName="nameFormControl"
             name="name"
             [errorStateMatcher]="stateMatcher"/>
-            <button mat-button *ngIf="prediction.name"
-                matSuffix mat-icon-button aria-label="Clear" 
-                (click)="prediction.name=''">
-                <mat-icon>close</mat-icon>
-            </button>
             <mat-error *ngIf="addPredictionFormGroup.controls['nameFormControl'].hasError('required')">
                 Name is <strong>required</strong>
             </mat-error>
@@ -63,5 +58,5 @@
     <button mat-raised-button color="primary" (click)="onSubmit()"
     [disabled]="!addPredictionFormGroup.valid">Add</button>
     <button mat-raised-button color="warn"
-    (click)="onNoClick()">Cancel</button>
+    (click)="onCancelClick()">Cancel</button>
 </div>

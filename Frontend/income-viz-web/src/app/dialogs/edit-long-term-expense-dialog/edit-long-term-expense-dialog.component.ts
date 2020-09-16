@@ -46,7 +46,7 @@ export class EditLongTermExpenseDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: LongTermExpense
   ) { }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 

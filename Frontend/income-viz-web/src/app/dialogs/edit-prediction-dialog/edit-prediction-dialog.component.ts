@@ -38,7 +38,7 @@ export class EditPredictionDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: Prediction
   ) { }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 

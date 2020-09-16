@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Prediction } from '@interfaces/prediction.interface';
@@ -12,8 +12,6 @@ import { Guid } from 'guid-typescript';
   styleUrls: ['./add-prediction-dialog.component.scss']
 })
 export class AddPredictionDialogComponent {
-  @Output() addRequest: EventEmitter<Prediction> = new EventEmitter<Prediction>();
-  prediction: Prediction = { id: Guid.create(), name: '', startingDate: new Date(), amount: 0, currency: 'PLN'};
   currencies = GetCurrenciesAsStrings();
   stateMatcher = new MyErrorStateMatcher();
 
@@ -39,21 +37,20 @@ export class AddPredictionDialogComponent {
     public dialogRef: MatDialogRef<AddPredictionDialogComponent>
   ) { }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 
   onSubmit(): void {
     const predicion: Prediction = {
-      id: Guid.create(),
+      id: Guid.createEmpty(),
       name: this.addPredictionFormGroup.controls.nameFormControl.value,
       amount: this.addPredictionFormGroup.controls.inicialCapitalFormControl.value,
       currency: this.addPredictionFormGroup.controls.currencyFormControl.value,
       startingDate: this.addPredictionFormGroup.controls.dateFormControl.value
     };
 
-    this.addRequest.emit(predicion);
-    this.dialogRef.close();
+    this.dialogRef.close(predicion);
   }
 }
 

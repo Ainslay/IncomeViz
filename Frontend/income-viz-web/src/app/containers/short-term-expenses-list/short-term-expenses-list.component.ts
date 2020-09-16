@@ -1,12 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AddShortTermExpenseDialogComponent } from '@dialogs/add-short-term-expense-dialog/add-short-term-expense-dialog.component';
 import { ShortTermExpense } from '@interfaces/short-term-expense.interface';
+import { DialogService } from '@services/dialog.service';
 import { ExpenseService } from '@services/expense.service';
-import { dialogWidth } from '@utilities/variables';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-short-term-expenses-list',
@@ -16,38 +14,36 @@ import { switchMap } from 'rxjs/operators';
 export class ShortTermExpensesListComponent {
   @Input() predictionId: Guid;
 
-  refreshToken$ = new BehaviorSubject(undefined);
-  shortTermExpenses$: Observable<ShortTermExpense[]> = this.refreshToken$.pipe(
+  refresh$ = new BehaviorSubject(undefined);
+  shortTermExpenses$: Observable<ShortTermExpense[]> = this.refresh$.pipe(
     switchMap(() => this.expenseService.getShortTermExpenses(this.predictionId))
   );
 
   constructor(
     private expenseService: ExpenseService,
-    private dialog: MatDialog
+    private dialogService: DialogService
   ) { }
 
   deleteShortTermExpense(shortTermExpenseId: Guid): void {
     this.expenseService.deleteShortTermExpense(shortTermExpenseId)
-      .subscribe(() => this.refreshToken$.next(undefined));
+      .subscribe(() => this.refresh$.next(undefined));
   }
 
   editShortTermExpense(editedExpense: ShortTermExpense): void {
     this.expenseService.updateShortTermExpense(editedExpense)
-      .subscribe(() => this.refreshToken$.next(undefined));
+      .subscribe(() => this.refresh$.next(undefined));
   }
 
-  openAddShortTermExpenseDialog(): void {
-    const dialogRef = this.dialog.open(AddShortTermExpenseDialogComponent, {
-      width: dialogWidth
-    });
-
-    dialogRef.componentInstance.addRequest.subscribe(
-      shortTermExpense => this.expenseService.addShortTermExpense(this.predictionId, shortTermExpense)
-        .subscribe(() => this.refreshToken$.next(undefined))
-    );
-
-    dialogRef.afterClosed().subscribe(
-      () => dialogRef.componentInstance.addRequest.unsubscribe()
-    );
+  onAddClick(): void {
+    this.dialogService.openAddShortTermExpenseDialog()
+      .pipe(
+        filter(shortTermExpense => shortTermExpense !== undefined),
+        switchMap(shortTermExpense =>
+          this.expenseService.addShortTermExpense(this.predictionId, shortTermExpense)
+            .pipe(
+              tap(() => this.refresh$.next(undefined))
+            )
+        )
+      ).subscribe();
   }
 }

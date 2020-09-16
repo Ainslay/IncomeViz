@@ -38,7 +38,7 @@ export class EditShortTermExpenseDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: ShortTermExpense
   ) { }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ShortTermExpense } from '@interfaces/short-term-expense.interface';
@@ -12,7 +12,6 @@ import { Guid } from 'guid-typescript';
   styleUrls: ['./add-short-term-expense-dialog.component.scss']
 })
 export class AddShortTermExpenseDialogComponent {
-  @Output() addRequest: EventEmitter<ShortTermExpense> = new EventEmitter<ShortTermExpense>();
   currencies = GetCurrenciesAsStrings();
   stateMatcher = new MyErrorStateMatcher();
 
@@ -38,7 +37,7 @@ export class AddShortTermExpenseDialogComponent {
     private dialogRef: MatDialogRef<AddShortTermExpenseDialogComponent>
   ) { }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 
@@ -51,7 +50,6 @@ export class AddShortTermExpenseDialogComponent {
       executionDate: this.addShortTermExpenseFormGroup.controls.executionDateFormControl.value
     };
 
-    this.addRequest.emit(shortTermExpense);
-    this.dialogRef.close();
+    this.dialogRef.close(shortTermExpense);
   }
 }

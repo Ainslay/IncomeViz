@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LongTermIncome } from '@interfaces/long-term-income.interface';
@@ -12,7 +12,6 @@ import { Guid } from 'guid-typescript';
   styleUrls: ['./add-long-term-income-dialog.component.scss']
 })
 export class AddLongTermIncomeDialogComponent {
-  @Output() addRequest: EventEmitter<LongTermIncome> = new EventEmitter<LongTermIncome>();
   currencies = GetCurrenciesAsStrings();
   stateMatcher = new MyErrorStateMatcher();
 
@@ -46,7 +45,7 @@ export class AddLongTermIncomeDialogComponent {
     private dialogRef: MatDialogRef<AddLongTermIncomeDialogComponent>
   ) { }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 
@@ -61,8 +60,7 @@ export class AddLongTermIncomeDialogComponent {
       effectiveDate: this.addLongTermIncomeFormGroup.controls.effectiveDateFormControl.value
     };
 
-    this.addRequest.emit(longTermIncome);
-    this.dialogRef.close();
+    this.dialogRef.close(longTermIncome);
   }
 
   compareDates(): boolean {
